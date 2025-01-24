@@ -3,22 +3,22 @@ import base64
 
 # Función para establecer el fondo
 
-# def set_background(image_path):
-#     with open(image_path, "rb") as image_file:
-#         base64_image = base64.b64encode(image_file.read()).decode()
-#     background_style = f"""
-#     <style>
-#     .stApp {{
-#         background-image: url("data:image/png;base64,{base64_image}");
-#         background-size: cover;
-#         background-position: center;
-#     }}
-#     </style>
-#     """
-#     st.markdown(background_style, unsafe_allow_html=True)
+def set_background(image_path):
+    with open(image_path, "rb") as image_file:
+        base64_image = base64.b64encode(image_file.read()).decode()
+    background_style = f"""
+    <style>
+    .stApp {{
+        background-image: url("data:image/png;base64,{base64_image}");
+        background-size: cover;
+        background-position: center;
+    }}
+    </style>
+    """
+    st.markdown(background_style, unsafe_allow_html=True)
 
-# # Establecer el fondo
-# set_background("C:/Users/isall/OneDrive/UNI/TFG/TFG/fondo.png")
+# Establecer el fondo
+set_background("C:/Users/isall/OneDrive/UNI/TFG/TFG/fondo.png")
 
 
 # Title App 
