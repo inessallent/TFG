@@ -21,6 +21,20 @@ def set_background(image_path):
 set_background("C:/Users/isall/OneDrive/UNI/TFG/TFG/fondo.png")
 
 
+# Función para aplicar estilos personalizados al texto
+def set_inicio_styles():
+    custom_style = """
+    <style>
+    .custom-text {
+        color: white;
+        # font-size: 18px;  /* Tamaño del texto */
+        # font-weight: bold;  /* Negrita */
+    }
+    </style>
+    """
+    st.markdown(custom_style, unsafe_allow_html=True)
+    
+    
 # Title App 
 st.title("TFG") #Redefinir
 
@@ -30,7 +44,7 @@ page_web = st.sidebar.selectbox("Selecciona una sección:", ["Inicio", "Question
 
 # Cargar una imagen en la página inicial
 if page_web == "Inicio":
-    st.image("C:/Users/isall/OneDrive/UNI/TFG/TFG/fondo.png", caption="Descripción de la imagen", use_column_width=True)
+    # st.image("C:/Users/isall/OneDrive/UNI/TFG/TFG/fondo.png", caption="Descripción de la imagen", use_column_width=True)
     st.write("Aquí puedes escribir información sobre quiénes son.")
 
 elif page_web == "Questionario":
