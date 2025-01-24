@@ -45,6 +45,7 @@ page_web = st.sidebar.selectbox("Selecciona una sección:", ["Inicio", "Question
 # Cargar una imagen en la página inicial
 if page_web == "Inicio":
     # st.image("C:/Users/isall/OneDrive/UNI/TFG/TFG/fondo.png", caption="Descripción de la imagen", use_column_width=True)
+    set_inicio_styles()
     st.write("Aquí puedes escribir información sobre quiénes son.")
 
 elif page_web == "Questionario":
