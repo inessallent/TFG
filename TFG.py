@@ -1,6 +1,6 @@
 import streamlit as st # type: ignore
 import pandas as pandas # type: ignore 
-import plotly.express as px # type: ignore 
+# import plotly.express as px # type: ignore 
 import base64 
 
 
