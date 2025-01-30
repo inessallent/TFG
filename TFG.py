@@ -29,14 +29,26 @@ def next_question():
     st.session_state.question_index += 1
     st.session_state.selected_option = None  # Restablecer la opción seleccionada
 
+def next_video(question_index):
+    video_path = os.path.join("Media", "Questionarios_videos", f"Q{question_index + 1}.mp4")
+    if os.path.isfile(video_path):
+        st.video(video_path, format="video/mp4", start_time=0)
+    else:
+        st.error("El video no se encontró en la ruta especificada.")
+        
+
 # Display Question
 def display_question(questions):
-    upload_video()
     current_question = questions[st.session_state.question_index]
+    
+    # Mostrar el video 
+    next_video(st.session_state.question_index)
+
+    # Mostrar pregunta
     st.header(f"Question {st.session_state.question_index + 1}:")
     answer =  st.radio(current_question["question"], current_question["options"])
 
-    # Next question 
+    # Next question + video
     if st.button("Enviar"):
         if answer:
             save_response(current_question["question"], answer)  # Guardar respuesta
@@ -72,14 +84,7 @@ def questions():
     else:
         st.write("Gracias por completar el cuestionario!")
 
-def upload_video():
-    Q1_video_path = os.path.join("Media", "Questionarios_videos", "3_Female.mp4")
-    if os.path.isfile(Q1_video_path):
-        st.video(Q1_video_path, format="video/mp4", start_time=0)  # Corrige 'strat_time' a 'start_time'
-    else:
-        st.error("El video no se encontró en la ruta especificada.")
-    
-        
+
 def main():  
     
     # Crear el archivo CSV si no existe
