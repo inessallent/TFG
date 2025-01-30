@@ -11,7 +11,7 @@ def create_csv():
 
 
 # Save answers in a CSV
-def save_personal_info(pregunta, respuesta):
+def save_personal_info(nombre, apellido, genero, correo):
     # Verificar si el archivo CSV ya existe
     file_exists = os.path.isfile('respuestas.csv')
     
