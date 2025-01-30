@@ -26,6 +26,7 @@ def main():
         st.header("Question 1:")
         answer_1 = st.radio("What would you choose?", ("1", "2", "3")) 
         button1 = st.button("Submit Answer")
+        st.success("Enviado con écito!")
     
     #Sobre Nosotros   
     elif page_web == "Sobre Nosotros":
