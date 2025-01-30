@@ -72,9 +72,9 @@ def questions():
     else:
         st.write("Gracias por completar el cuestionario!")
 
-def upload_video():
-    Q1_video_path = os.path.join("Media", "Questionarios_videos", "3_Female.mp4")
-    st.video(Q1_video_path, format = "video/mp4", strat_time = 0)
+# def upload_video():
+#     Q1_video_path = os.path.join("Media", "Questionarios_videos", "3_Female.mp4")
+#     st.video(Q1_video_path, format = "video/mp4", strat_time = 0)
     
         
 def main():  
