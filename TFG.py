@@ -71,7 +71,7 @@ def display_question(questions):
 
     # Mostrar pregunta
     st.header(f"Question {st.session_state.question_index }:")
-    answer =  st.radio(current_question["question"], current_question["options"])
+    answer =  st.radio(current_question["question"], current_question["options"],index=None)
 
     # Next question + video
     if st.button("Enviar"):
@@ -102,13 +102,13 @@ def cuestions():
         if st.button("Continuar"):
             if st.session_state.correo and not is_valid_email(st.session_state.correo):
                     st.warning("Por favor, ingresa un correo electrónico válido.")
-            if st.session_state.nombre and st.session_state.apellido:
+            if st.session_state.nombre and st.session_state.apellido and st.session_state.genero:
                 save_personal_info(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo)  # Guardar información personal
                 st.success("Enviado con éxito!")
                 st.button("Siguiente")
                 next_question()  # Go to next question 
             else:
-                st.warning("Por favor, ingresa tu nombre y apellido.")
+                st.warning("Por favor, ingresa tu nombre, apellido y género.")
     else:     
         # Lista de preguntas
         questions = [
