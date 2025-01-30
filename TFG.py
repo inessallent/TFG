@@ -25,7 +25,7 @@ def set_background(image_path):
     st.markdown(background_style, unsafe_allow_html=True)
 
 # Establecer el fondo
-set_background("C:/Users/isall/OneDrive/UNI/TFG/TFG/fondo.png")
+# set_background("C:/Users/isall/OneDrive/UNI/TFG/TFG/fondo.png")
 
 
 # Función para aplicar estilos personalizados al texto
