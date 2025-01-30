@@ -3,13 +3,7 @@ import pandas as pd # type: ignore
 # from streamlit_extras.metric_cards import style_metric_cards
 # import base64 
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-from scipy.stats import skew, kurtosis, norm, iqr
-import plotly.graph_objects as go
-import plotly.express as px
-from streamlit_extras.metric_cards import style_metric_cards
+
 
     
 def main():  
