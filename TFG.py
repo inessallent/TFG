@@ -114,7 +114,7 @@ def cuestions():
             },    
         ]
         # Mostrar la pregunta actual
-        if st.session_state.question_index < len(questions):
+        if st.session_state.question_index <= len(questions):
             display_question(questions)
         else:
             st.write("Gracias por completar el cuestionario!")
