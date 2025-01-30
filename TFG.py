@@ -72,7 +72,7 @@ def questions():
         "What is your favorite travel destination? (Beach, Mountains, City)"    
         ]
     # Mostrar la pregunta actual
-    while st.session_stat.question_index <= len(questions):
+    while st.session_stat.question_index < len(questions):
         st.header(f"Question {st.session_state.question_index + 1}:")
         answer = st.radio(questions[st.session_state.question_index].split(" (")[0], ("1", "2", "3"))
 
