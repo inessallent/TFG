@@ -7,7 +7,7 @@ import os
 def create_csv():
     if not os.path.isfile('respuestas.csv'):
         # Crear un archivo CSV con encabezados si no existe
-        pd.DataFrame(columns=['Nombre', 'Edad', 'Género', 'Correo electrónico', 'Pregunta', 'Respuesta']).to_csv('respuestas.csv', index=False)
+        pd.DataFrame(columns=['Nombre', 'Apellido', 'Género', 'Correo Electrónico', 'Pregunta', 'Respuesta']).to_csv('respuestas.csv', index=False)
 
 
 # Save answers in a CSV
@@ -18,9 +18,9 @@ def save_response(pregunta, respuesta):
     # Crear un DataFrame con la nueva respuesta
     new_data = pd.DataFrame({
         'Nombre': [nombre],
-        'Edad': [edad],
+        'Apellido': [apellido],
         'Género': [genero],
-        'Correo electrónico': [correo_electronico],
+        'Correo Electrónico': [correo],
         'Pregunta': [pregunta],
         'Respuesta': [respuesta]
     })
@@ -42,8 +42,8 @@ def next_video(question_index):
         
 
 # Display Question
-def display_question(questions, nombre, edad, genero, correo_electronico):
-    current_question = questions[st.session_state.question_index]
+def display_question(questions):
+    current_question = questions[st.session_state.question_index - 1]  # -1 because index 0 is for personal info
     
     # Mostrar el video 
     next_video(st.session_state.question_index)
@@ -55,13 +55,14 @@ def display_question(questions, nombre, edad, genero, correo_electronico):
     # Next question + video
     if st.button("Enviar"):
         if answer:
-            save_response(nombre, edad, genero, correo_electronico, current_question["question"], answer)  # Guardar respuesta            st.success("Enviado con éxito!")
+            save_response(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo, current_question["question"], answer)
+            st.success("Enviado con éxito!")
             st.button("Siguiente")
             next_question()  # Go to next question 
         else:
             st.warning("Por favor, selecciona una opción antes de continuar.")
 
-def questions(nombre, edad, genero, correo_electronico):
+def cuestions():
     
     st.title('Cuestionario')
     
@@ -69,22 +70,36 @@ def questions(nombre, edad, genero, correo_electronico):
     if 'question_index' not in st.session_state:
         st.session_state.question_index = 0  # Comenzar desde la primera pregunta
         st.session_state.selected_option = None  # Opción seleccionada
-    # Lista de preguntas
-    questions = [
-        {
-            "question": "What would you choose?",
-            "options": ["Option A", "Option B", "Option C"]
-        },
-        {
-            "question": "What is your favorite color?",
-            "options": ["Red", "Blue", "Green"]
-        },    
-    ]
-    # Mostrar la pregunta actual
-    if st.session_state.question_index < len(questions):
-        display_question(questions, nombre, edad, genero, correo_electronico)
-    else:
-        st.write("Gracias por completar el cuestionario!")
+        
+    if st.session_state.question_index == 0:
+        st.header("Información Personal")
+        st.session_state.nombre = st.text_input("Nombre:")
+        st.session_state.apellido = st.text_input("Apellido:")
+        st.session_state.genero = st.radio("Género:", ["Femenino", "Masculino", "No binario"])
+        st.session_state.correo = st.text_input("Correo Electrónico (opcional):")
+        
+        if st.button("Continuar"):
+            if st.session_state.nombre and st.session_state.apellido:
+                next_question()
+            else:
+                st.warning("Por favor, ingresa tu nombre y apellido.")
+    else:     
+        # Lista de preguntas
+        questions = [
+            {
+                "question": "What would you choose?",
+                "options": ["Option A", "Option B", "Option C"]
+            },
+            {
+                "question": "What is your favorite color?",
+                "options": ["Red", "Blue", "Green"]
+            },    
+        ]
+        # Mostrar la pregunta actual
+        if st.session_state.question_index < len(questions):
+            display_question(questions)
+        else:
+            st.write("Gracias por completar el cuestionario!")
 
 
 def main():  
@@ -105,7 +120,7 @@ def main():
 
     #Questionario
     elif page_web == "Cuestionario":
-        questions()            
+        cuestions()            
     
     #Sobre Nosotros   
     elif page_web == "Sobre Nosotros":
