@@ -26,7 +26,7 @@ def save_response(pregunta, respuesta):
     })
     
     # Guardar en CSV, si el archivo ya existe, agregar sin encabezados
-    new_data.to_csv('respuestas.csv', mode='a', header=not file_exists, index=False)
+    new_data.to_csv('respuestas.csv', mode='a', header=False, index=False)
 
 # Next Question
 def next_question():
