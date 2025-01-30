@@ -60,7 +60,7 @@ def questions():
 
     # Lista de preguntas
     questions = [
-        "What would you choose? (1, 2, 3)",
+        "What would you choose HOLA? (1, 2, 3)",
         "What is your favorite color? (Red, Blue, Green)",
         "What is your favorite animal? (Dog, Cat, Bird)",
         "What is your favorite food? (Pizza, Sushi, Salad)",
@@ -72,7 +72,7 @@ def questions():
         "What is your favorite travel destination? (Beach, Mountains, City)"    
         ]
     # Mostrar la pregunta actual
-    if st.session_state.question_index < len(questions):
+    while st.session_stat.question_index <= len(questions):
         st.header(f"Question {st.session_state.question_index + 1}:")
         answer = st.radio(questions[st.session_state.question_index].split(" (")[0], ("1", "2", "3"))
 
@@ -80,8 +80,12 @@ def questions():
         if st.button("Siguiente"):
             st.success("Enviado con éxito!")
             st.session_state.question_index += 1  # Incrementar el índice de la pregunta
-    else:
-        st.write("Gracias por completar el cuestionario!")
+            break
+    # Mensaje de finalización
+    if st.session_state.question_index == len(questions):
+        st.write("Gracias por completar el cuestionario!")  # Mensaje al finalizar
+        
+        
 
 if __name__ == "__main__":
     main() 
