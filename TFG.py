@@ -31,7 +31,7 @@ def next_question():
 
 # Display Question
 def display_question(questions):
-    # upload_video()
+    upload_video()
     current_question = questions[st.session_state.question_index]
     st.header(f"Question {st.session_state.question_index + 1}:")
     answer =  st.radio(current_question["question"], current_question["options"])
@@ -72,9 +72,9 @@ def questions():
     else:
         st.write("Gracias por completar el cuestionario!")
 
-# def upload_video():
-#     Q1_video_path = os.path.join("Media", "Questionarios_videos", "3_Female.mp4")
-#     st.video(Q1_video_path, format = "video/mp4", strat_time = 0)
+def upload_video():
+    Q1_video_path = os.path.join("Media", "Questionarios_videos", "3_Female.mp4")
+    st.video(Q1_video_path, format = "video/mp4", strat_time = 0)
     
         
 def main():  
@@ -85,7 +85,7 @@ def main():
     # Sidebar para la navegación
     st.sidebar.title("Navegación") #Title 
     UPF_logo_path = os.path.join("Media", "Logos", "UPF_logo.png")
-    st.sidebar.image("UPF_logo.png")  #Upload Logo
+    st.sidebar.image(UPF_logo_path)  #Upload Logo
     page_web = st.sidebar.selectbox("Selecciona una sección:", ["Inicio", "Questionario", "Sobre Nosotros", "Contacto"])
 
     #Init 
@@ -112,7 +112,7 @@ def main():
             st.success("¡Mensaje enviado con éxito!")
 
 
-    style_metric_cards(border_left_color="#e1ff8b",background_color="#222222")
+    # style_metric_cards(border_left_color="#e1ff8b",background_color="#222222")
 
 if __name__ == "__main__":
     main() 
