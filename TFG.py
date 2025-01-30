@@ -31,7 +31,7 @@ def next_question():
 
 # Display Question
 def display_question(questions):
-    upload_video()
+    # upload_video()
     current_question = questions[st.session_state.question_index]
     st.header(f"Question {st.session_state.question_index + 1}:")
     answer =  st.radio(current_question["question"], current_question["options"])
