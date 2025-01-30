@@ -72,7 +72,7 @@ def questions():
         "What is your favorite travel destination? (Beach, Mountains, City)"    
         ]
     # Mostrar la pregunta actual
-    while st.session_stat.question_index < len(questions):
+    if st.session_state.question_index < len(questions):
         st.header(f"Question {st.session_state.question_index + 1}:")
         answer = st.radio(questions[st.session_state.question_index].split(" (")[0], ("1", "2", "3"))
 
@@ -80,11 +80,8 @@ def questions():
         if st.button("Siguiente"):
             st.success("Enviado con éxito!")
             st.session_state.question_index += 1  # Incrementar el índice de la pregunta
-            break
-    # Mensaje de finalización
-    if st.session_state.question_index == len(questions):
-        st.write("Gracias por completar el cuestionario!")  # Mensaje al finalizar
-        
+    else:
+        st.write("Gracias por completar el cuestionario!")
         
 
 if __name__ == "__main__":
