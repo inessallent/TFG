@@ -3,51 +3,51 @@
 import streamlit as st # type: ignore
 import pandas as pd # type: ignore 
 from streamlit_extras.metric_cards import style_metric_cards  #type ignore 
-import base64 
+import os  
 
-        
-def main():  
-        
-    # Sidebar para la navegación
-    st.sidebar.title("Navegación")    #Title 
-    st.sidebar.image("UPF_logo.png")  #Upload Logo
-    page_web = st.sidebar.selectbox("Selecciona una sección:", ["Inicio", "Questionario", "Sobre Nosotros", "Contacto"])
 
-    #Init 
-    if page_web == "Inicio":
-        st.title('Inicio')
-        st.write("Aquí puedes escribir información sobre quiénes son.")
+#Create CSV
+def create_csv():
+    if not os.path.isfile('respuestas.csv'):
+        # Crear un archivo CSV con encabezados si no existe
+        pd.DataFrame(columns=['Pregunta', 'Respuesta']).to_csv('respuestas.csv', index=False)
 
-    #Questionario
-    elif page_web == "Questionario":
-        questions()
-        # st.title('Questionario')
-        # st.write("Aquí puedes escribir información sobre quiénes son.")
+
+# Save answers in a CSV
+def save_response(pregunta, respuesta):
+    # Verificar si el archivo CSV ya existe
+    file_exists = os.path.isfile('respuestas.csv')
     
-        # st.header("Question 1:")
-        # answer_1 = st.radio("What would you choose?", ("1", "2", "3")) 
-        # # button1 = st.button("Submit Answer")
-        # if st.button("Siguiente"):
-        #     st.success("Enviado con éxito!")
-            
+    # Crear un DataFrame con la nueva respuesta
+    new_data = pd.DataFrame({
+        'Pregunta': [pregunta],
+        'Respuesta': [respuesta]
+    })
     
-    #Sobre Nosotros   
-    elif page_web == "Sobre Nosotros":
-        st.title('Sobre Nosotros')
-        st.write("This questionnaire is part of the final project from my degree.")
+    # Guardar en CSV, si el archivo ya existe, agregar sin encabezados
+    new_data.to_csv('respuestas.csv', mode='a', header=not file_exists, index=False)
 
-    #Contacto 
-    elif page_web == "Contacto":
-        st.write("Si deseas ponerte en contacto con nosotros, por favor completa el siguiente formulario:")
-        email = st.text_input("Tu correo electrónico:")
-        mensaje = st.text_area("Tu mensaje:")
-        if st.button("Enviar"):
-            st.success("¡Mensaje enviado con éxito!")
+# Next Question
+def next_question():
+    st.session_state.current_index += 1
+    st.session_state.selected_option = None  # Restablecer la opción seleccionada
+    st.session_state.answer_submitted = False  # Restablecer el estado de respuesta
 
+# Display QUestion
+def display_question(questions):
+    current_question = questions[st.session_state.current_index]
+    st.header(f"Question {st.session_state.current_index + 1}:")
+    st.session_state.selected_option = st.radio(current_question["question"], current_question["options"])
 
-    style_metric_cards(border_left_color="#e1ff8b",background_color="#222222")
-
-
+    # Next question 
+    if st.button("Siguiente"):
+        if st.session_state.selected_option:
+            save_response(current_question["question"], st.session_state.selected_option)  # Guardar respuesta
+            st.success("Enviado con éxito!")
+            st.button("Siguiente")
+            next_question()  # Go to next question 
+        else:
+            st.warning("Por favor, selecciona una opción antes de continuar.")
 
 def questions():
     
@@ -71,18 +71,45 @@ def questions():
     ]
     # Mostrar la pregunta actual
     if st.session_state.question_index < len(questions):
-        current_question = questions[st.session_state.question_index]
-        st.header(f"Question {st.session_state.question_index + 1}:")
-        answer = st.radio(current_question["question"], current_question["options"])
-
-        # Botón para pasar a la siguiente pregunta
-        if st.button("Enviar"):
-            st.success("Enviado con éxito!")
-            st.button("Siguiente")
-            st.session_state.question_index += 1  # Incrementar el índice de la pregunta
+        display_question(questions)
     else:
         st.write("Gracias por completar el cuestionario!")
         
+        
+def main():  
+    
+    # Crear el archivo CSV si no existe
+    create_csv()  
+    
+    # Sidebar para la navegación
+    st.sidebar.title("Navegación")    #Title 
+    st.sidebar.image("UPF_logo.png")  #Upload Logo
+    page_web = st.sidebar.selectbox("Selecciona una sección:", ["Inicio", "Questionario", "Sobre Nosotros", "Contacto"])
+
+    #Init 
+    if page_web == "Inicio":
+        st.title('Inicio')
+        st.write("Aquí puedes escribir información sobre quiénes son.")
+
+    #Questionario
+    elif page_web == "Questionario":
+        questions()            
+    
+    #Sobre Nosotros   
+    elif page_web == "Sobre Nosotros":
+        st.title('Sobre Nosotros')
+        st.write("This questionnaire is part of the final project from my degree.")
+
+    #Contacto 
+    elif page_web == "Contacto":
+        st.write("Si deseas ponerte en contacto con nosotros, por favor completa el siguiente formulario:")
+        email = st.text_input("Tu correo electrónico:")
+        mensaje = st.text_area("Tu mensaje:")
+        if st.button("Enviar"):
+            st.success("¡Mensaje enviado con éxito!")
+
+
+    style_metric_cards(border_left_color="#e1ff8b",background_color="#222222")
 
 if __name__ == "__main__":
     main() 
