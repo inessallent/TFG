@@ -11,7 +11,7 @@ def create_csv():
 
 
 # Save answers in a CSV
-def save_response(pregunta, respuesta):
+def save_personal_info(pregunta, respuesta):
     # Verificar si el archivo CSV ya existe
     file_exists = os.path.isfile('respuestas.csv')
     
@@ -21,6 +21,16 @@ def save_response(pregunta, respuesta):
         'Apellido': [apellido],
         'Género': [genero],
         'Correo Electrónico': [correo],
+    })
+    
+    # Guardar en CSV, si el archivo ya existe, agregar sin encabezados
+    new_data.to_csv('respuestas.csv', mode='a', header=False, index=False)
+def save_response(pregunta, respuesta):
+    # Verificar si el archivo CSV ya existe
+    file_exists = os.path.isfile('respuestas.csv')
+    
+    # Crear un DataFrame con la nueva respuesta
+    new_data = pd.DataFrame({
         'Pregunta': [pregunta],
         'Respuesta': [respuesta]
     })
@@ -55,7 +65,7 @@ def display_question(questions):
     # Next question + video
     if st.button("Enviar"):
         if answer:
-            save_response(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo, current_question["question"], answer)
+            save_response(current_question["question"], answer)
             st.success("Enviado con éxito!")
             st.button("Siguiente")
             next_question()  # Go to next question 
@@ -80,6 +90,7 @@ def cuestions():
         
         if st.button("Continuar"):
             if st.session_state.nombre and st.session_state.apellido:
+                save_personal_info(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo)  # Guardar información personal
                 st.success("Enviado con éxito!")
                 st.button("Siguiente")
                 next_question()  # Go to next question 
