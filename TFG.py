@@ -100,12 +100,11 @@ def cuestions():
         st.session_state.correo = st.text_input("Correo Electrónico (opcional):")
         
         if st.button("Continuar"):
-            if st.session_state.nombre and st.session_state.apellido:
-                if st.session_state.correo and not is_valid_email(st.session_state.correo):
+            if st.session_state.correo and not is_valid_email(st.session_state.correo):
                     st.warning("Por favor, ingresa un correo electrónico válido.")
-                else:
-                    save_personal_info(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo)  # Guardar información personal
-                    st.success("Enviado con éxito!")
+            if st.session_state.nombre and st.session_state.apellido:
+                save_personal_info(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo)  # Guardar información personal
+                st.success("Enviado con éxito!")
                 next_question()  # Go to next question 
             else:
                 st.warning("Por favor, ingresa tu nombre y apellido.")
