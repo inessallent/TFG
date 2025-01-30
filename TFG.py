@@ -85,7 +85,7 @@ def main():
     # Sidebar para la navegación
     st.sidebar.title("Navegación") #Title 
     UPF_logo_path = os.path.join("Media", "Logos", "UPF_logo.png")
-    st.sidebar.image("C:\Users\isall\OneDrive\UNI\TFG\TFG\Media\Logos\UPF_logo.png")  #Upload Logo
+    st.sidebar.image(r"C:\Users\isall\OneDrive\UNI\TFG\TFG\Media\Logos\UPF_logo.png")
     page_web = st.sidebar.selectbox("Selecciona una sección:", ["Inicio", "Questionario", "Sobre Nosotros", "Contacto"])
 
     #Init 
