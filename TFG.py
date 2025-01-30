@@ -46,7 +46,7 @@ def display_question(questions):
     current_question = questions[st.session_state.question_index - 1]  # -1 because index 0 is for personal info
     
     # Mostrar el video 
-    next_video(st.session_state.question_index)
+    next_video(st.session_state.question_index -1)
 
     # Mostrar pregunta
     st.header(f"Question {st.session_state.question_index + 1}:")
@@ -80,7 +80,9 @@ def cuestions():
         
         if st.button("Continuar"):
             if st.session_state.nombre and st.session_state.apellido:
-                next_question()
+                st.success("Enviado con éxito!")
+                st.button("Siguiente")
+                next_question()  # Go to next question 
             else:
                 st.warning("Por favor, ingresa tu nombre y apellido.")
     else:     
