@@ -34,6 +34,7 @@ def next_question():
 
 # Display Question
 def display_question(questions):
+    upload_video()
     current_question = questions[st.session_state.question_index]
     st.header(f"Question {st.session_state.question_index + 1}:")
     answer =  st.radio(current_question["question"], current_question["options"])
@@ -73,7 +74,10 @@ def questions():
         display_question(questions)
     else:
         st.write("Gracias por completar el cuestionario!")
-        
+
+def upload_video():
+    st.video("Media\Questionarios_videos\3_Female.mp4", format = "video/mp4", strat_time = 0)
+    
         
 def main():  
     
@@ -82,7 +86,7 @@ def main():
     
     # Sidebar para la navegación
     st.sidebar.title("Navegación")    #Title 
-    st.sidebar.image("UPF_logo.png")  #Upload Logo
+    st.sidebar.image("Media\Logos\UPF_logo.png")  #Upload Logo
     page_web = st.sidebar.selectbox("Selecciona una sección:", ["Inicio", "Questionario", "Sobre Nosotros", "Contacto"])
 
     #Init 
