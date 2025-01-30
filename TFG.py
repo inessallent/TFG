@@ -96,7 +96,7 @@ def cuestions():
         st.header("Información Personal")
         st.session_state.nombre = st.text_input("Nombre:")
         st.session_state.apellido = st.text_input("Apellido:")
-        st.session_state.genero = st.radio("Género:", ["Femenino", "Masculino", "No binario"])
+        st.session_state.genero = st.radio("Género:", ["Femenino", "Masculino", "No binario"], index=None)
         st.session_state.correo = st.text_input("Correo Electrónico (opcional):")
         
         if st.button("Continuar"):
