@@ -1,5 +1,14 @@
-import streamlit as st
+import streamlit as st # type: ignore
+import pandas as pandas # type: ignore 
+import plotly.express as px # type: ignore
+from streamlit_option_menu import option_menu
+ 
 import base64 
+
+
+
+
+
 
 # Función para establecer el fondo
 
@@ -26,7 +35,7 @@ def set_inicio_styles():
     custom_style = """
     <style>
     .custom-text {
-        color: white;
+        color: white 
         # font-size: 18px;  /* Tamaño del texto */
         # font-weight: bold;  /* Negrita */
     }
@@ -44,14 +53,24 @@ page_web = st.sidebar.selectbox("Selecciona una sección:", ["Inicio", "Question
 
 # Cargar una imagen en la página inicial
 if page_web == "Inicio":
-    # st.image("C:/Users/isall/OneDrive/UNI/TFG/TFG/fondo.png", caption="Descripción de la imagen", use_column_width=True)
+    st.title('Inicio')
     set_inicio_styles()
     st.write("Aquí puedes escribir información sobre quiénes son.")
 
 elif page_web == "Questionario":
+    st.title('Questionario')
     st.write("Aquí puedes escribir información sobre quiénes son.")
     
+    st.header("Question 1:")
+    answer_1 = st.radio("What would you choose?", ("1", "2", "3")) 
+    button1 = answer_1
+
+    
+    
+    
+    
 elif page_web == "Sobre Nosotros":
+    st.title('Sobre Nosotros')
     st.write("This questionnaire is part of the final project from my degree.")
 
 
