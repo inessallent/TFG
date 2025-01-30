@@ -33,16 +33,16 @@ def next_question():
     st.session_state.selected_option = None  # Restablecer la opción seleccionada
     st.session_state.answer_submitted = False  # Restablecer el estado de respuesta
 
-# Display QUestion
+# Display Question
 def display_question(questions):
     current_question = questions[st.session_state.current_index]
     st.header(f"Question {st.session_state.current_index + 1}:")
-    st.session_state.selected_option = st.radio(current_question["question"], current_question["options"])
+    answer =  st.radio(current_question["question"], current_question["options"])
 
     # Next question 
     if st.button("Siguiente"):
-        if st.session_state.selected_option:
-            save_response(current_question["question"], st.session_state.selected_option)  # Guardar respuesta
+        if answer:
+            save_response(current_question["question"], answer)  # Guardar respuesta
             st.success("Enviado con éxito!")
             st.button("Siguiente")
             next_question()  # Go to next question 
@@ -57,7 +57,7 @@ def questions():
     # Inicializar el estado de la sesión si no existe
     if 'question_index' not in st.session_state:
         st.session_state.question_index = 0  # Comenzar desde la primera pregunta
-
+        st.session_state.selected_option = None  # Opción seleccionada
     # Lista de preguntas
     questions = [
         {
@@ -102,6 +102,7 @@ def main():
 
     #Contacto 
     elif page_web == "Contacto":
+        st.title("Contacto")
         st.write("Si deseas ponerte en contacto con nosotros, por favor completa el siguiente formulario:")
         email = st.text_input("Tu correo electrónico:")
         mensaje = st.text_area("Tu mensaje:")
