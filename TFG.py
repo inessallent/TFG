@@ -80,7 +80,7 @@ def questions():
         if st.button("Enviar"):
             st.success("Enviado con éxito!")
         else:
-            st.button("Siguiente"):
+            st.button("Siguiente")
             st.session_state.question_index += 1  # Incrementar el índice de la pregunta
     else:
         st.write("Gracias por completar el cuestionario!")
