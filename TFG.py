@@ -39,7 +39,7 @@ def display_question(questions):
     answer =  st.radio(current_question["question"], current_question["options"])
 
     # Next question 
-    if st.button("Siguiente"):
+    if st.button("Enviar"):
         if answer:
             save_response(current_question["question"], answer)  # Guardar respuesta
             st.success("Enviado con éxito!")
