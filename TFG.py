@@ -43,6 +43,7 @@ def display_question(questions):
         if answer:
             save_response(current_question["question"], answer)  # Guardar respuesta
             st.success("Enviado con éxito!")
+            st.button("Siguiente")
             next_question()  # Go to next question 
         else:
             st.warning("Por favor, selecciona una opción antes de continuar.")
