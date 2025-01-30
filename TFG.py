@@ -61,7 +61,6 @@ def display_question(questions):
 def questions():
     
     st.title('Questionario')
-    st.write("Aquí puedes escribir información sobre quiénes son.")
     
     # Inicializar el estado de la sesión si no existe
     if 'question_index' not in st.session_state:
