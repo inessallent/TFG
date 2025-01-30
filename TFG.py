@@ -60,21 +60,20 @@ def questions():
 
     # Lista de preguntas
     questions = [
-        "What would you choose HOLA? (1, 2, 3)",
-        "What is your favorite color? (Red, Blue, Green)",
-        "What is your favorite animal? (Dog, Cat, Bird)",
-        "What is your favorite food? (Pizza, Sushi, Salad)",
-        "What is your favorite season? (Winter, Spring, Summer)",
-        "What is your favorite hobby? (Reading, Sports, Music)",
-        "What is your dream job? (Engineer, Artist, Doctor)",
-        "What is your favorite movie genre? (Action, Comedy, Drama)",
-        "What is your favorite book? (Fiction, Non-Fiction, Mystery)",
-        "What is your favorite travel destination? (Beach, Mountains, City)"    
-        ]
+        {
+            "question": "What would you choose?",
+            "options": ["Option A", "Option B", "Option C"]
+        },
+        {
+            "question": "What is your favorite color?",
+            "options": ["Red", "Blue", "Green"]
+        },    
+    ]
     # Mostrar la pregunta actual
     if st.session_state.question_index < len(questions):
+        current_question = questions[st.session_state.question_index]
         st.header(f"Question {st.session_state.question_index + 1}:")
-        answer = st.radio(questions[st.session_state.question_index].split(" (")[0], ("1", "2", "3"))
+        answer = st.radio(current_question["question"], current_question["options"])
 
         # Botón para pasar a la siguiente pregunta
         if st.button("Enviar"):
