@@ -7,7 +7,7 @@ import os
 def create_csv():
     if not os.path.isfile('respuestas.csv'):
         # Crear un archivo CSV con encabezados si no existe
-        pd.DataFrame(columns=['Pregunta', 'Respuesta']).to_csv('respuestas.csv', index=False)
+        pd.DataFrame(columns=['Nombre', 'Edad', 'Género', 'Correo electrónico', 'Pregunta', 'Respuesta']).to_csv('respuestas.csv', index=False)
 
 
 # Save answers in a CSV
@@ -17,6 +17,10 @@ def save_response(pregunta, respuesta):
     
     # Crear un DataFrame con la nueva respuesta
     new_data = pd.DataFrame({
+        'Nombre': [nombre],
+        'Edad': [edad],
+        'Género': [genero],
+        'Correo electrónico': [correo_electronico],
         'Pregunta': [pregunta],
         'Respuesta': [respuesta]
     })
@@ -38,7 +42,7 @@ def next_video(question_index):
         
 
 # Display Question
-def display_question(questions):
+def display_question(questions, nombre, edad, genero, correo_electronico):
     current_question = questions[st.session_state.question_index]
     
     # Mostrar el video 
@@ -51,14 +55,13 @@ def display_question(questions):
     # Next question + video
     if st.button("Enviar"):
         if answer:
-            save_response(current_question["question"], answer)  # Guardar respuesta
-            st.success("Enviado con éxito!")
+            save_response(nombre, edad, genero, correo_electronico, current_question["question"], answer)  # Guardar respuesta            st.success("Enviado con éxito!")
             st.button("Siguiente")
             next_question()  # Go to next question 
         else:
             st.warning("Por favor, selecciona una opción antes de continuar.")
 
-def cuestions():
+def questions(nombre, edad, genero, correo_electronico):
     
     st.title('Cuestionario')
     
@@ -79,7 +82,7 @@ def cuestions():
     ]
     # Mostrar la pregunta actual
     if st.session_state.question_index < len(questions):
-        display_question(questions)
+        display_question(questions, nombre, edad, genero, correo_electronico)
     else:
         st.write("Gracias por completar el cuestionario!")
 
@@ -102,7 +105,7 @@ def main():
 
     #Questionario
     elif page_web == "Cuestionario":
-        cuestions()            
+        questions()            
     
     #Sobre Nosotros   
     elif page_web == "Sobre Nosotros":
