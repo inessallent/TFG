@@ -64,7 +64,7 @@ def display_question(questions):
     next_video(st.session_state.question_index -1)
 
     # Mostrar pregunta
-    st.header(f"Question {st.session_state.question_index + 1}:")
+    st.header(f"Question {st.session_state.question_index }:")
     answer =  st.radio(current_question["question"], current_question["options"])
 
     # Next question + video
