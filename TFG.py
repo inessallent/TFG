@@ -77,9 +77,10 @@ def questions():
         answer = st.radio(questions[st.session_state.question_index].split(" (")[0], ("1", "2", "3"))
 
         # Botón para pasar a la siguiente pregunta
-        if st.button("Siguiente"):
+        if st.button("Enviar"):
             st.success("Enviado con éxito!")
-            st.session_state.question_index += 1  # Incrementar el índice de la pregunta
+            if st.button("Siguiente"):
+                st.session_state.question_index += 1  # Incrementar el índice de la pregunta
     else:
         st.write("Gracias por completar el cuestionario!")
         
