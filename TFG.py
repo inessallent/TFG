@@ -3,6 +3,7 @@ import pandas as pd # type: ignore
 # from streamlit_extras.metric_cards import style_metric_cards  #type ignore 
 import os  
 import tempfile
+import re 
 
 #Create CSV
 def create_csv():
@@ -11,6 +12,11 @@ def create_csv():
         # Crear un archivo CSV con encabezados si no existe
         pd.DataFrame(columns=['Nombre', 'Apellido', 'Género', 'Correo Electrónico', 'Pregunta', 'Respuesta']).to_csv('respuestas.csv', index=False)
 
+# Validar el formato del correo electrónico
+def is_valid_email(email):
+    # Expresión regular para validar el formato del correo electrónico
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(email_regex, email) is not None
 
 # Save answers in a CSV
 def save_personal_info(nombre, apellido, genero, correo):
@@ -95,9 +101,11 @@ def cuestions():
         
         if st.button("Continuar"):
             if st.session_state.nombre and st.session_state.apellido:
-                save_personal_info(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo)  # Guardar información personal
-                st.success("Enviado con éxito!")
-                st.button("Siguiente")
+                if st.session_state.correo and not is_valid_email(st.session_state.correo):
+                    st.warning("Por favor, ingresa un correo electrónico válido.")
+                else:
+                    save_personal_info(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo)  # Guardar información personal
+                    st.success("Enviado con éxito!")
                 next_question()  # Go to next question 
             else:
                 st.warning("Por favor, ingresa tu nombre y apellido.")
