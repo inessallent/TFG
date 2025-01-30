@@ -2,9 +2,11 @@ import streamlit as st # type: ignore
 import pandas as pd # type: ignore 
 # from streamlit_extras.metric_cards import style_metric_cards  #type ignore 
 import os  
+import tempfile
 
 #Create CSV
 def create_csv():
+    csv_path = os.path.join(tempfile.gettempdir(), 'respuestas.csv')
     if not os.path.isfile('respuestas.csv'):
         # Crear un archivo CSV con encabezados si no existe
         pd.DataFrame(columns=['Nombre', 'Apellido', 'Género', 'Correo Electrónico', 'Pregunta', 'Respuesta']).to_csv('respuestas.csv', index=False)
@@ -12,6 +14,8 @@ def create_csv():
 
 # Save answers in a CSV
 def save_personal_info(nombre, apellido, genero, correo):
+    # csv_path = os.path.join(tempfile.gettempdir(), 'respuestas.csv')
+
     # Verificar si el archivo CSV ya existe
     file_exists = os.path.isfile('respuestas.csv')
     
@@ -25,6 +29,7 @@ def save_personal_info(nombre, apellido, genero, correo):
     
     # Guardar en CSV, si el archivo ya existe, agregar sin encabezados
     new_data.to_csv('respuestas.csv', mode='a', header=False, index=False)
+    
 def save_response(pregunta, respuesta):
     # Verificar si el archivo CSV ya existe
     file_exists = os.path.isfile('respuestas.csv')
