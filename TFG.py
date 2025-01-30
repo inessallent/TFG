@@ -5,7 +5,6 @@ import pandas as pd # type: ignore
 from streamlit_extras.metric_cards import style_metric_cards  #type ignore 
 import os  
 
-
 #Create CSV
 def create_csv():
     if not os.path.isfile('respuestas.csv'):
@@ -76,7 +75,8 @@ def questions():
         st.write("Gracias por completar el cuestionario!")
 
 def upload_video():
-    st.video("Media\Questionarios_videos\3_Female.mp4", format = "video/mp4", strat_time = 0)
+    Q1_video_path = os.path.join("Media", "Questionarios_videos", "3_Female.mp4")
+    st.video(Q1_video_path, format = "video/mp4", strat_time = 0)
     
         
 def main():  
@@ -85,8 +85,9 @@ def main():
     create_csv()  
     
     # Sidebar para la navegación
-    st.sidebar.title("Navegación")    #Title 
-    st.sidebar.image("Media\Logos\UPF_logo.png")  #Upload Logo
+    st.sidebar.title("Navegación") #Title 
+    UPF_logo_path = os.path.join("Media", "Logos", "UPF_logo.png")
+    st.sidebar.image(UPF_logo_path)  #Upload Logo
     page_web = st.sidebar.selectbox("Selecciona una sección:", ["Inicio", "Questionario", "Sobre Nosotros", "Contacto"])
 
     #Init 
