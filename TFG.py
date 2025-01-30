@@ -61,7 +61,8 @@ elif page_web == "Questionario":
     
     st.header("Question 1:")
     answer_1 = st.radio("What would you choose?", ("1", "2", "3")) 
-    button1 = answer_1
+    button1 = st.button("Submit Answer")
+    
 
     
     
