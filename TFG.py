@@ -58,9 +58,9 @@ def display_question(questions):
         else:
             st.warning("Por favor, selecciona una opción antes de continuar.")
 
-def questions():
+def cuestions():
     
-    st.title('Questionario')
+    st.title('Cuestionario')
     
     # Inicializar el estado de la sesión si no existe
     if 'question_index' not in st.session_state:
@@ -101,8 +101,8 @@ def main():
         st.write("Aquí puedes escribir información sobre quiénes son.")
 
     #Questionario
-    elif page_web == "Questionario":
-        questions()            
+    elif page_web == "Cuestionario":
+        cuestions()            
     
     #Sobre Nosotros   
     elif page_web == "Sobre Nosotros":
