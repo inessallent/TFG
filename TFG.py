@@ -29,9 +29,8 @@ def save_response(pregunta, respuesta):
 
 # Next Question
 def next_question():
-    st.session_state.current_index += 1
+    st.session_state.question_index += 1
     st.session_state.selected_option = None  # Restablecer la opción seleccionada
-    st.session_state.answer_submitted = False  # Restablecer el estado de respuesta
 
 # Display Question
 def display_question(questions):
