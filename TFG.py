@@ -38,7 +38,7 @@ def main():
             st.success("¡Mensaje enviado con éxito!")
 
 
-    style_metric_cards(border_left_color="#e1ff8b",background_color="#222222")
+    # style_metric_cards(border_left_color="#e1ff8b",background_color="#222222")
 
 if __name__ == "__main__":
     main()
