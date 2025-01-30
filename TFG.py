@@ -74,7 +74,10 @@ def questions():
 
 def upload_video():
     Q1_video_path = os.path.join("Media", "Questionarios_videos", "3_Female.mp4")
-    st.video(Q1_video_path, format = "video/mp4", strat_time = 0)
+    if os.path.isfile(Q1_video_path):
+        st.video(Q1_video_path, format="video/mp4", start_time=0)  # Corrige 'strat_time' a 'start_time'
+    else:
+        st.error("El video no se encontró en la ruta especificada.")
     
         
 def main():  
