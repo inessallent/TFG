@@ -187,14 +187,24 @@ st.markdown(
         # }
         
         ### Dejar abierta la sidebar al principio
-        /* Ocultar la flecha de colapso del sidebar */
-        [data-testid="collapsedControl"] {
-            visibility: hidden;
+        /* Hacer que el sidebar siempre esté visible */
+        [data-testid="stSidebar"] {
+            min-width: 300px !important;
+            width: 300px !important;
         }
 
-        /* Ajustar el ancho inicial del sidebar */
-        section[data-testid="stSidebar"] {
-            width: 300px !important;
+        /* Ocultar la flecha de colapso en todas las pantallas */
+        [data-testid="collapsedControl"] {
+            display: none !important;
+        }
+
+        /* Forzar que el sidebar no se colapse en móviles */
+        @media (max-width: 768px) {
+            [data-testid="stSidebar"] {
+                display: block !important;
+                transform: translateX(0) !important;
+            }
+        }
         }
     </style>
     """,
