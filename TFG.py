@@ -181,10 +181,10 @@ st.markdown(
         #     background-color: #4A90E2;
         # }
 
-        /* Cambiar color de la flecha del selectbox */
-        div[data-baseweb="select"] svg {
-            fill: #007BFF !important; /* Azul */
-        }
+        # /* Cambiar color de la flecha del selectbox */
+        # div[data-baseweb="select"] svg {
+        #     fill: #007BFF !important; /* Azul */
+        # }
     </style>
     """,
     unsafe_allow_html=True
