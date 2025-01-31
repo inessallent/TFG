@@ -185,27 +185,7 @@ st.markdown(
         # div[data-baseweb="select"] svg {
         #     fill: #007BFF !important; /* Azul */
         # }
-        
-        ### Dejar abierta la sidebar al principio
-        /* Hacer que el sidebar siempre esté visible */
-        [data-testid="stSidebar"] {
-            min-width: 300px !important;
-            width: 300px !important;
-        }
 
-        /* Ocultar la flecha de colapso en todas las pantallas */
-        [data-testid="collapsedControl"] {
-            display: none !important;
-        }
-
-        /* Forzar que el sidebar no se colapse en móviles */
-        @media (max-width: 768px) {
-            [data-testid="stSidebar"] {
-                display: block !important;
-                transform: translateX(0) !important;
-            }
-        }
-        }
     </style>
     """,
     unsafe_allow_html=True
@@ -221,15 +201,11 @@ def main():
     st.sidebar.title("Navegación") #Title 
     UPF_logo_path = os.path.join("Media", "Logos", "UPF_logo.png")
     st.sidebar.image(UPF_logo_path)  #Upload Logo
-    page_web = st.sidebar.selectbox("Selecciona una sección:", ["Inicio", "Cuestionario", "Sobre Nosotros", "Contacto"])
+    page_web = st.sidebar.selectbox("Selecciona una sección:", ["Cuestionario", "Sobre Nosotros", "Contacto"])
 
-    #Init 
-    if page_web == "Inicio":
-        st.title('Inicio')
-        st.write("Aquí puedes escribir información sobre quiénes son.")
 
-    #Questionario
-    elif page_web == "Cuestionario":
+    #Cuestionario
+    if page_web == "Cuestionario":
         cuestions()            
     
     #Sobre Nosotros   
