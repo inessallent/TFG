@@ -84,7 +84,7 @@ def display_question(questions):
     current_question = questions[st.session_state.question_index - 1]  # -1 because index 0 is for personal info
     
     # Mostrar el video 
-    next_video(st.session_state.question_index 0)
+    next_video(st.session_state.question_index - 0)
 
     # Mostrar pregunta
     st.header(f"Question {st.session_state.question_index }:")
