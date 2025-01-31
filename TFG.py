@@ -10,7 +10,7 @@ def create_csv():
     csv_path = os.path.join(tempfile.gettempdir(), 'respuestas.csv')
     if not os.path.isfile('respuestas.csv'):
         # Crear un archivo CSV con encabezados si no existe
-        pd.DataFrame(columns=['Nombre', 'Apellido', 'Género', 'Correo Electrónico', 'Edad', 'Pregunta', 'Respuesta']).to_csv('respuestas.csv', index=False)
+        pd.DataFrame(columns=['Nombre', 'Apellido', 'Género', 'Correo Electrónico', 'Edad', 'Sector de Trabajo', 'Años Trabajando', 'País' , 'Pregunta', 'Respuesta']).to_csv('respuestas.csv', index=False)
 
 # Validar el formato del correo electrónico
 def is_valid_email(email):
@@ -32,6 +32,22 @@ def save_personal_info(nombre, apellido, genero, correo, edad):
         'Género': [genero],
         'Correo Electrónico': [correo],
         'Edad' : [edad],
+    })
+    
+    # Guardar en CSV, si el archivo ya existe, agregar sin encabezados
+    new_data.to_csv('respuestas.csv', mode='a', header=False, index=False)
+    
+def save_personal_info_work_life( sector_trabajo, years_working, country ):
+    # csv_path = os.path.join(tempfile.gettempdir(), 'respuestas.csv')
+
+    # Verificar si el archivo CSV ya existe
+    file_exists = os.path.isfile('respuestas.csv')
+    
+    # Crear un DataFrame con la nueva respuesta
+    new_data = pd.DataFrame({
+        'Sector de Trabajo' : [sector_trabajo],
+        'Años Trabajando' : [years_working],
+        'País': [country]
     })
     
     # Guardar en CSV, si el archivo ya existe, agregar sin encabezados
@@ -90,9 +106,24 @@ def cuestions():
     
     # Inicializar el estado de la sesión si no existe
     if 'question_index' not in st.session_state:
-        st.session_state.question_index = 0  # Comenzar desde la primera pregunta
+        st.session_state.question_index = -1  # Comenzar desde la primera pregunta
         st.session_state.selected_option = None  # Opción seleccionada
         
+    if st.session_state.question_index == -1:
+        st.header("Información Personal")
+        st.session_state.sector_trabajo = st.radio("Porfavor seleccione el sector que mejor describa su trabajo:", "Educación", "Matemáticas y Estadistica", "Economia" , index=None) #ACABARLO
+        st.session_state.years_working = st.radio("¿Cuántos años de experiéncia tiene en este ámbito? :", ["Menor de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"], index=None)
+        st.session_state.country = st.text_input("Correo Electrónico (opcional):") # Hacerla para seleccionar todos los countries 
+        
+        if st.button("Continuar"):
+            if st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country:
+                save_personal_info(st.session_state.sector_trabajo, st.session_state.years_working, st.session_state.country)  # Guardar información personal
+                st.success("Enviado con éxito!")
+                st.button("Siguiente")
+                next_question()  # Go to next question 
+            else:
+                st.warning("Por favor, ingresa los datos. ")
+                
     if st.session_state.question_index == 0:
         st.header("Información Personal")
         st.session_state.nombre = st.text_input("Nombre:")
