@@ -111,7 +111,7 @@ def cuestions():
         
     if st.session_state.question_index == -1:
         st.header("Información Personal")
-        st.session_state.sector_trabajo = st.radio("Porfavor seleccione el sector que mejor describa su trabajo:", "Educación", "Matemáticas y Estadistica", "Economia" , index=None) #ACABARLO
+        st.session_state.sector_trabajo = st.radio("Porfavor seleccione el sector que mejor describa su trabajo:", [ "Educación", "Matemáticas y Estadistica", "Economia" ], index=None) #ACABARLO
         st.session_state.years_working = st.radio("¿Cuántos años de experiéncia tiene en este ámbito? :", ["Menor de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"], index=None)
         st.session_state.country = st.text_input("Correo Electrónico (opcional):") # Hacerla para seleccionar todos los countries 
         
