@@ -117,7 +117,7 @@ def cuestions():
         
         if st.button("Continuar"):
             if st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country:
-                save_personal_info(st.session_state.sector_trabajo, st.session_state.years_working, st.session_state.country)  # Guardar información personal
+                save_personal_info_work_life(st.session_state.sector_trabajo, st.session_state.years_working, st.session_state.country)  # Guardar información personal
                 st.success("Enviado con éxito!")
                 st.button("Siguiente")
                 next_question()  # Go to next question 
