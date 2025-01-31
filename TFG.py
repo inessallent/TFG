@@ -161,6 +161,29 @@ def cuestions():
         else:
             st.write("Gracias por completar el cuestionario!")
 
+# Aplicar estilos CSS personalizados
+st.markdown(
+    """
+    <style>
+        /* Cambiar el color del texto en el sidebar */
+        .css-1d391kg {
+            color: white !important;
+        }
+        
+        /* Cambiar el color de fondo del sidebar */
+        section[data-testid="stSidebar"] {
+            background-color: #4A90E2;
+        }
+
+        /* Cambiar color de la flecha del selectbox */
+        div[data-baseweb="select"] > div {
+            color: white !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 def main():  
     
