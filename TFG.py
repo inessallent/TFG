@@ -81,10 +81,10 @@ def next_video(question_index):
 
 # Display Question
 def display_question(questions):
-    current_question = questions[st.session_state.question_index - 2]  # -1 because index 0 is for personal info
+    current_question = questions[st.session_state.question_index - 1]  # -1 because index 0 is for personal info
     
     # Mostrar el video 
-    next_video(st.session_state.question_index - 0)
+    next_video(st.session_state.question_index - 2)
 
     # Mostrar pregunta
     st.header(f"Question {st.session_state.question_index }:")
@@ -108,22 +108,7 @@ def cuestions():
     if 'question_index' not in st.session_state:
         st.session_state.question_index = -1  # Comenzar desde la primera pregunta
         st.session_state.selected_option = None  # Opción seleccionada
-        
-    elif st.session_state.question_index == 0:
-        st.header("Información Personal")
-        st.session_state.sector_trabajo = st.radio("Porfavor seleccione el sector que mejor describa su trabajo:", [ "Educación", "Matemáticas y Estadistica", "Economia" ], index=None) #ACABARLO
-        st.session_state.years_working = st.radio("¿Cuántos años de experiéncia tiene en este ámbito? :", ["Menor de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"], index=None)
-        st.session_state.country = st.text_input("Correo Electrónico (opcional):") # Hacerla para seleccionar todos los countries 
-        
-        if st.button("Continuar"):
-            if st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country:
-                save_personal_info_work_life(st.session_state.sector_trabajo, st.session_state.years_working, st.session_state.country)  # Guardar información personal
-                st.success("Enviado con éxito!")
-                st.button("Siguiente")
-                next_question()  # Go to next question 
-            else:
-                st.warning("Por favor, ingresa los datos. ")
-                
+    
     if st.session_state.question_index == -1:
         st.header("Información Personal")
         st.session_state.nombre = st.text_input("Nombre:")
@@ -141,7 +126,24 @@ def cuestions():
                 st.button("Siguiente")
                 next_question()  # Go to next question 
             else:
-                st.warning("Por favor, ingresa tu nombre, apellido, género y edad. Gracias. ")
+                st.warning("Por favor, ingresa tu nombre, apellido, género y edad. Gracias. ")   
+                
+    elif st.session_state.question_index == 0:
+        st.header("Información Personal")
+        st.session_state.sector_trabajo = st.radio("Porfavor seleccione el sector que mejor describa su trabajo:", [ "Educación", "Matemáticas y Estadistica", "Economia" ], index=None) #ACABARLO
+        st.session_state.years_working = st.radio("¿Cuántos años de experiéncia tiene en este ámbito? :", ["Menor de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"], index=None)
+        st.session_state.country = st.text_input("Correo Electrónico (opcional):") # Hacerla para seleccionar todos los countries 
+        
+        if st.button("Continuar"):
+            if st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country:
+                save_personal_info_work_life(st.session_state.sector_trabajo, st.session_state.years_working, st.session_state.country)  # Guardar información personal
+                st.success("Enviado con éxito!")
+                st.button("Siguiente")
+                next_question()  # Go to next question 
+            else:
+                st.warning("Por favor, ingresa los datos. ")
+                
+
     else:     
         # Lista de preguntas
         questions = [
