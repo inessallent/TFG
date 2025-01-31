@@ -165,6 +165,12 @@ def cuestions():
 st.markdown(
     """
     <style>
+    
+        /* Cambiar el color de la flecha que abre/cierra el sidebar */
+        .css-1lcbmhc .exg6vvm10 {
+            color: #007BFF !important; /* Azul */
+        }
+        
         /* Cambiar el color del texto en el sidebar */
         .css-1d391kg {
             color: white !important;
