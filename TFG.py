@@ -1,6 +1,5 @@
 import streamlit as st # type: ignore
 import pandas as pd # type: ignore 
-# from streamlit_extras.metric_cards import style_metric_cards  #type ignore 
 import os  
 import tempfile
 import re 
@@ -132,7 +131,7 @@ def cuestions():
         st.header("Información Personal")
         st.session_state.sector_trabajo = st.radio("Porfavor seleccione el sector que mejor describa su trabajo o Estudios (en el caso que sea estudiante):", [ "Artes y Humanidades", "Negocios y Economía", "Ciencias de la Computación e Informática", "Educación", "Ingeniería y Tecnologia","Ciencias Ambientales y de la Tierra", "Salud y Medicina", "Derecho y Estudios Legales", "Ciencias de la Vida y Biología", "Matemáticas y Estadística", "Ciencias Físicas (p. ej., Física, Química)", "Ciencias Sociales", "Otros" ], index=None) #ACABARLO
         st.session_state.years_working = st.radio("¿Cuántos años de experiéncia tiene en este ámbito? :", ["Menor de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"], index=None)
-        st.session_state.country = st.selectbox("Porfavor seleccione su país de residéncia:" ,["España", "México", "Argentina", "Colombia", "Chile", "Otro"], index=None) # Hacerla para seleccionar todos los countries 
+        st.session_state.country = st.selectbox("Porfavor seleccione su país de residéncia:" ,["España", "Francia", "Estados Unidos", "México", "Argentina", "Colombia", "Chile", "Otro"], index=None) # Hacerla para seleccionar todos los countries 
         
         if st.button("Continuar"):
             if st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country:
@@ -197,8 +196,6 @@ def main():
         if st.button("Enviar"):
             st.success("¡Mensaje enviado con éxito!")
 
-
-    # style_metric_cards(border_left_color="#e1ff8b",background_color="#222222")
 
 if __name__ == "__main__":
     main() 
