@@ -10,7 +10,7 @@ def create_csv():
     csv_path = os.path.join(tempfile.gettempdir(), 'respuestas.csv')
     if not os.path.isfile('respuestas.csv'):
         # Crear un archivo CSV con encabezados si no existe
-        pd.DataFrame(columns=['Nombre', 'Apellido', 'Género', 'Correo Electrónico', 'Pregunta', 'Respuesta']).to_csv('respuestas.csv', index=False)
+        pd.DataFrame(columns=['Nombre', 'Apellido', 'Género', 'Correo Electrónico', 'Edad', 'Pregunta', 'Respuesta']).to_csv('respuestas.csv', index=False)
 
 # Validar el formato del correo electrónico
 def is_valid_email(email):
@@ -19,7 +19,7 @@ def is_valid_email(email):
     return re.match(email_regex, email) is not None
 
 # Save answers in a CSV
-def save_personal_info(nombre, apellido, genero, correo):
+def save_personal_info(nombre, apellido, genero, correo, edad):
     # csv_path = os.path.join(tempfile.gettempdir(), 'respuestas.csv')
 
     # Verificar si el archivo CSV ya existe
@@ -31,6 +31,7 @@ def save_personal_info(nombre, apellido, genero, correo):
         'Apellido': [apellido],
         'Género': [genero],
         'Correo Electrónico': [correo],
+        'Edad' : [edad],
     })
     
     # Guardar en CSV, si el archivo ya existe, agregar sin encabezados
@@ -96,19 +97,20 @@ def cuestions():
         st.header("Información Personal")
         st.session_state.nombre = st.text_input("Nombre:")
         st.session_state.apellido = st.text_input("Apellido:")
-        st.session_state.genero = st.radio("Género:", ["Femenino", "Masculino", "No binario"], index=None)
+        st.session_state.genero = st.radio("Género:", ["Femenino", "Masculino", "No binario", "Prefiero no decirlo"], index=None)
+        st.session_state.age = st.radio("Edad:", ["Menor de 18", "18 - 24", "25 - 34", "35- 44", "55 - 64", "mayor de 64", "Prefiero no decirlo"], index=None)
         st.session_state.correo = st.text_input("Correo Electrónico (opcional):")
         
         if st.button("Continuar"):
             if st.session_state.correo and not is_valid_email(st.session_state.correo):
                     st.warning("Por favor, ingresa un correo electrónico válido.")
-            if st.session_state.nombre and st.session_state.apellido and st.session_state.genero:
-                save_personal_info(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo)  # Guardar información personal
+            if st.session_state.nombre and st.session_state.apellido and st.session_state.genero and st.session_state.age:
+                save_personal_info(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo, st.session_state.age)  # Guardar información personal
                 st.success("Enviado con éxito!")
                 st.button("Siguiente")
                 next_question()  # Go to next question 
             else:
-                st.warning("Por favor, ingresa tu nombre, apellido y género.")
+                st.warning("Por favor, ingresa tu nombre, apellido, género y edad. Gracias. ")
     else:     
         # Lista de preguntas
         questions = [
