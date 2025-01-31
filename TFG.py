@@ -170,14 +170,14 @@ st.markdown(
             color: white !important;
         }
         
-        /* Cambiar el color de fondo del sidebar */
-        section[data-testid="stSidebar"] {
-            background-color: #4A90E2;
-        }
+        # /* Cambiar el color de fondo del sidebar */
+        # section[data-testid="stSidebar"] {
+        #     background-color: #4A90E2;
+        # }
 
         /* Cambiar color de la flecha del selectbox */
-        div[data-baseweb="select"] > div {
-            color: white !important;
+        div[data-baseweb="select"] svg {
+            fill: #007BFF !important; /* Azul */
         }
     </style>
     """,
