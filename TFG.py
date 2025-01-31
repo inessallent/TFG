@@ -109,7 +109,7 @@ def cuestions():
         st.session_state.question_index = -1  # Comenzar desde la primera pregunta
         st.session_state.selected_option = None  # Opción seleccionada
         
-    if st.session_state.question_index == 0:
+    elif st.session_state.question_index == 0:
         st.header("Información Personal")
         st.session_state.sector_trabajo = st.radio("Porfavor seleccione el sector que mejor describa su trabajo:", [ "Educación", "Matemáticas y Estadistica", "Economia" ], index=None) #ACABARLO
         st.session_state.years_working = st.radio("¿Cuántos años de experiéncia tiene en este ámbito? :", ["Menor de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"], index=None)
