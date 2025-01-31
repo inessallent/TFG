@@ -185,6 +185,17 @@ st.markdown(
         # div[data-baseweb="select"] svg {
         #     fill: #007BFF !important; /* Azul */
         # }
+        
+        ### Dejar abierta la sidebar al principio
+        /* Ocultar la flecha de colapso del sidebar */
+        [data-testid="collapsedControl"] {
+            visibility: hidden;
+        }
+
+        /* Ajustar el ancho inicial del sidebar */
+        section[data-testid="stSidebar"] {
+            width: 300px !important;
+        }
     </style>
     """,
     unsafe_allow_html=True
