@@ -87,11 +87,11 @@ def display_question(questions):
 
     # Mostrar pregunta
     st.header(f"Question {st.session_state.question_index }:")
-    answer =  st.radio(current_question["question"], current_question["options"],index=None)
+    answer =  st.radio(current_question["question"], current_question["options"],index=0)
 
     # Next question + video
     if st.button("Enviar"):
-        if answer:
+        if answer is not None and answer != "":
             save_response(current_question["question"], answer)
             st.success("Enviado con éxito!")
             st.button("Siguiente")
@@ -199,8 +199,8 @@ def main():
     
     # Sidebar para la navegación
     st.sidebar.title("Navegación") #Title 
-    UPF_logo_path = os.path.join("Media", "Logos", "UPF_logo.png")
-    st.sidebar.image(UPF_logo_path)  #Upload Logo
+    # UPF_logo_path = os.path.join("Media", "Logos", "UPF_logo.png")
+    # st.sidebar.image(UPF_logo_path)  #Upload Logo
     page_web = st.sidebar.selectbox("Selecciona una sección:", ["Cuestionario", "Sobre Nosotros", "Contacto"])
 
 
