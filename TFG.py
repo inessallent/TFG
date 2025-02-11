@@ -94,7 +94,7 @@ def display_question(questions):
         if answer is not None and answer != "":
             save_response(current_question["question"], answer)
             st.success("Enviado con éxito!")
-            st.button("Siguiente")
+            # st.button("Siguiente")
             next_question()  # Go to next question 
         else:
             st.warning("Por favor, selecciona una opción antes de continuar.")
@@ -122,7 +122,7 @@ def cuestions():
             if st.session_state.nombre and st.session_state.apellido and st.session_state.genero and st.session_state.age:
                 save_personal_info(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo, st.session_state.age)  # Guardar información personal
                 st.success("Enviado con éxito!")
-                st.button("Siguiente")
+                # st.button("Siguiente")
                 next_question()  # Go to next question 
             else:
                 st.warning("Por favor, ingresa tu nombre, apellido, género y edad. Gracias. ")   
@@ -137,7 +137,7 @@ def cuestions():
             if st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country:
                 save_personal_info_work_life(st.session_state.sector_trabajo, st.session_state.years_working, st.session_state.country)  # Guardar información personal
                 st.success("Enviado con éxito!")
-                st.button("Siguiente")
+                # st.button("Siguiente")
                 next_question()  # Go to next question 
             else:
                 st.warning("Por favor, ingresa los datos. ")
