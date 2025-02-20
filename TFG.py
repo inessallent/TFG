@@ -4,6 +4,16 @@ import os
 import tempfile
 import re 
 
+
+# Opciones de respuesta en escala de 5
+SCALE_OPTIONS = [
+    "Totalmente en desacuerdo",
+    "En desacuerdo",
+    "Neutral",
+    "De acuerdo",
+    "Totalmente de acuerdo"
+]
+
 #Create CSV
 def create_csv():
     csv_path = os.path.join(tempfile.gettempdir(), 'respuestas.csv')
@@ -80,14 +90,24 @@ def next_video(question_index):
 
 # Display Question
 def display_question(questions):
-    current_question = questions[st.session_state.question_index - 1]  # -1 because index 0 is for personal info
     
-    # Mostrar el video 
-    next_video(st.session_state.question_index - 1)
-
-    # Mostrar pregunta
-    st.header(f"Question {st.session_state.question_index }:")
-    answer =  st.radio(current_question["question"], current_question["options"],index=0)
+    current_question = questions[st.session_state.question_index - 1]  # -1 because index 0 is for personal info
+    next_video(st.session_state.question_index - 1) # Mostrar el video 
+    
+    st.header(f"Pregunta {st.session_state.question_index}:")
+    answer = st.radio(current_question["question"], SCALE_OPTIONS, index=None)
+    #
+       
+    
+    # answer_index = st.slider(
+    #     label=current_question["question"],
+    #     min_value=0,
+    #     max_value=4,
+    #     step=1,
+    #     format=SCALE_OPTIONS[0],  # Muestra el primer valor como referencia
+    #     key=f"q{st.session_state.question_index}"
+    # )
+    # answer = SCALE_OPTIONS[answer_index]
 
     # Next question + video
     if st.button("Enviar"):
@@ -122,7 +142,6 @@ def cuestions():
             if st.session_state.nombre and st.session_state.apellido and st.session_state.genero and st.session_state.age:
                 save_personal_info(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo, st.session_state.age)  # Guardar información personal
                 st.success("Enviado con éxito!")
-                # st.button("Siguiente")
                 next_question()  # Go to next question 
             else:
                 st.warning("Por favor, ingresa tu nombre, apellido, género y edad. Gracias. ")   
@@ -137,7 +156,6 @@ def cuestions():
             if st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country:
                 save_personal_info_work_life(st.session_state.sector_trabajo, st.session_state.years_working, st.session_state.country)  # Guardar información personal
                 st.success("Enviado con éxito!")
-                # st.button("Siguiente")
                 next_question()  # Go to next question 
             else:
                 st.warning("Por favor, ingresa los datos. ")
@@ -146,17 +164,13 @@ def cuestions():
     else:     
         # Lista de preguntas
         questions = [
-            {
-                "question": "What would you choose?",
-                "options": ["Option A", "Option B", "Option C"]
-            },
-            {
-                "question": "What is your favorite color?",
-                "options": ["Red", "Blue", "Green"]
-            },    
+            {"question": "El trabajo en equipo es esencial para el éxito."},
+            {"question": "Me siento motivado en mi trabajo actual."},  # Aquí estaba el error
+            {"question": "HOLAAA."}   
         ]
+        
         # Mostrar la pregunta actual
-        if st.session_state.question_index <= len(questions):
+        if st.session_state.question_index - 1 < len(questions):
             display_question(questions)
         else:
             st.write("Gracias por completar el cuestionario!")
