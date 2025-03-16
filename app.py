@@ -230,18 +230,16 @@ def main():
     
     # Sidebar para la navegación
     st.sidebar.title("Navegación") #Title 
-    # UPF_logo_path = os.path.join("Media", "Logos", "UPF_logo.png")
-    # st.sidebar.image(UPF_logo_path)  #Upload Logo
     page_web = st.sidebar.selectbox("Selecciona una sección:", [textos["cuestionario"], textos["sobre_nosotros"], textos["contacto"]])
 
 
     #Cuestionario
-    if page_web == "Cuestionario":
+    if page_web == textos["cuestionario"]:
         cuestions()            
     
     #Sobre Nosotros   
     elif page_web == "Sobre Nosotros":
-        st.title('Sobre Nosotros')
+        st.title(textos['Sobre Nosotros'])
         st.write("This questionnaire is part of the final project from my degree.")
 
     #Contacto 
