@@ -6,8 +6,9 @@ import re
 import importlib
 
 
+
 # Sidebar para seleccionar idioma
-st.sidebar.title("Selecciona el idioma")
+st.sidebar.title("Seleccionar Idioma")
 idioma = st.sidebar.radio("Idioma", ["Castellano", "English", "Català"])
 
 # Importar módulo de idioma seleccionado
@@ -21,14 +22,16 @@ idiomas_dict = {
 modulo_idioma = importlib.import_module(idiomas_dict[idioma])
 textos = modulo_idioma.textos  # Cargar los textos del idioma seleccionado
 
+# Depuración: imprimir los textos para verificar que se han cargado correctamente
+# st.write("Textos cargados:", textos)
 
 # Opciones de respuesta en escala de 5
 SCALE_OPTIONS = [
-    "Totalmente en desacuerdo",
-    "En desacuerdo",
-    "Neutral",
-    "De acuerdo",
-    "Totalmente de acuerdo"
+    textos["totalmente_en_desacuerdo"],
+    textos["en_desacuerdo"],
+    textos["neutral"],
+    textos["de_acuerdo"],
+    textos["totalmente_de_acuerdo"]
 ]
 
 #Create CSV
@@ -102,7 +105,7 @@ def next_video(question_index):
     if os.path.isfile(video_path):
         st.video(video_path, format="video/mp4", start_time=0)
     else:
-        st.error("El video no se encontró en la ruta especificada.")
+        st.error(textos["video_no_encontrado"])
         
 
 # Display Question
@@ -113,9 +116,7 @@ def display_question(questions):
     
     st.header(f"Pregunta {st.session_state.question_index}:")
     answer = st.radio(current_question["question"], SCALE_OPTIONS, index=None)
-    #
-       
-    
+        
     # answer_index = st.slider(
     #     label=current_question["question"],
     #     min_value=0,
@@ -134,11 +135,11 @@ def display_question(questions):
             # st.button("Siguiente")
             next_question()  # Go to next question 
         else:
-            st.warning("Por favor, selecciona una opción antes de continuar.")
+            st.warning(textos["selecciona_opción"])
 
 def cuestions():
     
-    st.title('Cuestionario')
+    st.title(textos["cuestionario"])
     
     # Inicializar el estado de la sesión si no existe
     if 'question_index' not in st.session_state:
@@ -146,27 +147,27 @@ def cuestions():
         st.session_state.selected_option = None  # Opción seleccionada
     
     if st.session_state.question_index == -1:
-        st.header("Información Personal")
-        st.session_state.nombre = st.text_input("Nombre:")
-        st.session_state.apellido = st.text_input("Apellido:")
-        st.session_state.genero = st.radio("Género:", ["Femenino", "Masculino", "No binario", "Prefiero no decirlo"], index=None)
-        st.session_state.age = st.radio("Edad:", ["Menor de 18", "18 - 24", "25 - 34", "35- 44", "55 - 64", "mayor de 64", "Prefiero no decirlo"], index=None)
-        st.session_state.correo = st.text_input("Correo Electrónico (opcional):")
+        st.header(textos["info_personal"])
+        st.session_state.nombre = st.text_input(textos["nombre"])
+        st.session_state.apellido = st.text_input(textos["apellido"])
+        st.session_state.genero = st.radio(textos["pregunta_genero"], textos["genero_opciones"], index=None)
+        st.session_state.age = st.radio(textos["pregunta_edad"], textos["edad_opciones"], index=None)
+        st.session_state.correo = st.text_input(textos["opcion_correo"])
         
-        if st.button("Continuar"):
+        if st.button(textos["boton_continuar"]):
             if st.session_state.correo and not is_valid_email(st.session_state.correo):
-                    st.warning("Por favor, ingresa un correo electrónico válido.")
+                    st.warning(textos["error_correo"])
             if st.session_state.nombre and st.session_state.apellido and st.session_state.genero and st.session_state.age:
                 save_personal_info(st.session_state.nombre, st.session_state.apellido, st.session_state.genero, st.session_state.correo, st.session_state.age)  # Guardar información personal
-                st.success("Enviado con éxito!")
+                st.success(textos["enviado_con_éxtio"])
                 next_question()  # Go to next question 
             else:
-                st.warning("Por favor, ingresa tu nombre, apellido, género y edad. Gracias. ")   
+                st.warning(textos["advertencia_faltan_datos"])   
                 
     elif st.session_state.question_index == 0:
-        st.header("Información Personal")
-        st.session_state.sector_trabajo = st.radio("Porfavor seleccione el sector que mejor describa su trabajo o Estudios (en el caso que sea estudiante):", [ "Artes y Humanidades", "Negocios y Economía", "Ciencias de la Computación e Informática", "Educación", "Ingeniería y Tecnologia","Ciencias Ambientales y de la Tierra", "Salud y Medicina", "Derecho y Estudios Legales", "Ciencias de la Vida y Biología", "Matemáticas y Estadística", "Ciencias Físicas (p. ej., Física, Química)", "Ciencias Sociales", "Otros" ], index=None) #ACABARLO
-        st.session_state.years_working = st.radio("¿Cuántos años de experiéncia tiene en este ámbito? :", ["Menor de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"], index=None)
+        st.header(textos["información_personal"])
+        st.session_state.sector_trabajo = st.radio(textos["pregunta_sector_estudio_trabajo"], textos["opciones_sector"], index=None) #ACABARLO
+        st.session_state.years_working = st.radio(textos["pregunta_experiencia"], textos["opciones_experiencia"], index=None)
         st.session_state.country = st.selectbox("Porfavor seleccione su país de residéncia:" ,["España", "Francia", "Estados Unidos", "México", "Argentina", "Colombia", "Chile", "Otro"], index=None) # Hacerla para seleccionar todos los countries 
         
         if st.button("Continuar"):
@@ -229,29 +230,29 @@ def main():
     create_csv()  
     
     # Sidebar para la navegación
-    st.sidebar.title("Navegación") #Title 
+    st.sidebar.title(textos["navegacion"]) #Title 
     # UPF_logo_path = os.path.join("Media", "Logos", "UPF_logo.png")
     # st.sidebar.image(UPF_logo_path)  #Upload Logo
-    page_web = st.sidebar.selectbox("Selecciona una sección:", [textos["cuestionario"], textos["sobre_nosotros"], textos["contacto"]])
+    page_web = st.sidebar.selectbox(textos["selecciona_una_seccion"], [textos["cuestionario"], textos["sobre_nosotros"], textos["contacto"]])
 
 
     #Cuestionario
-    if page_web == "Cuestionario":
+    if page_web == textos["cuestionario"]:
         cuestions()            
     
     #Sobre Nosotros   
-    elif page_web == "Sobre Nosotros":
-        st.title('Sobre Nosotros')
-        st.write("This questionnaire is part of the final project from my degree.")
+    elif page_web == textos["sobre_nosotros"]:
+        st.title(textos["sobre_nosotros"])
+        st.write(textos["info_sobre_nosotros"])
 
     #Contacto 
-    elif page_web == "Contacto":
-        st.title("Contacto")
-        st.write("Si deseas ponerte en contacto con nosotros, por favor completa el siguiente formulario:")
-        email = st.text_input("Tu correo electrónico:")
-        mensaje = st.text_area("Tu mensaje:")
-        if st.button("Enviar"):
-            st.success("¡Mensaje enviado con éxito!")
+    elif page_web == textos["contacto"]:
+        st.title(textos["contacto"])
+        st.write(textos["info_contacto"])
+        email = st.text_input(textos["correo_electronico_contacto"])
+        mensaje = st.text_area(textos["mensaje"])
+        if st.button(textos["enviar"]):
+            st.success(textos["mensaje_enviado"])
 
 
 if __name__ == "__main__":
