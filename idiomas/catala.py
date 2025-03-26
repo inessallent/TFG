@@ -28,7 +28,9 @@ textos = {
     "pregunta_sector_estudio_trabajo": "Si us plau, selecciona el sector que millor descrigui la teva feina o estudis (en el cas que siguis estudiant):", 
     "opciones_sector": ["Arts i Humanitats", "Negocis i Economia", "Ciències de la Computació i Informàtica", "Educació", "Enginyeria i Tecnologia", "Ciències Ambientals i de la Terra", "Salut i Medicina", "Dret i Estudis Legals", "Ciències de la Vida i Biologia", "Matemàtiques i Estadística", "Ciències Físiques (p. ex., Física, Química)", "Ciències Socials", "Altres"],
     "pregunta_experiencia": "Quants anys d'experiència tens en aquest àmbit?:", 
-    "opciones_experiencia": ["Menys d'1 any", "1 - 3 anys", "4 - 6 anys", "7 - 10 anys", "Més de 10 anys"],   
+    "opciones_experiencia": ["Menys d'1 any", "1 - 3 anys", "4 - 6 anys", "7 - 10 anys", "Més de 10 anys"], 
+    "Gracias_por_contestar_el_formulario": "Moltes gràcies per contestar el formulari!",
+  
     
     # Texts main
     "navegacion": "Navegació", 

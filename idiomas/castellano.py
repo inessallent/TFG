@@ -1,6 +1,3 @@
-import streamlit as st
-
-
 textos = {
     "seleccionar_idioma": "Selecciona el idioma",    
     "totalmente_en_desacuerdo" : "Totalmente en desacuerdo",
@@ -27,7 +24,8 @@ textos = {
     "pregunta_sector_estudio_trabajo" : "Porfavor seleccione el sector que mejor describa su trabajo o Estudios (en el caso que sea estudiante):", 
     "opciones_sector": ["Artes y Humanidades", "Negocios y Economía", "Ciencias de la Computación e Informática", "Educación", "Ingeniería y Tecnologia","Ciencias Ambientales y de la Tierra", "Salud y Medicina", "Derecho y Estudios Legales", "Ciencias de la Vida y Biología", "Matemáticas y Estadística", "Ciencias Físicas (p. ej., Física, Química)", "Ciencias Sociales", "Otros"],
     "pregunta_experiencia": "¿Cuántos años de experiéncia tiene en este ámbito?: ", 
-    "opciones_experiencia": ["Menor de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"],   
+    "opciones_experiencia": ["Menor de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"],  
+    "Gracias_por_contestar_el_formulario": "Muchas gracias por contestar el formulario!",
     
     #Textos main
     "navegacion": "Navegación", 

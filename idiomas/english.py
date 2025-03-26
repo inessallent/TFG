@@ -26,7 +26,9 @@ textos = {
     "pregunta_sector_estudio_trabajo": "Please select the sector that best describes your work or studies (if you are a student):", 
     "opciones_sector": ["Arts and Humanities", "Business and Economics", "Computer Science and IT", "Education", "Engineering and Technology", "Environmental and Earth Sciences", "Health and Medicine", "Law and Legal Studies", "Life Sciences and Biology", "Mathematics and Statistics", "Physical Sciences (e.g., Physics, Chemistry)", "Social Sciences", "Other"],
     "pregunta_experiencia": "How many years of experience do you have in this field?:", 
-    "opciones_experiencia": ["Less than 1 year", "1 - 3 years", "4 - 6 years", "7 - 10 years", "More than 10 years"],   
+    "opciones_experiencia": ["Less than 1 year", "1 - 3 years", "4 - 6 years", "7 - 10 years", "More than 10 years"], 
+    "Gracias_por_contestar_el_formulario": "Thank you so much for answering this form!",
+  
     
     # Main texts
     "navegacion": "Navigation", 
