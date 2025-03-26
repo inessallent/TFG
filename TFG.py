@@ -25,7 +25,7 @@ idiomas_dict = {
 modulo_idioma = importlib.import_module(idiomas_dict[idioma])
 textos = modulo_idioma.textos  # Cargar los textos del idioma seleccionado
 
-# Depuración: imprimir los textos para verificar que se han cargado correctamente
+# Depuración diccionarios
 # st.write("Textos cargados:", textos)
 
 # Opciones de respuesta en escala de 5
@@ -45,7 +45,7 @@ def is_valid_email(email):
 
 # Save answers in New CSV
 def save_response_to_gsheets(nombre, apellido, correo, genero, edad, sector_trabajo, years_working, country, answers):
-    # Obtener la hoja actual
+    
     df = conn.read()
 
     # Crear nueva fila con timestamp
@@ -85,13 +85,13 @@ def save_response_to_gsheets(nombre, apellido, correo, genero, edad, sector_trab
     # **Actualizar usando `conn.update()` sumando la nueva fila**
     df_actualizado = pd.concat([df, nueva_fila], ignore_index=True)
     
-    # 🚨 **Verificar el resultado antes de subir**
-    print("DataFrame actualizado:", df_actualizado.tail())
+    # Verificar el resultado (Depuración)
+    #print("DataFrame actualizado:", df_actualizado.tail())
 
     # Subir la nueva fila (sin sobrescribir todo)
     conn.update(data=df_actualizado)
     
-    st.success("¡Respuestas guardadas correctamente!")
+    st.success(textos["enviado_con_éxtio"])
 
 
 # Next Question
@@ -197,8 +197,8 @@ def cuestions():
                 personal_data = st.session_state.personal_data
                 work_info = st.session_state.work_info
                 
-                st.write("Datos personales guardados:", st.session_state.personal_data) #para ver si funciona
-                st.write("Información laboral guardada:", st.session_state.work_info) #para ver si
+                # st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
+                # st.write("Información laboral guardada:", st.session_state.work_info) #Depuración
                 
                 save_response_to_gsheets(
                     personal_data["nombre"],
@@ -215,7 +215,7 @@ def cuestions():
                 # Limpiar respuestas después de guardar
                 st.session_state.answers = []
 
-                st.success(textos["enviado_con_éxtio"])
+                
 
 # Aplicar estilos CSS personalizados
 st.markdown(
