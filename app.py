@@ -98,6 +98,8 @@ def save_response_to_gsheets(nombre, apellido, correo, genero, edad, sector_trab
 def next_question():
     st.session_state.question_index += 1
     st.session_state.selected_option = None  # Restablecer la opción seleccionada
+    st.rerun()  # Forzar la actualización inmediata de la interfaz
+
 
 def next_video(question_index):
     video_path = os.path.join("Media", "Questionarios_videos", f"Q{question_index + 1}.mp4")
@@ -114,14 +116,13 @@ def display_question(questions):
     next_video(st.session_state.question_index - 1) # Mostrar el video 
     
     st.header(f"Pregunta {st.session_state.question_index}:")
-    answer = st.radio(current_question["question"], SCALE_OPTIONS, index=None)
+    answer = st.radio(current_question["question"], SCALE_OPTIONS, index=None,  key=f"question_{st.session_state.question_index}")
         
 
     if st.button(textos["boton_continuar"]):
         if answer:  # Verificar que haya una respuesta seleccionada
-            # Guardar la respuesta temporalmente en la lista
-            st.session_state.answers.append(answer)
-            next_question()  # Pasar a la siguiente pregunta
+            st.session_state.answers.append(answer) # Guardar la respuesta temporalmente en la lista
+            next_question()  
         else:
             st.warning(textos["selecciona_opción"])  # Mostrar advertencia si no se ha seleccionado respuesta
 
@@ -161,6 +162,9 @@ def cuestions():
                     "edad": st.session_state.age
                 }
                 next_question()  # Avanzamos a la siguiente pregunta
+                st.write(f"Después de next_question (personal): {st.session_state.question_index}") # Añade esto
+            st.write(f"Después del botón (personal): {st.session_state.question_index}") # Añade esto
+
 
     elif st.session_state.question_index == 0:
         st.header(textos["información_personal"])
