@@ -3,6 +3,7 @@ import pandas as pd # type: ignore
 import os  
 import tempfile
 import re 
+import dns.resolver
 import importlib
 import datetime 
 from streamlit_gsheets import GSheetsConnection 
@@ -39,9 +40,10 @@ SCALE_OPTIONS = [
 
 # Validar el formato del correo electrónico
 def is_valid_email(email):
-    # Expresión regular para validar el formato del correo electrónico
-    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    # Regex que permite múltiples subdominios
+    email_regex = r"^(?=.{1,256}$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,24}$"
     return re.match(email_regex, email) is not None
+
 
 # Save answers in New CSV
 def save_response_to_gsheets(nombre, apellido, correo, genero, edad, sector_trabajo, years_working, country, answers):
@@ -98,6 +100,7 @@ def save_response_to_gsheets(nombre, apellido, correo, genero, edad, sector_trab
 def next_question():
     st.session_state.question_index += 1
     st.session_state.selected_option = None  # Restablecer la opción seleccionada
+    st.rerun()  # Forzar la actualización inmediata de la interfaz
 
 def next_video(question_index):
     video_path = os.path.join("Media", "Questionarios_videos", f"Q{question_index + 1}.mp4")
@@ -114,16 +117,17 @@ def display_question(questions):
     next_video(st.session_state.question_index - 1) # Mostrar el video 
     
     st.header(f"Pregunta {st.session_state.question_index}:")
-    answer = st.radio(current_question["question"], SCALE_OPTIONS, index=None)
+    answer = st.radio(current_question["question"], SCALE_OPTIONS, index=None, key=f"question_{st.session_state.question_index}")
         
 
     if st.button(textos["boton_continuar"]):
-        if answer:  # Verificar que haya una respuesta seleccionada
-            # Guardar la respuesta temporalmente en la lista
-            st.session_state.answers.append(answer)
-            next_question()  # Pasar a la siguiente pregunta
-        else:
+        if not answer:  # Verificar que haya una respuesta seleccionada
             st.warning(textos["selecciona_opción"])  # Mostrar advertencia si no se ha seleccionado respuesta
+            st.stop() 
+            
+        else:
+            st.session_state.answers.append(answer) # Guardar la respuesta temporalmente en la lista
+            next_question()  
 
 def cuestions():
     st.title(textos["cuestionario"])
@@ -149,10 +153,30 @@ def cuestions():
         st.session_state.correo = st.text_input(textos["opcion_correo"])
 
         if st.button(textos["boton_continuar"]):
-            if st.session_state.correo and not is_valid_email(st.session_state.correo):
-                st.warning(textos["error_correo"])
-            if st.session_state.nombre and st.session_state.apellido and st.session_state.genero and st.session_state.age:
-                # Guardamos los datos personales en el estado de la sesión
+            errores = []
+            
+            if not st.session_state.nombre:
+                errores.append(textos["error_nombre"])
+            
+            if not st.session_state.apellido:
+                errores.append(textos["error_apellido"])
+            
+            if not st.session_state.genero:
+                errores.append(textos["error_genero"])
+            
+            if not st.session_state.age:
+                errores.append(textos["error_age"])
+        
+                
+            # if st.session_state.correo and not is_valid_email(st.session_state.correo):
+            #     errores.append(textos["error_correo"])  # Formato inválido
+            
+            if errores:
+                for error in errores:
+                    st.warning(error)
+                return #Deter ejecucion si hay errores
+                
+            else:
                 st.session_state.personal_data = {
                     "nombre": st.session_state.nombre,
                     "apellido": st.session_state.apellido,
@@ -160,7 +184,8 @@ def cuestions():
                     "correo": st.session_state.correo,
                     "edad": st.session_state.age
                 }
-                next_question()  # Avanzamos a la siguiente pregunta
+            
+            next_question()  # Avanzamos a la siguiente pregunta
 
     elif st.session_state.question_index == 0:
         st.header(textos["información_personal"])

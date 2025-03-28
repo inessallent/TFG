@@ -19,7 +19,6 @@ textos = {
     "boton_continuar": "Continuar", 
     "error_correo": "Por favor, ingresa un correo electrónico válido.",
     "enviado_con_éxtio": "Enviado con éxito!",
-    "advertencia_faltan_datos" : "Por favor, ingresa tu nombre, apellido, género y edad. Gracias.", 
     "información_personal": "Información Personal",
     "pregunta_sector_estudio_trabajo" : "Porfavor seleccione el sector que mejor describa su trabajo o Estudios (en el caso que sea estudiante):", 
     "opciones_sector": ["Artes y Humanidades", "Negocios y Economía", "Ciencias de la Computación e Informática", "Educación", "Ingeniería y Tecnologia","Ciencias Ambientales y de la Tierra", "Salud y Medicina", "Derecho y Estudios Legales", "Ciencias de la Vida y Biología", "Matemáticas y Estadística", "Ciencias Físicas (p. ej., Física, Química)", "Ciencias Sociales", "Otros"],
@@ -38,4 +37,12 @@ textos = {
     "mensaje": "Mensaje: ", 
     "enviar": "Enviar", 
     "mensaje_enviado": "¡Mensaje enviado con éxito!", 
+    
+    #Errores
+    "error_nombre": "Por favor, ingrese su nombre. ",
+    "error_apellido": "Por favor, ingrese su apellido. ",
+    "error_genero": "Por favor, ingrese su genero. ",
+    "error_correo": "Correo electrónico no válido. ",
+    "error_age": "Por favor, ingrese su edad. ",
+    
 }

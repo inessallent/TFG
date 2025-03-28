@@ -42,5 +42,12 @@ textos = {
     "correo_electronico_contacto": "Correu electrònic: ", 
     "mensaje": "Missatge: ", 
     "enviar": "Enviar", 
-    "mensaje_enviado": "Missatge enviat amb èxit!",    
+    "mensaje_enviado": "Missatge enviat amb èxit!",  
+    
+    #Errores
+    "error_nombre": "Si us plau, introdueixi el seu nom. ",  
+    "error_apellido": "Si us plau, introdueixi el seu cognom. ",  
+    "error_genero": "Si us plau, introdueixi el seu gènere. ",  
+    "error_correo": "Correu electrònic no vàlid. ",  
+    "error_age": "Si us plau, introdueixi la seva edat. ",  
 }

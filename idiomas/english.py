@@ -41,4 +41,11 @@ textos = {
     "mensaje": "Message: ", 
     "enviar": "Send", 
     "mensaje_enviado": "Message sent successfully!", 
+    
+    #Errores
+    "error_nombre": "Please enter your name. ",  
+    "error_apellido": "Please enter your surname. ",  
+    "error_genero": "Please enter your gender. ",  
+    "error_correo": "Email address not valid. ",  
+    "error_age": "Please enter your age. ",  
 }
