@@ -194,7 +194,12 @@ def cuestions():
         st.session_state.country = st.selectbox(textos["pregunta_sector_estudio_trabajo"], ["España", "Francia", "Estados Unidos", "México", "Argentina", "Colombia", "Chile", "Otro"], index=None)
 
         if st.button(textos["boton_continuar"]):
-            if st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country:
+            
+            if not (st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country):
+                st.warning(textos["selecciona_opción"]) 
+                st.stop() 
+                
+            else:
                 # Guardamos esta información adicional en el estado de la sesión
                 st.session_state.work_info = {
                     "sector_trabajo": st.session_state.sector_trabajo,
