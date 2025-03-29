@@ -1,7 +1,8 @@
 # TFG
 This is the GitHub for the final project from my degree, the TFG at University Pomepu Fabra (UPF). 
 
-**Structure: **
+
+```plaintext
 .
 └── TFG/
     ├── .devcontainer/
@@ -9,7 +10,7 @@ This is the GitHub for the final project from my degree, the TFG at University P
     ├── .streamlit/
     │   └── secrets
     ├── idiomas/
-    │   ├── _pycache_
+    │   ├── __pycache__
     │   ├── castellano.py
     │   ├── catala.py
     │   └── english.py
@@ -22,4 +23,5 @@ This is the GitHub for the final project from my degree, the TFG at University P
     ├── TFG.py
     ├── README.md
     ├── requirements.txt
-    └── .gitgnore
+    └── .gitignore
+
