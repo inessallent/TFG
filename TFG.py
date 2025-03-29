@@ -31,11 +31,11 @@ textos = modulo_idioma.textos  # Cargar los textos del idioma seleccionado
 
 # Opciones de respuesta en escala de 5
 SCALE_OPTIONS = [
-    textos["totalmente_en_desacuerdo"],
-    textos["en_desacuerdo"],
-    textos["neutral"],
+    textos["totalmente_de_acuerdo"],
     textos["de_acuerdo"],
-    textos["totalmente_de_acuerdo"]
+    textos["neutral"],
+    textos["en_desacuerdo"],
+    textos["totalmente_en_desacuerdo"]
 ]
 
 # Validar el formato del correo electrónico
@@ -103,7 +103,7 @@ def next_question():
     st.rerun()  # Forzar la actualización inmediata de la interfaz
 
 def next_video(question_index):
-    video_path = os.path.join("Media", "Questionarios_videos", f"Q{question_index + 1}.mp4")
+    video_path = os.path.join("Media", "Videos_Questionarios", f"Q{question_index + 1}.mp4")
     if os.path.isfile(video_path):
         st.video(video_path, format="video/mp4", start_time=0)
     else:
