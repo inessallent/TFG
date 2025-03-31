@@ -16,19 +16,23 @@ textos = {
     "pregunta_genero": "Gender:",
     "genero_opciones": ["Female", "Male", "Non-binary", "Prefer not to say"],
     "pregunta_edad": "Age:",
-    "edad_opciones": ["Under 18", "18 - 24", "25 - 34", "35 - 44", "55 - 64", "Over 64", "Prefer not to say"],
+    "edad_opciones": ["Under 18", "18 - 24", "25 - 34", "35 - 44", "45 - 54", "55 - 64", "Over 64", "Prefer not to say"],
     "opcion_correo": "Email (optional):", 
     "boton_continuar": "Continue", 
     "error_correo": "Please enter a valid email address.",
     "enviado_con_éxtio": "Sent successfully!",
     "advertencia_faltan_datos": "Please enter your first name, last name, gender, and age. Thank you.", 
+    
+    
     "información_personal": "Personal Information",
+    "pregunta_nivel_estudio": "Education Level",
+    "opciones_nivel_estudios": ["Primary Education", "Secondary Education", "University Education (or higher than secondary)", "No Education", "Others"],
     "pregunta_sector_estudio_trabajo": "Please select the sector that best describes your work or studies (if you are a student):", 
     "opciones_sector": ["Arts and Humanities", "Business and Economics", "Computer Science and IT", "Education", "Engineering and Technology", "Environmental and Earth Sciences", "Health and Medicine", "Law and Legal Studies", "Life Sciences and Biology", "Mathematics and Statistics", "Physical Sciences (e.g., Physics, Chemistry)", "Social Sciences", "Other"],
     "pregunta_experiencia": "How many years of experience do you have in this field?:", 
     "opciones_experiencia": ["Less than 1 year", "1 - 3 years", "4 - 6 years", "7 - 10 years", "More than 10 years"], 
+    "pregunta_ciudad": "In which country do you reside?",
     "Gracias_por_contestar_el_formulario": "Thank you so much for answering this form!",
-  
     
     # Main texts
     "navegacion": "Navigation", 

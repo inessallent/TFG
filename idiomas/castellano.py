@@ -14,16 +14,21 @@ textos = {
     "pregunta_genero": "Género:",
     "genero_opciones": ["Femenino", "Masculino", "No binario", "Prefiero no decirlo"],
     "pregunta_edad": "Edad:",
-    "edad_opciones": ["Menor de 18", "18 - 24", "25 - 34", "35- 44", "55 - 64", "mayor de 64", "Prefiero no decirlo"],
+    "edad_opciones": ["Menor de 18", "18 - 24", "25 - 34", "35- 44", "45 - 54","55 - 64", "mayor de 64", "Prefiero no decirlo"],
     "opcion_correo": "Correo Electrónico (opcional):", 
     "boton_continuar": "Continuar", 
     "error_correo": "Por favor, ingresa un correo electrónico válido.",
     "enviado_con_éxtio": "Enviado con éxito!",
+    
+    #Preguntas Personales laborales
     "información_personal": "Información Personal",
+    "pregunta_nivel_estudio": "Nivel Estudios",
+    "opciones_nivel_estudios": ["Estudios primarios", "Estudios secundarios", "Estudios Universitarios (o supereriores a los secundarios)", "Sin estudios", "Otros"], 
     "pregunta_sector_estudio_trabajo" : "Porfavor seleccione el sector que mejor describa su trabajo o Estudios (en el caso que sea estudiante):", 
     "opciones_sector": ["Artes y Humanidades", "Negocios y Economía", "Ciencias de la Computación e Informática", "Educación", "Ingeniería y Tecnologia","Ciencias Ambientales y de la Tierra", "Salud y Medicina", "Derecho y Estudios Legales", "Ciencias de la Vida y Biología", "Matemáticas y Estadística", "Ciencias Físicas (p. ej., Física, Química)", "Ciencias Sociales", "Otros"],
     "pregunta_experiencia": "¿Cuántos años de experiéncia tiene en este ámbito?: ", 
     "opciones_experiencia": ["Menor de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"],  
+    "pregunta_ciudad": "¿En que país reside?",
     "Gracias_por_contestar_el_formulario": "Muchas gracias por contestar el formulario!",
     
     #Textos main

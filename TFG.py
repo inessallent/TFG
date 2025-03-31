@@ -46,15 +46,13 @@ def is_valid_email(email):
 
 
 # Save answers in New CSV
-def save_response_to_gsheets(nombre, apellido, correo, genero, edad, sector_trabajo, years_working, country, answers):
+def save_response_to_gsheets(correo, genero, edad, sector_trabajo, years_working, country, answers):
     
     df = conn.read()
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
         "Timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        'Nombre': nombre,
-        'Apellido': apellido,
         'Género': genero,
         'Correo Electrónico': correo,
         'Edad': edad,
@@ -146,20 +144,12 @@ def cuestions():
 
     if st.session_state.question_index == -1:
         st.header(textos["info_personal"])
-        st.session_state.nombre = st.text_input(textos["nombre"])
-        st.session_state.apellido = st.text_input(textos["apellido"])
         st.session_state.genero = st.radio(textos["pregunta_genero"], textos["genero_opciones"], index=None)
         st.session_state.age = st.radio(textos["pregunta_edad"], textos["edad_opciones"], index=None)
         st.session_state.correo = st.text_input(textos["opcion_correo"])
 
         if st.button(textos["boton_continuar"]):
             errores = []
-            
-            if not st.session_state.nombre:
-                errores.append(textos["error_nombre"])
-            
-            if not st.session_state.apellido:
-                errores.append(textos["error_apellido"])
             
             if not st.session_state.genero:
                 errores.append(textos["error_genero"])
@@ -178,8 +168,6 @@ def cuestions():
                 
             else:
                 st.session_state.personal_data = {
-                    "nombre": st.session_state.nombre,
-                    "apellido": st.session_state.apellido,
                     "genero": st.session_state.genero,
                     "correo": st.session_state.correo,
                     "edad": st.session_state.age
@@ -189,13 +177,14 @@ def cuestions():
 
     elif st.session_state.question_index == 0:
         st.header(textos["información_personal"])
+        st.session_state.nivel_estudios = st.radio(textos["pregunta_nivel_estudio"], textos["opciones_nivel_estudios"], index=None)
         st.session_state.sector_trabajo = st.radio(textos["pregunta_sector_estudio_trabajo"], textos["opciones_sector"], index=None)
         st.session_state.years_working = st.radio(textos["pregunta_experiencia"], textos["opciones_experiencia"], index=None)
-        st.session_state.country = st.selectbox(textos["pregunta_sector_estudio_trabajo"], ["España", "Francia", "Estados Unidos", "México", "Argentina", "Colombia", "Chile", "Otro"], index=None)
+        st.session_state.country = st.selectbox(textos["pregunta_ciudad"], ["España", "Francia", "Estados Unidos", "México", "Argentina", "Colombia", "Chile", "Otro"], index=None)
 
         if st.button(textos["boton_continuar"]):
             
-            if not (st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country):
+            if not (st.session_state.nivel_estudios and st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country):
                 st.warning(textos["selecciona_opción"]) 
                 st.stop() 
                 
@@ -231,8 +220,6 @@ def cuestions():
                 # st.write("Información laboral guardada:", st.session_state.work_info) #Depuración
                 
                 save_response_to_gsheets(
-                    personal_data["nombre"],
-                    personal_data["apellido"],
                     personal_data["genero"],
                     personal_data["correo"],
                     personal_data["edad"],

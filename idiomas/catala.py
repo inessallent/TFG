@@ -18,19 +18,24 @@ textos = {
     "pregunta_genero": "Gènere:",
     "genero_opciones": ["Femení", "Masculí", "No binari", "Prefereixo no dir-ho"],
     "pregunta_edad": "Edat:",
-    "edad_opciones": ["Menys de 18", "18 - 24", "25 - 34", "35 - 44", "55 - 64", "Més de 64", "Prefereixo no dir-ho"],
+    "edad_opciones": ["Menys de 18", "18 - 24", "25 - 34", "35 - 44", "45 - 54", "55 - 64", "Més de 64", "Prefereixo no dir-ho"],
     "opcion_correo": "Correu Electrònic (opcional):", 
     "boton_continuar": "Continuar", 
     "error_correo": "Si us plau, introdueix una adreça de correu electrònic vàlida.",
     "enviado_con_éxtio": "Enviat amb èxit!",
     "advertencia_faltan_datos": "Si us plau, introdueix el teu nom, cognom, gènere i edat. Gràcies.", 
+    
+    
     "información_personal": "Informació Personal",
+    "pregunta_nivel_estudio": "Nivell d'estudis",
+    "opciones_nivel_estudios": ["Estudis primaris", "Estudis secundaris", "Estudis universitaris (o superiors als secundaris)", "Sense estudis", "Altres"], 
     "pregunta_sector_estudio_trabajo": "Si us plau, selecciona el sector que millor descrigui la teva feina o estudis (en el cas que siguis estudiant):", 
     "opciones_sector": ["Arts i Humanitats", "Negocis i Economia", "Ciències de la Computació i Informàtica", "Educació", "Enginyeria i Tecnologia", "Ciències Ambientals i de la Terra", "Salut i Medicina", "Dret i Estudis Legals", "Ciències de la Vida i Biologia", "Matemàtiques i Estadística", "Ciències Físiques (p. ex., Física, Química)", "Ciències Socials", "Altres"],
     "pregunta_experiencia": "Quants anys d'experiència tens en aquest àmbit?:", 
     "opciones_experiencia": ["Menys d'1 any", "1 - 3 anys", "4 - 6 anys", "7 - 10 anys", "Més de 10 anys"], 
+    "pregunta_ciudad": "¿En que païs resideix?",
     "Gracias_por_contestar_el_formulario": "Moltes gràcies per contestar el formulari!",
-  
+
     
     # Texts main
     "navegacion": "Navegació", 
