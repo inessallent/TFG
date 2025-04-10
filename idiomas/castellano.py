@@ -1,10 +1,14 @@
 textos = {
-    "seleccionar_idioma": "Selecciona el idioma",    
-    "totalmente_en_desacuerdo" : "Totalmente en desacuerdo",
-    "en_desacuerdo": "En desacuerdo",
+    "seleccionar_idioma": "Selecciona el idioma", 
+    
+    #Opciones preguntas   
+    "totalmente_en_desacuerdo" : "Totalmente desacuerdo",
+    "en_desacuerdo": "Desacuerdo",
     "neutral": "Neutral",
-    "de_acuerdo": "En acuerdo",
-    "totalmente_de_acuerdo": "Totalmente en acuerdo",
+    "de_acuerdo": "Acuerdo",
+    "totalmente_de_acuerdo": "Totalmente acuerdo",
+    
+    
     "video_no_encontrado":"El video no se encontró en la ruta especificada.",
     "selecciona_opción": "Por favor, selecciona una opción antes de continuar.",
     "cuestionario": "Cuestionario",    
@@ -19,6 +23,10 @@ textos = {
     "boton_continuar": "Continuar", 
     "error_correo": "Por favor, ingresa un correo electrónico válido.",
     "enviado_con_éxtio": "Enviado con éxito!",
+    "Seccion_1": "Sección 1",
+    "Seccion_2": "Sección 2",
+    "Seccion_3": "Sección 3",
+    
     
     #Preguntas Personales laborales
     "información_personal": "Información Personal",
