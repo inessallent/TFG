@@ -46,21 +46,20 @@ def is_valid_email(email):
 
 
 # Save answers in New CSV
-def save_response_to_gsheets(nombre, apellido, correo, genero, edad, sector_trabajo, years_working, country, answers):
+def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios, años_experiencia, pais_residencia, answers):
     
     df = conn.read()
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
         "Timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        'Nombre': nombre,
-        'Apellido': apellido,
         'Género': genero,
         'Correo Electrónico': correo,
         'Edad': edad,
-        'Sector de Trabajo': sector_trabajo,
-        'Años Trabajando': years_working,
-        'País': country
+        'Nivel Estudios': nivel_estudios, 
+        'Rama Estudios': rama_estudios,
+        'Años Experiencia en el sector': años_experiencia,
+        'País de residencia': pais_residencia
     }
     # Añadir las respuestas a las preguntas (de manera dinámica)
     for i, respuesta in enumerate(answers):
@@ -132,52 +131,80 @@ def display_question(questions):
 #Display seccions
 def display_questions(questions):
     
-    ################################################################ SECTION 1 ################################################################ 
+    ################################################################ SECTION 1: Personal Information ################################################################ 
     if st.session_state.question_index == 1:
-        st.header(textos["Seccion_1"])
-        answer_q11 = st.radio("Hola buenos días", SCALE_OPTIONS, index=None, key="q11", horizontal=True)
-        answer_q12 = st.radio("Hola buenos días 2", SCALE_OPTIONS, index=None, key="q12", horizontal=True)
-        answer_q13 = st.radio("Hola buenos días 3", SCALE_OPTIONS, index=None, key="q13", horizontal=True)
-        answer_q14 = st.radio("Hola buenos días 4", SCALE_OPTIONS, index=None, key="q14", horizontal=True)
-        answer_q15 = st.radio("Hola buenos días 5", SCALE_OPTIONS, index=None, key="q15", horizontal=True)
+        st.header(textos["info_personal"])
+        st.session_state.genero = st.radio(textos["pregunta_genero"], textos["genero_opciones"], index=None)
+        st.session_state.age = st.radio(textos["pregunta_edad"], textos["edad_opciones"], index=None)
+        st.session_state.correo = st.text_input(textos["opcion_correo"])
+        st.session_state.nivel_estudios = st.radio(textos["pregunta_nivel_estudios"], textos["opciones_nivel_estudios"], index=None)
+        st.session_state.rama_estudios = st.radio(textos["pregunta_rama_estudios"], textos["opciones_rama_estudios"], index=None)
+        st.session_state.años_experiencia = st.radio(textos["pregunta_años_experiencia"], textos["opciones_años_experiencia"], index=None)
+        st.session_state.pais_residencia = st.selectbox(textos["pregunta_pais_residencia"], ["Alemania", "Argentina", "Brasil", "Bulgaria", "Canadá", "Chile", "China", "Colombia", "Ecuador", "España", "Estados Unidos", "Francia", "Honduras", "India", "Japón", "Marruecos", "México", "Pakistán", "Paraguay", "Perú", "Portugal", "Rusia", "Reino Unido", "Ucrania", "Venezuela", "Otro"], index=None)
 
-        if st.button(textos["boton_continuar"], key="btn_sec1"):
-            if (
-                answer_q11 is None or
-                answer_q12 is None or
-                answer_q13 is None or
-                answer_q14 is None or
-                answer_q15 is None
-            ):
-                st.warning(textos["selecciona_opción"])
+        if st.button(textos["boton_continuar"]):
+            errores = []
+            
+            
+            if not st.session_state.genero:
+                errores.append(textos["error_genero"])
+            
+            if not st.session_state.age:
+                errores.append(textos["error_age"])
+                
+            # if st.session_state.correo and not is_valid_email(st.session_state.correo):
+            #     errores.append(textos["error_correo"])  # Formato inválido 
+            
+            if not st.session_state.nivel_estudios:
+                errores.append(textos["error_nivel_estudios"])
+            
+            if not st.session_state.rama_estudios:
+                errores.append(textos["error_rama_estudios"])
+                
+            if not st.session_state.años_experiencia:
+                errores.append(textos["error_años_experiencia"])
+            
+            if not st.session_state.pais_residencia:
+                errores.append(textos["error_pais_residencia"])
+            
+            
+            if errores:
+                for error in errores:
+                    st.warning(error)
+                return #Deter ejecucion si hay errores
+                
             else:
-                st.session_state.answer_sec_1 = {
-                    "Pregunta 1": answer_q11,
-                    "Pregunta 2": answer_q12,
-                    "Pregunta 3": answer_q13,
-                    "Pregunta 4": answer_q14,
-                    "Pregunta 5": answer_q15,
+                st.session_state.personal_data = {
+                    "genero": st.session_state.genero,
+                    "correo": st.session_state.correo,
+                    "edad": st.session_state.age,
+                    "nivel_estudios": st.session_state.nivel_estudios,
+                    "rama_estudios": st.session_state.rama_estudios,
+                    "años_experiencia": st.session_state.años_experiencia,
+                    "pais_residencia": st.session_state.pais_residencia
                 }
-                st.session_state.answers.extend([
-                    answer_q11, answer_q12, answer_q13, answer_q14, answer_q15
-                ])
+            
+            next_question()  # Avanzamos a la siguiente pregunta
 
-                next_question()
 
-    ################################################################ SECTION 2 ################################################################ 
+    ################################################################ SECTION 2: (Knowledge about AI) ################################################################ 
 
     elif st.session_state.question_index == 2:
         st.header(textos["Seccion_2"])
-        answer_q21 = st.radio("Hola buenos días", SCALE_OPTIONS, index=None, key="q21", horizontal=True)
-        answer_q22 = st.radio("Hola buenos días 2", SCALE_OPTIONS, index=None, key="q22", horizontal=True)
-        answer_q23 = st.radio("Hola buenos días 3", SCALE_OPTIONS, index=None, key="q23", horizontal=True)
-        answer_q24 = st.radio("Hola buenos días 4", SCALE_OPTIONS, index=None, key="q24", horizontal=True)
+        answer_q21 = st.radio(textos["pregunta_2_1"], textos["opciones_2_1"], index=None, key="q21")
+        # Pregunta con múltiples respuestas (casillas visibles)
+        st.markdown(textos["pregunta_2_2"]) 
+        answer_q22 = [ #answer_q22 es opcional
+            opcion for opcion in textos["opciones_2_2"]
+            if st.checkbox(opcion, key=f"q22_{opcion}")
+        ]
+        answer_q23 = st.radio(textos["pregunta_2_3"], textos["opciones_2_3"], index=None, key="q23")
+        answer_q24 = st.radio("Hola buenos días 4", SCALE_OPTIONS, key="q24", index = None, horizontal=True)
         answer_q25 = st.radio("Hola buenos días 5", SCALE_OPTIONS, index=None, key="q25", horizontal=True)
 
         if st.button(textos["boton_continuar"], key="btn_sec2"):
             if (
                 answer_q21 is None or
-                answer_q22 is None or
                 answer_q23 is None or
                 answer_q24 is None or
                 answer_q25 is None
@@ -236,7 +263,7 @@ def cuestions():
 
     # Inicializar el estado de la sesión si no existe
     if 'question_index' not in st.session_state:
-        st.session_state.question_index = -1
+        st.session_state.question_index = 1
     
     
     if 'answers' not in st.session_state:
@@ -245,71 +272,6 @@ def cuestions():
     if 'selected_option' not in st.session_state:
         st.session_state.selected_option = None
         
-
-    if st.session_state.question_index == -1:
-        st.header(textos["info_personal"])
-        st.session_state.nombre = st.text_input(textos["nombre"])
-        st.session_state.apellido = st.text_input(textos["apellido"])
-        st.session_state.genero = st.radio(textos["pregunta_genero"], textos["genero_opciones"], index=None)
-        st.session_state.age = st.radio(textos["pregunta_edad"], textos["edad_opciones"], index=None)
-        st.session_state.correo = st.text_input(textos["opcion_correo"])
-
-        if st.button(textos["boton_continuar"]):
-            errores = []
-            
-            if not st.session_state.nombre:
-                errores.append(textos["error_nombre"])
-            
-            if not st.session_state.apellido:
-                errores.append(textos["error_apellido"])
-            
-            if not st.session_state.genero:
-                errores.append(textos["error_genero"])
-            
-            if not st.session_state.age:
-                errores.append(textos["error_age"])
-        
-                
-            # if st.session_state.correo and not is_valid_email(st.session_state.correo):
-            #     errores.append(textos["error_correo"])  # Formato inválido
-            
-            if errores:
-                for error in errores:
-                    st.warning(error)
-                return #Deter ejecucion si hay errores
-                
-            else:
-                st.session_state.personal_data = {
-                    "nombre": st.session_state.nombre,
-                    "apellido": st.session_state.apellido,
-                    "genero": st.session_state.genero,
-                    "correo": st.session_state.correo,
-                    "edad": st.session_state.age
-                }
-            
-            next_question()  # Avanzamos a la siguiente pregunta
-
-    elif st.session_state.question_index == 0:
-        st.header(textos["información_personal"])
-        st.session_state.sector_trabajo = st.radio(textos["pregunta_sector_estudio_trabajo"], textos["opciones_sector"], index=None)
-        st.session_state.years_working = st.radio(textos["pregunta_experiencia"], textos["opciones_experiencia"], index=None)
-        st.session_state.country = st.selectbox(textos["pregunta_sector_estudio_trabajo"], ["España", "Francia", "Estados Unidos", "México", "Argentina", "Colombia", "Chile", "Otro"], index=None)
-
-        if st.button(textos["boton_continuar"]):
-            
-            if not (st.session_state.sector_trabajo and st.session_state.years_working and st.session_state.country):
-                st.warning(textos["selecciona_opción"]) 
-                st.stop() 
-                
-            else:
-                # Guardamos esta información adicional en el estado de la sesión
-                st.session_state.work_info = {
-                    "sector_trabajo": st.session_state.sector_trabajo,
-                    "years_working": st.session_state.years_working,
-                    "country": st.session_state.country
-                }
-                next_question()  # Avanzamos a la siguiente pregunta
-
     else:     
 
         seccion_lens = 3 # Apartados de preguntas
@@ -321,29 +283,24 @@ def cuestions():
             st.write(textos["Gracias_por_contestar_el_formulario"])
 
             # Guardar todas las respuestas acumuladas al final
-            if 'personal_data' in st.session_state and 'work_info' in st.session_state:
+            if 'personal_data' in st.session_state:
                 personal_data = st.session_state.personal_data
-                work_info = st.session_state.work_info
                 
                 # st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
-                # st.write("Información laboral guardada:", st.session_state.work_info) #Depuración
                 
                 save_response_to_gsheets(
-                    personal_data["nombre"],
-                    personal_data["apellido"],
                     personal_data["genero"],
                     personal_data["correo"],
                     personal_data["edad"],
-                    work_info["sector_trabajo"],
-                    work_info["years_working"],
-                    work_info["country"],
+                    personal_data["nivel_estudios"],
+                    personal_data["rama_estudios"], 
+                    personal_data["años_experiencia"],
+                    personal_data["pais_residencia"],
                     st.session_state.answers
                 )
 
                 # Limpiar respuestas después de guardar
-                st.session_state.answers = []
-
-                
+                st.session_state.answers = []              
 
 # Aplicar estilos CSS personalizados
 st.markdown(

@@ -193,11 +193,10 @@ def display_questions(questions):
         st.header(textos["Seccion_2"])
         answer_q21 = st.radio(textos["pregunta_2_1"], textos["opciones_2_1"], index=None, key="q21")
         # Pregunta con múltiples respuestas (casillas visibles)
-        st.markdown(textos["pregunta_2_2"])
-        answer_q22 = [
+        st.markdown(textos["pregunta_2_2"]) 
+        answer_q22 = [ #answer_q22 es opcional
             opcion for opcion in textos["opciones_2_2"]
             if st.checkbox(opcion, key=f"q22_{opcion}")
-        
         ]
         answer_q23 = st.radio(textos["pregunta_2_3"], textos["opciones_2_3"], index=None, key="q23")
         answer_q24 = st.radio("Hola buenos días 4", SCALE_OPTIONS, key="q24", index = None, horizontal=True)
@@ -206,7 +205,6 @@ def display_questions(questions):
         if st.button(textos["boton_continuar"], key="btn_sec2"):
             if (
                 answer_q21 is None or
-                answer_q22 is None or
                 answer_q23 is None or
                 answer_q24 is None or
                 answer_q25 is None
