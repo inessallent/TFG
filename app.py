@@ -187,14 +187,20 @@ def display_questions(questions):
             next_question()  # Avanzamos a la siguiente pregunta
 
 
-    ################################################################ SECTION 2: (Knowledge of AI) ################################################################ 
+    ################################################################ SECTION 2: (Knowledge about AI) ################################################################ 
 
     elif st.session_state.question_index == 2:
         st.header(textos["Seccion_2"])
-        answer_q21 = st.radio("Hola buenos días", SCALE_OPTIONS, index=None, key="q21", horizontal=True)
-        answer_q22 = st.radio("Hola buenos días 2", SCALE_OPTIONS, index=None, key="q22", horizontal=True)
-        answer_q23 = st.radio("Hola buenos días 3", SCALE_OPTIONS, index=None, key="q23", horizontal=True)
-        answer_q24 = st.radio("Hola buenos días 4", SCALE_OPTIONS, index=None, key="q24", horizontal=True)
+        answer_q21 = st.radio(textos["pregunta_2_1"], textos["opciones_2_1"], index=None, key="q21")
+        # Pregunta con múltiples respuestas (casillas visibles)
+        st.markdown(textos["pregunta_2_2"])
+        answer_q22 = [
+            opcion for opcion in textos["opciones_2_2"]
+            if st.checkbox(opcion, key=f"q22_{opcion}")
+        
+        ]
+        answer_q23 = st.radio(textos["pregunta_2_3"], textos["opciones_2_3"], index=None, key="q23")
+        answer_q24 = st.radio("Hola buenos días 4", SCALE_OPTIONS, key="q24", index = None, horizontal=True)
         answer_q25 = st.radio("Hola buenos días 5", SCALE_OPTIONS, index=None, key="q25", horizontal=True)
 
         if st.button(textos["boton_continuar"], key="btn_sec2"):
@@ -282,7 +288,7 @@ def cuestions():
             if 'personal_data' in st.session_state:
                 personal_data = st.session_state.personal_data
                 
-                st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
+                # st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
                 
                 save_response_to_gsheets(
                     personal_data["genero"],

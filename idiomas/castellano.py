@@ -36,6 +36,16 @@ textos = {
     "pregunta_pais_residencia": "¿En que país reside?",
     "Gracias_por_contestar_el_formulario": "Muchas gracias por contestar el formulario!",
     
+    #Preguntas Sección 2: Conocimiento sobre la IA
+    "pregunta_2_1": "¿Ha utilizado alguna vez la inteligencia artificial (IA)?",
+    "opciones_2_1": ["Sí, con gran frecuencia", "Sí, esporadicamente", "Nunca" ], 
+    
+    "pregunta_2_2": "Si ha utilizado la IA, ¿para qué la utiliza principalmente? (Puede seleccionar más de una respuesta). ", 
+    "opciones_2_2": ["Uso personal", "Estudio Académico", "Trabajo", "Otros" ], 
+    
+    "pregunta_2_3": "¿En qué ámbito utiliza con más frecuencia la IA?",
+    "opciones_2_3": ["Arte y diseño", "Ciencias (Matemáticas, Física, Biología, ...)", "Ciencias sociales (Economía, Historia, ...)", "Humanidades (Lengua, literatura, idiomas, ...)", "Negocios y finanzas", "Otros" ], 
+    
     #Textos main
     "navegacion": "Navegación", 
     "selecciona_una_seccion": "Selecciona una sección:", 
