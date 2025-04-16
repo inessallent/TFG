@@ -45,7 +45,16 @@ textos = {
     "opciones_años_experiencia": ["Menys d'1 any", "1 - 3 anys", "4 - 6 anys", "7 - 10 anys", "Més de 10 anys"],  
     "pregunta_pais_residencia": "En quin país resideixes?",
     "Gracias_por_contestar_el_formulario": "Moltes gràcies per respondre el formulari!",
-    
+    # Preguntes Secció 2: Coneixement sobre la IA
+    "pregunta_2_1": "Has utilitzat mai la intel·ligència artificial (IA)?",
+    "opciones_2_1": ["Sí, molt sovint", "Sí, de tant en tant", "Mai"],
+
+    "pregunta_2_2": "Si has utilitzat la IA, per a què la fas servir principalment? (Pots seleccionar més d’una resposta).",
+    "opciones_2_2": ["Ús personal", "Estudi acadèmic", "Feina", "Altres"],
+
+    "pregunta_2_3": "En quin àmbit utilitzes més sovint la IA?",
+    "opciones_2_3": ["Art i disseny", "Ciències (Matemàtiques, Física, Biologia, ...)", "Ciències socials (Economia, Història, ...)", "Humanitats (Llengua, literatura, idiomes, ...)", "Negocis i finances", "Altres"],
+
     # Textos main
     "navegacion": "Navegació", 
     "selecciona_una_seccion": "Selecciona una secció:", 

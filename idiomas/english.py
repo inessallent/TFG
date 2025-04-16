@@ -44,6 +44,17 @@ textos = {
     "pregunta_pais_residencia": "In which country do you reside?",
     "Gracias_por_contestar_el_formulario": "Thank you very much for completing the form!",
 
+    # Section 2 Questions: Knowledge about AI
+    "pregunta_2_1": "Have you ever used artificial intelligence (AI)?",
+    "opciones_2_1": ["Yes, very frequently", "Yes, occasionally", "Never"],
+
+    "pregunta_2_2": "If you have used AI, what do you mainly use it for? (You can select more than one answer).",
+    "opciones_2_2": ["Personal use", "Academic study", "Work", "Other"],
+
+    "pregunta_2_3": "In which field do you use AI most frequently?",
+    "opciones_2_3": ["Art and design", "Sciences (Math, Physics, Biology, ...)", "Social sciences (Economics, History, ...)", "Humanities (Language, literature, languages, ...)", "Business and finance", "Other"],
+
+
     # Main texts
     "navegacion": "Navigation",
     "selecciona_una_seccion": "Select a section:",
