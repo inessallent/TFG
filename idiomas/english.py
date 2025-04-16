@@ -23,7 +23,7 @@ textos = {
     "enviado_con_éxtio": "Sent successfully!",
     "advertencia_faltan_datos": "Please enter your first name, last name, gender, and age. Thank you.", 
     
-    
+    # Questions section 1: Personal Information
     "información_personal": "Personal Information",
     "pregunta_nivel_estudio": "Education Level",
     "opciones_nivel_estudios": ["Primary Education", "Secondary Education", "University Education (or higher than secondary)", "No Education", "Others"],

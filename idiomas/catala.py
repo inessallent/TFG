@@ -25,7 +25,7 @@ textos = {
     "enviado_con_éxtio": "Enviat amb èxit!",
     "advertencia_faltan_datos": "Si us plau, introdueix el teu nom, cognom, gènere i edat. Gràcies.", 
     
-    
+    #Preguntes secció 1: Informació Personal
     "información_personal": "Informació Personal",
     "pregunta_nivel_estudio": "Nivell d'estudis",
     "opciones_nivel_estudios": ["Estudis primaris", "Estudis secundaris", "Estudis universitaris (o superiors als secundaris)", "Sense estudis", "Altres"], 
