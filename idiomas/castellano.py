@@ -44,7 +44,7 @@ textos = {
     "opciones_2_2": ["Uso personal", "Estudio académico", "Trabajo", "Otros" ], 
     
     "pregunta_2_3": "¿En qué ámbito utiliza con más frecuencia la IA?",
-    "opciones_2_3": ["Arte y diseño", "Ciencias (Matemáticas, Física, Biología, ...)", "Ciencias sociales (Economía, Historia, ...)", "Humanidades (Lengua, literatura, idiomas, ...)", "Negocios y finanzas", "Otros" ], 
+    "opciones_2_3": ["Arte y diseño", "Ciencias (Matemáticas, Física, Biología, ...)", "Ciencias sociales (Economía, Historia, ...)", "Humanidades (Lengua, literatura, idiomas, ...)", "Negocios y finanzas", "Programación / Ingeniería", "Otros" ], 
     
     #Textos main
     "navegacion": "Navegación", 
