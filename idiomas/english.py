@@ -12,7 +12,8 @@ textos = {
 
     "cuestionario": "Questionnaire",    
 
-    "boton_continuar": "Continue",
+    "boton_continuar": "Next",
+    "boton_atras": "Back",
     "error_correo": "Please enter a valid email address.",
     "enviado_con_éxtio": "Successfully sent!",
     "Seccion_1": "Section 1",
@@ -44,16 +45,34 @@ textos = {
     "pregunta_pais_residencia": "In which country do you reside?",
     "Gracias_por_contestar_el_formulario": "Thank you very much for completing the form!",
 
-    # Section 2 Questions: Knowledge about AI
-    "pregunta_2_1": "Have you ever used artificial intelligence (AI)?",
-    "opciones_2_1": ["Yes, very frequently", "Yes, occasionally", "Never"],
-
-    "pregunta_2_2": "If you have used AI, what do you mainly use it for? (You can select more than one answer).",
-    "opciones_2_2": ["Personal use", "Academic study", "Work", "Other"],
-
-    "pregunta_2_3": "In which field do you use AI most frequently?",
-    "opciones_2_3": ["Art and design", "Sciences (Math, Physics, Biology, ...)", "Social sciences (Economics, History, ...)", "Humanities (Language, literature, languages, ...)", "Business and finance", "Other"],
-
+    # Section 2: Knowledge of AI
+    "pregunta_2_1": "Choose the option that best describes Artificial Intelligence (AI):",
+    "opciones_2_1": ["Scientific field focused on intelligent programs", "Machines learning and decision-making like humans", "Both are correct"],
+    "pregunta_2_2": "Have you ever used Artificial Intelligence (AI)?",
+    "opciones_2_2": ["Yes, daily", "Yes, weekly", "Yes, monthly", "Yes, occasionally", "Never"],
+    "pregunta_2_3": "If yes, what do you use AI for? (You can select more than one option).",
+    "opciones_2_3": ["Personal use", "Academic study", "Work", "Other"],
+    "pregunta_2_4": "In what field do you use AI most frequently?",
+    "opciones_2_4": ["Art and design", "Sciences", "Social sciences", "Humanities", "Business and finance", "Programming / Engineering", "I don't use it", "Other"],
+    "pregunta_2_5": "AI bias question",
+    "opciones_2_5": ["To be determined"],
+    "pregunta_2_6": "Do you think people are biased in decision-making?",
+    "opciones_2_6": ["Yes, always", "Often, depends on the decision", "No, never"],
+    "pregunta_2_7": "Who do you think is more biased in decision-making?",
+    "opciones_2_7": ["A person", "An AI system"],
+    
+    # Section 3: Case studies + ethics
+    "intro_q33": "In November 2022, Jake Moffatt booked a last-minute flight with Air Canada to attend his grandmother’s funeral...",
+    "pregunta_3_3": "Who do you think was right in this case?",
+    "opciones_3_3": ["Air Canada", "Jake Moffatt", "Justification (optional)"],
+    "intro_q34": "Jake took the company to court. Air Canada said their website had the correct info, but the court disagreed...",
+    "pregunta_3_4": "What do you think of the verdict?",
+    "opciones_3_4": ["I agree", "I disagree"],
+    "pregunta_3_5": "Prof. Joan Fontrodona said AI should follow 3 ethical principles. How much do you agree with them?",
+    "opciones_3_5": ["Respect for human dignity", "Freedom", "Justice"],
+    "pregunta_3_6": "To what extent do you agree: “AI-based technologies are already helping humans achieve greater efficiency...”",
+    "pregunta_3_7": "To what extent do you agree: AI will impact life, business, and relationships by providing predictions and suggestions.",
+    
 
     # Main texts
     "navegacion": "Navigation",
