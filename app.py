@@ -96,10 +96,11 @@ def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios
 
 
 # Next Question
-def next_question():
+def next_section():
     st.session_state.question_index += 1
     st.session_state.selected_option = None  # Restablecer la opción seleccionada
     st.rerun()  # Forzar la actualización inmediata de la interfaz
+    
 
 def next_video(question_index):
     video_path = os.path.join("Media", "Questionarios_videos", f"Q{question_index + 1}.mp4")
@@ -107,26 +108,15 @@ def next_video(question_index):
         st.video(video_path, format="video/mp4", start_time=0)
     else:
         st.error(textos["video_no_encontrado"])
-        
 
-# Display Question
-def display_question(questions):
-    
-    current_question = questions[st.session_state.question_index - 1]  # -1 because index 0 is for personal info
-    # next_video(st.session_state.question_index - 1) # Mostrar el video 
-    
-    st.header(f"Pregunta {st.session_state.question_index}:")
-    answer = st.radio(current_question["question"], SCALE_OPTIONS, index=None, key=f"question_{st.session_state.question_index}", horizontal=True)
-        
+def go_back_section():
+    # Guardar las respuestas actuales antes de retroceder
+    if st.session_state.selected_option is not None:
+        st.session_state.answers.append(st.session_state.selected_option)
 
-    if st.button(textos["boton_continuar"]):
-        if not answer:  # Verificar que haya una respuesta seleccionada
-            st.warning(textos["selecciona_opción"])  # Mostrar advertencia si no se ha seleccionado respuesta
-            st.stop() 
-            
-        else:
-            st.session_state.answers.append(answer) # Guardar la respuesta temporalmente en la lista
-            next_question() 
+    st.session_state.question_index -= 1
+    st.rerun()  # Forzar la actualización inmediata de la interfaz
+
 
 #Display seccions
 def display_questions(questions):
@@ -134,13 +124,93 @@ def display_questions(questions):
     ################################################################ SECTION 1: Personal Information ################################################################ 
     if st.session_state.question_index == 1:
         st.header(textos["info_personal"])
-        st.session_state.genero = st.radio(textos["pregunta_genero"], textos["genero_opciones"], index=None)
-        st.session_state.age = st.radio(textos["pregunta_edad"], textos["edad_opciones"], index=None)
-        st.session_state.correo = st.text_input(textos["opcion_correo"])
-        st.session_state.nivel_estudios = st.radio(textos["pregunta_nivel_estudios"], textos["opciones_nivel_estudios"], index=None)
-        st.session_state.rama_estudios = st.radio(textos["pregunta_rama_estudios"], textos["opciones_rama_estudios"], index=None)
-        st.session_state.años_experiencia = st.radio(textos["pregunta_años_experiencia"], textos["opciones_años_experiencia"], index=None)
-        st.session_state.pais_residencia = st.selectbox(textos["pregunta_pais_residencia"], ["Alemania", "Argentina", "Brasil", "Bulgaria", "Canadá", "Chile", "China", "Colombia", "Ecuador", "España", "Estados Unidos", "Francia", "Honduras", "India", "Japón", "Marruecos", "México", "Pakistán", "Paraguay", "Perú", "Portugal", "Rusia", "Reino Unido", "Ucrania", "Venezuela", "Otro"], index=None)
+        
+        #Pregunta género
+        with st.container(): 
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_genero'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            #Restaurar respuesta si retrocede
+            genero_index = None
+            if "genero" in st.session_state:
+                genero_index = textos["genero_opciones"].index(st.session_state.genero) if st.session_state.genero else None
+            st.session_state.genero = st.radio( label="", options=textos["genero_opciones"], index=genero_index , label_visibility="collapsed")
+        
+        #Pregunta edad
+        with st.container(): 
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_edad'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            #Restaurar respuesta si retrocede
+            age_index = None
+            if "age" in st.session_state:
+                age_index = textos["edad_opciones"].index(st.session_state.age) if st.session_state.age else None
+            st.session_state.age = st.radio( label="", options=textos["edad_opciones"], index=age_index, label_visibility="collapsed")
+        
+        #Pregunta correo
+        with st.container(): 
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['opcion_correo'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            # Restaurar respuesta si retrocede
+            if "correo" in st.session_state:
+                st.session_state.correo = st.text_input(textos["opcion_correo"], value=st.session_state.correo)
+            else:
+                st.session_state.correo = st.text_input(textos["opcion_correo"])
+            
+        #Pregunta nivel estudios  
+        with st.container(): #Pregunta nivel estudios
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_nivel_estudios'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            #Restaurar respuesta si retrocede
+            nivel_estudios_index = None
+            if "nivel_estudios" in st.session_state:
+                nivel_estudios_index = textos["opciones_nivel_estudios"].index(st.session_state.nivel_estudios) if st.session_state.nivel_estudios else None
+            st.session_state.nivel_estudios = st.radio( label="", options=textos["opciones_nivel_estudios"], index=nivel_estudios_index, label_visibility="collapsed")
+        
+        with st.container(): #Pregunta rama estudios
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_rama_estudios'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            #Restaurar respuesta si retrocede
+            rama_estudios_index = None
+            if "rama_estudios" in st.session_state:
+                rama_estudios_index = textos["opciones_rama_estudios"].index(st.session_state.rama_estudios) if st.session_state.rama_estudios else None
+            st.session_state.rama_estudios = st.radio( label="", options=textos["opciones_rama_estudios"], index=rama_estudios_index, label_visibility="collapsed")
+        
+        with st.container(): #Pregunta años experiencia
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_años_experiencia'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            #Restaurar respuesta si retrocede
+            años_experiencia_index = None
+            if "años_experiencia" in st.session_state:
+                años_experiencia_index = textos["opciones_años_experiencia"].index(st.session_state.años_experiencia) if st.session_state.años_experiencia else None
+            st.session_state.años_experiencia = st.radio( label="", options=textos["opciones_años_experiencia"], index=años_experiencia_index, label_visibility="collapsed")
+        
+        with st.container():
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_pais_residencia'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            # Restaurar respuesta si retrocede
+            pais_residencia_index = None
+            if "pais_residencia" in st.session_state:
+                pais_residencia_index = (
+                    ["Alemania", "Argentina", "Brasil", "Bulgaria", "Canadá", "Chile", "China", "Colombia", "Ecuador", "España", "Estados Unidos", "Francia", "Honduras", "India", "Japón", "Marruecos", "México", "Pakistán", "Paraguay", "Perú", "Portugal", "Rusia", "Reino Unido", "Ucrania", "Venezuela", "Otro"]
+                    .index(st.session_state.pais_residencia) if st.session_state.pais_residencia else None
+                )
+            
+            st.session_state.pais_residencia = st.selectbox(textos["pregunta_pais_residencia"], ["Alemania", "Argentina", "Brasil", "Bulgaria", "Canadá", "Chile", "China", "Colombia", "Ecuador", "España", "Estados Unidos", "Francia", "Honduras", "India", "Japón", "Marruecos", "México", "Pakistán", "Paraguay", "Perú", "Portugal", "Rusia", "Reino Unido", "Ucrania", "Venezuela", "Otro"], index=pais_residencia_index, label_visibility="collapsed")
+    
+
 
         if st.button(textos["boton_continuar"]):
             errores = []
@@ -184,78 +254,198 @@ def display_questions(questions):
                     "pais_residencia": st.session_state.pais_residencia
                 }
             
-            next_question()  # Avanzamos a la siguiente pregunta
-
-
+            next_section()  # Avanzamos a la siguiente sección
+    
     ################################################################ SECTION 2: (Knowledge about AI) ################################################################ 
 
     elif st.session_state.question_index == 2:
         st.header(textos["Seccion_2"])
-        answer_q21 = st.radio(textos["pregunta_2_1"], textos["opciones_2_1"], index=None, key="q21")
-        # Pregunta con múltiples respuestas (casillas visibles)
-        st.markdown(textos["pregunta_2_2"]) 
-        answer_q22 = [ #answer_q22 es opcional
-            opcion for opcion in textos["opciones_2_2"]
-            if st.checkbox(opcion, key=f"q22_{opcion}")
-        ]
-        answer_q23 = st.radio(textos["pregunta_2_3"], textos["opciones_2_3"], index=None, key="q23")
-        answer_q24 = st.radio("Hola buenos días 4", SCALE_OPTIONS, key="q24", index = None, horizontal=True)
-        answer_q25 = st.radio("Hola buenos días 5", SCALE_OPTIONS, index=None, key="q25", horizontal=True)
+        
+        with st.container(): #Pregunta 2_1
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_1'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            q21_index = textos["opciones_2_1"].index(st.session_state.q21) if "q21" in st.session_state and st.session_state.q21 in textos["opciones_2_1"] else 0
+            st.radio(label="", options=textos["opciones_2_1"], index=q21_index, key="q21", label_visibility="collapsed")
+            
+        
+        with st.container(): #Pregunta 2_2
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_2'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            q22_index = textos["opciones_2_2"].index(st.session_state.q22) if "q22" in st.session_state and st.session_state.q22 in textos["opciones_2_2"] else 0
+            st.radio("", textos["opciones_2_2"], index=q22_index, key="q22", label_visibility="collapsed")
+    
+            
+        with st.container(): #Pregunta 2_3
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_3'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            seleccionadas_q23 = []
+            for opcion in textos["opciones_2_3"]:
+                if st.checkbox(opcion, key=f"q23_{opcion}"):
+                    seleccionadas_q23.append(opcion)
+            st.session_state.q23 = seleccionadas_q23
+        
+        with st.container(): #Pregunta 2_4
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_4'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            q24_index = textos["opciones_2_4"].index(st.session_state.q24) if "q24" in st.session_state and st.session_state.q24 in textos["opciones_2_4"] else 0
+            st.radio("", textos["opciones_2_4"], index=q24_index, key="q24", label_visibility="collapsed")
+    
+        with st.container(): #Pregunta 2_5
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_5'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            q25_index = textos["opciones_2_5"].index(st.session_state.q25) if "q25" in st.session_state and st.session_state.q25 in textos["opciones_2_5"] else 0
+            st.radio("", textos["opciones_2_5"], index=q25_index, key="q25", label_visibility="collapsed")
+    
+            
+        with st.container(): #Pregunta 2_6
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_6'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            q26_index = textos["opciones_2_6"].index(st.session_state.q26) if "q26" in st.session_state and st.session_state.q26 in textos["opciones_2_6"] else 0
+            st.radio("", textos["opciones_2_6"], index=q26_index, key="q26", label_visibility="collapsed")
+    
 
+        with st.container(): #Pregunta 2_7
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_7'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            q27_index = textos["opciones_2_7"].index(st.session_state.q27) if "q27" in st.session_state and st.session_state.q27 in textos["opciones_2_7"] else 0
+            st.radio("", textos["opciones_2_7"], index=q27_index, key="q27", label_visibility="collapsed")
+
+                    
         if st.button(textos["boton_continuar"], key="btn_sec2"):
             if (
-                answer_q21 is None or
-                answer_q23 is None or
-                answer_q24 is None or
-                answer_q25 is None
+                st.session_state.q21 is None or
+                st.session_state.q22 is None or
+                st.session_state.q24 is None or
+                st.session_state.q25 is None or
+                st.session_state.q26 is None or
+                st.session_state.q27 is None  
+                
             ):
                 st.warning(textos["selecciona_opción"])
             else:
                 st.session_state.answer_sec_2 = {
-                    "Pregunta 6": answer_q21,
-                    "Pregunta 7": answer_q22,
-                    "Pregunta 8": answer_q23,
-                    "Pregunta 9": answer_q24,
-                    "Pregunta 10": answer_q25,
+                    "Pregunta 6": st.session_state.q21,
+                    "Pregunta 7": st.session_state.q22,
+                    "Pregunta 8": st.session_state.q23,
+                    "Pregunta 9": st.session_state.q24,
+                    "Pregunta 10": st.session_state.q25,
+                    "Pregunta 11": st.session_state.q26,
+                    "Pregunta 12": st.session_state.q27,
+                    
                 }
                 st.session_state.answers.extend([
-                    answer_q21, answer_q22, answer_q23, answer_q24, answer_q25
+                    st.session_state.q21, 
+                    st.session_state.q22, 
+                    st.session_state.q23, 
+                    st.session_state.q24, 
+                    st.session_state.q25, 
+                    st.session_state.q26, 
+                    st.session_state.q27
                 ])
 
-                next_question()
+                next_section()
+                
+        if st.button(textos["boton_atras"]):
+            go_back_section()
+
 
     ################################################################ SECTION 3 ################################################################ 
 
     elif st.session_state.question_index == 3:
         st.header(textos["Seccion_3"])
-        answer_q31 = st.radio("Hola buenos días", SCALE_OPTIONS, index=None, key="q31", horizontal=True)
-        answer_q32 = st.radio("Hola buenos días 2", SCALE_OPTIONS, index=None, key="q32", horizontal=True)
-        answer_q33 = st.radio("Hola buenos días 3", SCALE_OPTIONS, index=None, key="q33", horizontal=True)
-        answer_q34 = st.radio("Hola buenos días 4", SCALE_OPTIONS, index=None, key="q34", horizontal=True)
-        answer_q35 = st.radio("Hola buenos días 5", SCALE_OPTIONS, index=None, key="q35", horizontal=True)
+        
+        # answer_q31 = st.radio("Hola buenos días", SCALE_OPTIONS, index=None, key="q31", horizontal=True)
+        
+        # answer_q32 = st.radio("Hola buenos días 2", SCALE_OPTIONS, index=None, key="q32", horizontal=True)
+        
+        st.markdown(f"<p style='font-size: 1.05rem; color: #2c2c2c;  text-align: justify; margin-bottom: 0.8rem;'>{textos['intro_q33']}</p>", unsafe_allow_html=True)
+        with st.container(): #Pregunta 3_3
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_3_3'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            q33_index = textos["opciones_3_3"].index(st.session_state.q33) if "q33" in st.session_state and st.session_state.q33 in textos["opciones_3_3"] else 0
+            st.radio("", textos["opciones_3_3"], index=q33_index, key="q33", label_visibility="collapsed")
+        
+        st.markdown(f"<p style='font-size: 1.05rem; color: #2c2c2c;  text-align: justify; margin-bottom: 0.8rem;'>{textos['intro_q34']}</p>", unsafe_allow_html=True)
+        with st.container(): #Pregunta 3_4
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_3_4'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            q34_index = textos["opciones_3_4"].index(st.session_state.q34) if "q34" in st.session_state and st.session_state.q34 in textos["opciones_3_4"] else 0
+            st.radio("", textos["opciones_3_4"], index=q34_index, key="q34", label_visibility="collapsed")
+        
+        with st.container(): #Pregunta 3_5
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_5'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            q35_index = textos["opciones_3_5"].index(st.session_state.q35) if "q35" in st.session_state and st.session_state.q35 in textos["opciones_3_5"] else 0
+            st.radio("", textos["opciones_3_5"], index=q35_index, key="q35", label_visibility="collapsed")
+        
+        with st.container(): #Pregunta 3_6
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_6'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            q36_index = SCALE_OPTIONS.index(st.session_state.q36) if "q36" in st.session_state and st.session_state.q36 in SCALE_OPTIONS else 0
+            st.radio("", SCALE_OPTIONS, index=q36_index, key="q36", label_visibility="collapsed")
+                    
+        with st.container(): #Pregunta 3_7
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_7'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            q37_index = SCALE_OPTIONS.index(st.session_state.q37) if "q37" in st.session_state and st.session_state.q37 in SCALE_OPTIONS else 0
+            st.radio("", SCALE_OPTIONS, index=q37_index, key="q37", label_visibility="collapsed")
+                    
+        # answer_q37 = st.radio(textos["pregunta_3_7"], SCALE_OPTIONS, index=None) # Pregunta 3_7
 
         if st.button(textos["boton_continuar"], key="btn_sec3"):
             if (
-                answer_q31 is None or
-                answer_q32 is None or
-                answer_q33 is None or
-                answer_q34 is None or
-                answer_q35 is None
+                # st.session_state.q31 is None or
+                # st.session_state.q32 is None or
+                st.session_state.q33 is None or
+                st.session_state.q34 is None or
+                st.session_state.q35 is None or
+                st.session_state.q36 is None or
+                st.session_state.q37 is None
             ):
                 st.warning(textos["selecciona_opción"])
             else:
                 st.session_state.answer_sec_3 = {
-                    "Pregunta 11": answer_q31,
-                    "Pregunta 12": answer_q32,
-                    "Pregunta 13": answer_q33,
-                    "Pregunta 14": answer_q34,
-                    "Pregunta 15": answer_q35,
+                    # "Pregunta 11": st.session_state.q31,
+                    # "Pregunta 12": st.session_state.q32,
+                    "Pregunta 13": st.session_state.q33,
+                    "Pregunta 14": st.session_state.q34,
+                    "Pregunta 15": st.session_state.q35,
+                    "Pregunta 16": st.session_state.q36,
+                    "Pregunta 17": st.session_state.q37,
                 }
                 st.session_state.answers.extend([
-                    answer_q31, answer_q32, answer_q33, answer_q34, answer_q35
+                    
+                    # st.session_state.q31,
+                    # st.session_state.q32,
+                    st.session_state.q33,
+                    st.session_state.q34,
+                    st.session_state.q35,
+                    st.session_state.q36,
+                    st.session_state.q37,
                 ])
 
-                next_question()
+                next_section()
+                
+        if st.button(textos["boton_atras"]):
+            go_back_section()
 
     
 def cuestions():

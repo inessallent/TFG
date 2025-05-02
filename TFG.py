@@ -185,6 +185,8 @@ def display_questions(questions):
                 }
             
             next_question()  # Avanzamos a la siguiente pregunta
+        
+        
 
 
     ################################################################ SECTION 2: (Knowledge about AI) ################################################################ 

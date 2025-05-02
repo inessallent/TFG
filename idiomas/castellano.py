@@ -11,7 +11,8 @@ textos = {
     
     "cuestionario": "Cuestionario",    
     
-    "boton_continuar": "Continuar", 
+    "boton_continuar": "Siguiente", 
+    "boton_atras": "Atrás",
     "error_correo": "Por favor, ingresa un correo electrónico válido.",
     "enviado_con_éxtio": "Enviado con éxito!",
     "Seccion_1": "Sección 1",
@@ -24,21 +25,21 @@ textos = {
     "info_personal": "Información Personal", 
     "pregunta_genero": "Género:",
     "genero_opciones": ["Femenino", "Masculino", "No binario", "Prefiero no decirlo"],
-    "pregunta_edad": "Edad:",
+    "pregunta_edad": "**Edad:**",
     "edad_opciones": ["Menor de 18", "18 - 24", "25 - 34", "35- 44", "45 - 54","55 - 64", "mayor de 64", "Prefiero no decirlo"],
-    "opcion_correo": "Correo Electrónico (opcional):", 
-    "pregunta_nivel_estudios": "Nivel de estudios",
+    "opcion_correo": "**Correo Electrónico (opcional):**", 
+    "pregunta_nivel_estudios": "**Nivel de estudios**",
     "opciones_nivel_estudios": ["Estudios primarios", "Estudios secundarios", "Estudios universitarios (o superiores a los secundarios)", "Sin estudios", "Otros"], 
-    "pregunta_rama_estudios" : "Por favor, seleccione la rama que mejor describa sus estudios: ", 
+    "pregunta_rama_estudios" : "**Por favor, seleccione la rama que mejor describa sus estudios:** ", 
     "opciones_rama_estudios": ["Artes y Humanidades (Diseño, Filosofía, Historia, Traducción e Interpretación, ...)", "Ciencias (Ciencias Ambientales, Física, Geología, Matemáticas, Química, ...)", "Ciencias de la Salud (Enfermería, Medicina, Psicología, Odontología, Veterinaria, ...", "Ciencias Sociales y Jurídicas (ADE, Comunicación Audiovisual, Criminología, Derecho, Economía, Periodismo, Turismo, ...)", "Biociencias (Biología, Bioquímica, Genética, Microbiología, ...)", "Ingenierías y Arquitectura (Ingeniería, Industriales, Informática, Telecos, ...)", "Otros"],
-    "pregunta_años_experiencia": "¿Cuántos años de experiencia tiene en este ámbito?: ", 
+    "pregunta_años_experiencia": "**¿Cuántos años de experiencia tiene en este ámbito?: **", 
     "opciones_años_experiencia": ["Menor de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"],  
-    "pregunta_pais_residencia": "¿En qué país reside?",
+    "pregunta_pais_residencia": "**¿En qué país reside?**",
     "Gracias_por_contestar_el_formulario": "Muchas gracias por contestar el formulario!",
     
     #Preguntas Sección 2: Conocimiento sobre la IA
     
-    "pregunta_2_1": "1.	Selecciona la opción que describa mejor la inteligencia artificial (IA):",
+    "pregunta_2_1": "Selecciona la opción que describa mejor la inteligencia artificial (IA):",
     "opciones_2_1": ["Campo científico de la informática centrado en la creación de programas considerados inteligentes", "Capacidad de las máquinas para usar algoritmos, aprender de los datos y utilizar lo aprendido en la toma de decisiones tal y como lo haría un ser humano.", "Ambas respuestas son correctas" ], 
     
     "pregunta_2_2": "¿Ha utilizado alguna vez la inteligencia artificial (IA)?",
