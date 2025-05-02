@@ -191,23 +191,35 @@ def display_questions(questions):
 
     elif st.session_state.question_index == 2:
         st.header(textos["Seccion_2"])
-        answer_q21 = st.radio(textos["pregunta_2_1"], textos["opciones_2_1"], index=None, key="q21")
-        # Pregunta con múltiples respuestas (casillas visibles)
-        st.markdown(textos["pregunta_2_2"]) 
-        answer_q22 = [ #answer_q22 es opcional
-            opcion for opcion in textos["opciones_2_2"]
-            if st.checkbox(opcion, key=f"q22_{opcion}")
+        
+        answer_q21 = st.radio(textos["pregunta_2_1"], textos["opciones_2_1"], index=None, key="q21") # Pregunta 2_1
+        
+        answer_q22 = st.radio(textos["pregunta_2_2"], textos["opciones_2_2"], index=None, key="q22") # Pregunta 2_2
+        
+        # Pregunta con múltiples respuestas (casillas visibles) # Pregunta 2_3
+        st.markdown(textos["pregunta_2_3"]) 
+        answer_q23 = [ #answer_q22 es opcional
+            opcion for opcion in textos["opciones_2_3"]
+            if st.checkbox(opcion, key=f"q23_{opcion}")
         ]
-        answer_q23 = st.radio(textos["pregunta_2_3"], textos["opciones_2_3"], index=None, key="q23")
-        answer_q24 = st.radio("Hola buenos días 4", SCALE_OPTIONS, key="q24", index = None, horizontal=True)
-        answer_q25 = st.radio("Hola buenos días 5", SCALE_OPTIONS, index=None, key="q25", horizontal=True)
-
+        
+        answer_q24 = st.radio(textos["pregunta_2_4"], textos["opciones_2_4"], index=None, key="q24") # Pregunta 2_4
+        
+        answer_q25 = st.radio(textos["pregunta_2_5"], textos["opciones_2_5"], index=None, key="q25") # Pregunta 2_5
+        
+        answer_q26 = st.radio(textos["pregunta_2_6"], textos["opciones_2_6"], index=None, key="q26") # Pregunta 2_6
+        
+        answer_q27 = st.radio(textos["pregunta_2_7"], textos["opciones_2_7"], index=None, key="q27") # Pregunta 2_7
+        
         if st.button(textos["boton_continuar"], key="btn_sec2"):
             if (
                 answer_q21 is None or
                 answer_q23 is None or
                 answer_q24 is None or
-                answer_q25 is None
+                answer_q25 is None or
+                answer_q26 is None or
+                answer_q27 is None  
+                
             ):
                 st.warning(textos["selecciona_opción"])
             else:
@@ -217,9 +229,12 @@ def display_questions(questions):
                     "Pregunta 8": answer_q23,
                     "Pregunta 9": answer_q24,
                     "Pregunta 10": answer_q25,
+                    "Pregunta 11": answer_q26,
+                    "Pregunta 12": answer_q27,
+                    
                 }
                 st.session_state.answers.extend([
-                    answer_q21, answer_q22, answer_q23, answer_q24, answer_q25
+                    answer_q21, answer_q22, answer_q23, answer_q24, answer_q25, answer_q26, answer_q27
                 ])
 
                 next_question()
@@ -229,10 +244,20 @@ def display_questions(questions):
     elif st.session_state.question_index == 3:
         st.header(textos["Seccion_3"])
         answer_q31 = st.radio("Hola buenos días", SCALE_OPTIONS, index=None, key="q31", horizontal=True)
+        
         answer_q32 = st.radio("Hola buenos días 2", SCALE_OPTIONS, index=None, key="q32", horizontal=True)
-        answer_q33 = st.radio("Hola buenos días 3", SCALE_OPTIONS, index=None, key="q33", horizontal=True)
-        answer_q34 = st.radio("Hola buenos días 4", SCALE_OPTIONS, index=None, key="q34", horizontal=True)
-        answer_q35 = st.radio("Hola buenos días 5", SCALE_OPTIONS, index=None, key="q35", horizontal=True)
+        
+        st.text(textos["intro_q33"])
+        answer_q33 = st.radio(textos["pregunta_3_3"], textos["opciones_3_3"], index=None, key="q33") # Pregunta 3_3
+        
+        st.text(textos["intro_q34"])
+        answer_q34 = st.radio(textos["pregunta_3_4"], textos["opciones_3_4"], index=None, key="q34") # Pregunta 3_4
+        
+        answer_q35 = st.radio(textos["pregunta_3_5"], textos["opciones_3_5"], index=None, key="q35") # Pregunta 3_5
+        
+        answer_q36 = st.radio(textos["pregunta_3_6"], SCALE_OPTIONS, index=None, key="q36") # Pregunta 3_6
+        
+        answer_q37 = st.radio(textos["pregunta_3_7"], SCALE_OPTIONS, index=None, key="q37") # Pregunta 3_7
 
         if st.button(textos["boton_continuar"], key="btn_sec3"):
             if (
@@ -240,7 +265,9 @@ def display_questions(questions):
                 answer_q32 is None or
                 answer_q33 is None or
                 answer_q34 is None or
-                answer_q35 is None
+                answer_q35 is None or
+                answer_q36 is None or
+                answer_q37 is None
             ):
                 st.warning(textos["selecciona_opción"])
             else:
@@ -250,9 +277,11 @@ def display_questions(questions):
                     "Pregunta 13": answer_q33,
                     "Pregunta 14": answer_q34,
                     "Pregunta 15": answer_q35,
+                    "Pregunta 16": answer_q36,
+                    "Pregunta 17": answer_q37,
                 }
                 st.session_state.answers.extend([
-                    answer_q31, answer_q32, answer_q33, answer_q34, answer_q35
+                    answer_q31, answer_q32, answer_q33, answer_q34, answer_q35, answer_q36, answer_q37
                 ])
 
                 next_question()
