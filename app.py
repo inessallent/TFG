@@ -266,7 +266,7 @@ def display_questions(questions):
                 </div>
                 """,unsafe_allow_html=True)
             
-            q21_index = textos["opciones_2_1"].index(st.session_state.q21) if "q21" in st.session_state and st.session_state.q21 in textos["opciones_2_1"] else 0
+            q21_index = textos["opciones_2_1"].index(st.session_state.q21) if "q21" in st.session_state and st.session_state.q21 in textos["opciones_2_1"] else None
             st.radio(label="", options=textos["opciones_2_1"], index=q21_index, key="q21", label_visibility="collapsed")
             
         
@@ -275,9 +275,8 @@ def display_questions(questions):
                 </div>
                 """,unsafe_allow_html=True)
             
-            q22_index = textos["opciones_2_2"].index(st.session_state.q22) if "q22" in st.session_state and st.session_state.q22 in textos["opciones_2_2"] else 0
+            q22_index = textos["opciones_2_2"].index(st.session_state.q22) if "q22" in st.session_state and st.session_state.q22 in textos["opciones_2_2"] else None
             st.radio("", textos["opciones_2_2"], index=q22_index, key="q22", label_visibility="collapsed")
-    
             
         with st.container(): #Pregunta 2_3
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_3'].replace("**", "")}</p>
@@ -294,7 +293,7 @@ def display_questions(questions):
                 </div>
                 """,unsafe_allow_html=True)
             
-            q24_index = textos["opciones_2_4"].index(st.session_state.q24) if "q24" in st.session_state and st.session_state.q24 in textos["opciones_2_4"] else 0
+            q24_index = textos["opciones_2_4"].index(st.session_state.q24) if "q24" in st.session_state and st.session_state.q24 in textos["opciones_2_4"] else None
             st.radio("", textos["opciones_2_4"], index=q24_index, key="q24", label_visibility="collapsed")
     
         with st.container(): #Pregunta 2_5
@@ -302,7 +301,7 @@ def display_questions(questions):
                 </div>
                 """,unsafe_allow_html=True)
             
-            q25_index = textos["opciones_2_5"].index(st.session_state.q25) if "q25" in st.session_state and st.session_state.q25 in textos["opciones_2_5"] else 0
+            q25_index = textos["opciones_2_5"].index(st.session_state.q25) if "q25" in st.session_state and st.session_state.q25 in textos["opciones_2_5"] else None
             st.radio("", textos["opciones_2_5"], index=q25_index, key="q25", label_visibility="collapsed")
     
             
@@ -311,7 +310,7 @@ def display_questions(questions):
                 </div>
                 """,unsafe_allow_html=True)
             
-            q26_index = textos["opciones_2_6"].index(st.session_state.q26) if "q26" in st.session_state and st.session_state.q26 in textos["opciones_2_6"] else 0
+            q26_index = textos["opciones_2_6"].index(st.session_state.q26) if "q26" in st.session_state and st.session_state.q26 in textos["opciones_2_6"] else None
             st.radio("", textos["opciones_2_6"], index=q26_index, key="q26", label_visibility="collapsed")
     
 
@@ -320,7 +319,7 @@ def display_questions(questions):
                 </div>
                 """,unsafe_allow_html=True)
             
-            q27_index = textos["opciones_2_7"].index(st.session_state.q27) if "q27" in st.session_state and st.session_state.q27 in textos["opciones_2_7"] else 0
+            q27_index = textos["opciones_2_7"].index(st.session_state.q27) if "q27" in st.session_state and st.session_state.q27 in textos["opciones_2_7"] else None
             st.radio("", textos["opciones_2_7"], index=q27_index, key="q27", label_visibility="collapsed")
 
                     
@@ -376,7 +375,7 @@ def display_questions(questions):
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_3_3'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
-            q33_index = textos["opciones_3_3"].index(st.session_state.q33) if "q33" in st.session_state and st.session_state.q33 in textos["opciones_3_3"] else 0
+            q33_index = textos["opciones_3_3"].index(st.session_state.q33) if "q33" in st.session_state and st.session_state.q33 in textos["opciones_3_3"] else None
             st.radio("", textos["opciones_3_3"], index=q33_index, key="q33", label_visibility="collapsed")
         
         st.markdown(f"<p style='font-size: 1.05rem; color: #2c2c2c;  text-align: justify; margin-bottom: 0.8rem;'>{textos['intro_q34']}</p>", unsafe_allow_html=True)
@@ -384,28 +383,28 @@ def display_questions(questions):
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_3_4'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
-            q34_index = textos["opciones_3_4"].index(st.session_state.q34) if "q34" in st.session_state and st.session_state.q34 in textos["opciones_3_4"] else 0
+            q34_index = textos["opciones_3_4"].index(st.session_state.q34) if "q34" in st.session_state and st.session_state.q34 in textos["opciones_3_4"] else None
             st.radio("", textos["opciones_3_4"], index=q34_index, key="q34", label_visibility="collapsed")
         
         with st.container(): #Pregunta 3_5
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_5'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
-            q35_index = textos["opciones_3_5"].index(st.session_state.q35) if "q35" in st.session_state and st.session_state.q35 in textos["opciones_3_5"] else 0
+            q35_index = textos["opciones_3_5"].index(st.session_state.q35) if "q35" in st.session_state and st.session_state.q35 in textos["opciones_3_5"] else None
             st.radio("", textos["opciones_3_5"], index=q35_index, key="q35", label_visibility="collapsed")
         
         with st.container(): #Pregunta 3_6
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_6'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
-            q36_index = SCALE_OPTIONS.index(st.session_state.q36) if "q36" in st.session_state and st.session_state.q36 in SCALE_OPTIONS else 0
+            q36_index = SCALE_OPTIONS.index(st.session_state.q36) if "q36" in st.session_state and st.session_state.q36 in SCALE_OPTIONS else None
             st.radio("", SCALE_OPTIONS, index=q36_index, key="q36", label_visibility="collapsed")
                     
         with st.container(): #Pregunta 3_7
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_7'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
-            q37_index = SCALE_OPTIONS.index(st.session_state.q37) if "q37" in st.session_state and st.session_state.q37 in SCALE_OPTIONS else 0
+            q37_index = SCALE_OPTIONS.index(st.session_state.q37) if "q37" in st.session_state and st.session_state.q37 in SCALE_OPTIONS else None
             st.radio("", SCALE_OPTIONS, index=q37_index, key="q37", label_visibility="collapsed")
                     
         # answer_q37 = st.radio(textos["pregunta_3_7"], SCALE_OPTIONS, index=None) # Pregunta 3_7
@@ -489,8 +488,9 @@ def cuestions():
                     st.session_state.answers
                 )
 
-                # Limpiar respuestas después de guardar
-                st.session_state.answers = []              
+                # Limpiar las respuestas después de guardarlas
+                st.session_state.answers = []
+                st.session_state.question_index = 1  # Resetear al inicio            
 
 # Aplicar estilos CSS personalizados
 st.markdown(
