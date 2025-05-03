@@ -2,4 +2,3 @@ streamlit
 pandas
 streamlit-extras
 dnspython>=2.3.0
-streamlit-gsheets

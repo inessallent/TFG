@@ -6,10 +6,11 @@ import re
 import dns.resolver
 import importlib
 import datetime 
-from streamlit_gsheets import GSheetsConnection 
+# from streamlit_gsheets import GSheetsConnection 
 
 # Create a connection object (with google sheets)
-conn = st.connection("gsheets", type=GSheetsConnection)
+# conn = st.connection("gsheets", type=GSheetsConnection)
+conn = st.connection("gsheets")
     
 # Sidebar para seleccionar idioma
 st.sidebar.title("Seleccionar Idioma")
