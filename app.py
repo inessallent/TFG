@@ -6,8 +6,7 @@ import re
 import dns.resolver
 import importlib
 import datetime 
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from streamlit_gsheets import GSheetsConnection 
 
 # Create a connection object (with google sheets)
 conn = st.connection("gsheets", type=GSheetsConnection)
