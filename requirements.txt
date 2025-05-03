@@ -3,4 +3,4 @@ pandas
 streamlit-extras
 dnspython>=2.3.0
 oauth2client
-st-supabase-connection
+supabase
