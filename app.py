@@ -8,18 +8,8 @@ import importlib
 import datetime 
 from st_supabase_connection import SupabaseConnection
 
-# # Create a connection object (with google sheets)
-# scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-# credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-#     st.secrets["gsheets"],
-#     scope
-# )
-
-# gc = gspread.authorize(credentials)
-# sh = gc.open("respuestas")  
-
-conn = st.connection("gsheets", type="gspread")
-worksheet_data = conn.read(worksheet="Full_1")
+# Create a connection object (with google sheets)
+conn = st.connection("supabase",type=SupabaseConnection)
 
     
 # Sidebar para seleccionar idioma
@@ -50,9 +40,7 @@ def is_valid_email(email):
 # Save answers in New CSV
 def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios, años_experiencia, pais_residencia, answers):
     
-    # Leer datos actuales
-    existing_data = worksheet.get_all_records()
-    df = pd.DataFrame(existing_data)
+    table_name = "respuestas" 
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
@@ -65,31 +53,25 @@ def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios
         'Años Experiencia en el sector': años_experiencia,
         'País de residencia': pais_residencia
     }
-    # Añadir las respuestas a las preguntas (de manera dinámica)
+    # Añadir las respuestas a las preguntas dinámicamente
     for i, respuesta in enumerate(answers):
-        nueva_respuesta[f"Pregunta {i + 1}"] = respuesta
+        nueva_respuesta[f"pregunta_{i + 1}"] = respuesta
 
-    # Convertir la nueva respuesta a DataFrame
-    nueva_fila = pd.DataFrame([nueva_respuesta])
+    # Subir la nueva respuesta a Supabase
+    try:
+        # Insertar la respuesta en la base de datos
+        response = conn.from_(table_name).insert([nueva_respuesta]).execute()
 
-    # Verificar columnas faltantes y añadirlas con valores vacíos
-    for col in df.columns:
-        if col not in nueva_fila.columns:
-            nueva_fila[col] = ""
-
-    # Asegurar el mismo orden de columnas
-    nueva_fila = nueva_fila.reindex(columns=df.columns, fill_value="")
-
-    # Concatenar la nueva fila al DataFrame existente
-    df_actualizado = pd.concat([df, nueva_fila], ignore_index=True)
-
-    # Limpiar la hoja y subir el nuevo contenido completo
-    worksheet.clear()
-    worksheet.update([df_actualizado.columns.tolist()] + df_actualizado.values.tolist())
-
+        # Verificar si la inserción fue exitosa
+        if response.status_code == 201:
+            st.success(textos["enviado_con_éxtio"])  # Mostrar mensaje de éxito
+        else:
+            st.error(textos["error_envio"])  # Mostrar mensaje de error si no se pudo guardar
+    
+    except Exception as e:
+        st.error(f"Error al guardar la respuesta: {str(e)}")  # Manejo de error en caso de falla
     # Confirmación en la interfaz
-    st.success(textos["enviado_con_éxtio"])
-
+    
 
 
 # Next Question
