@@ -16,6 +16,8 @@ textos = {
     
     "boton_continuar": "Següent",
     "boton_atras": "Enrere",
+    "boton_enviar": "Enviar",
+    
     "error_correo": "Si us plau, introdueix un correu electrònic vàlid.",
     "enviado_con_éxtio": "Enviat amb èxit!",
     "Seccion_1": "Secció 1",

@@ -422,7 +422,7 @@ def display_questions(questions):
             st.session_state.q37 = st.radio(label="q37", options=textos["opciones_3_7"], index=q37_index, label_visibility="collapsed")
 
 
-        if st.button(textos["boton_continuar"], key="btn_sec3"):
+        if st.button(textos["boton_enviar"], key="btn_sec3"):
             if (
                 # st.session_state.q31 is None or
                 # st.session_state.q32 is None or

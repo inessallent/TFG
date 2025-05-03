@@ -13,6 +13,8 @@ textos = {
     
     "boton_continuar": "Siguiente", 
     "boton_atras": "Atrás",
+    "boton_enviar": "Enviar",
+    
     "error_correo": "Por favor, ingresa un correo electrónico válido.",
     "enviado_con_éxtio": "Enviado con éxito!",
     "Seccion_1": "Sección 1",

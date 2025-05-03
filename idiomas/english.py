@@ -14,6 +14,8 @@ textos = {
 
     "boton_continuar": "Next",
     "boton_atras": "Back",
+    "boton_enviar": "Submit",
+    
     "error_correo": "Please enter a valid email address.",
     "enviado_con_éxtio": "Successfully sent!",
     "Seccion_1": "Section 1",
