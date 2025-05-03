@@ -6,8 +6,7 @@ import re
 import dns.resolver
 import importlib
 import datetime 
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from st_supabase_connection import SupabaseConnection
 
 # # Create a connection object (with google sheets)
 # scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
