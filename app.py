@@ -6,10 +6,12 @@ import re
 import dns.resolver
 import importlib
 import datetime 
-from st_supabase_connection import SupabaseConnection
+from supabase import create_client, Client
 
 # Create a connection object (with google sheets)
-conn = st.connection("supabase",type=SupabaseConnection)
+url = "https://okxrqxueywqdngrvvxrt.supabase.co"
+key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9reHJxeHVleXdxZG5ncnZ2eHJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYzMDk1MjQsImV4cCI6MjA2MTg4NTUyNH0.kkS759PQXtIME1cBT8wr4FZZGaN7w20fqIy-Om94G0Y"
+supabase: Client = create_client(url, key)
 
     
 # Sidebar para seleccionar idioma
