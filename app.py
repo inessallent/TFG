@@ -44,14 +44,14 @@ def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
-        "Timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        'Género': genero,
-        'Correo Electrónico': correo,
-        'Edad': edad,
-        'Nivel Estudios': nivel_estudios, 
-        'Rama Estudios': rama_estudios,
-        'Años Experiencia en el sector': años_experiencia,
-        'País de residencia': pais_residencia
+        "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        'genero': genero,
+        'correo_electronico': correo,
+        'edad': edad,
+        'nivel_estudios': nivel_estudios, 
+        'rama_estudios': rama_estudios,
+        'años_experiencia': años_experiencia,
+        'pais_residencia': pais_residencia
     }
     # Añadir las respuestas a las preguntas dinámicamente
     for i, respuesta in enumerate(answers):
