@@ -2,3 +2,4 @@ streamlit
 pandas
 streamlit-extras
 dnspython>=2.3.0
+oauth2client
