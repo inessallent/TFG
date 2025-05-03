@@ -74,9 +74,10 @@ textos = {
     "opciones_3_5": ["El primero: “espeto de la dignidad humana, lo que significa que todos estos sistemas deben actuar en favor de la dignidad humana”.", "El Segundo: “Libertad. Los sistemas de IA deben respetar y promover la libertad”.", "El tercero: “Justicia. No todo el mundo tiene acceso a los mismos sistemas, y se dice que los sistemas de IA provocan más división y más desigualdad entre las personas”.  "  ], 
     
     "pregunta_3_6": "¿Cuánto de acuerdo esta con la siguiente afirmación? : “Las tecnologías basadas en la IA ya están siendo utilizadas para ayudar a los humanos a beneficiarse de mejoras significativas y disfrutar de una mayor eficiencia en casi todos los ámbitos de la vida.”", 
-        
-    "pregunta_3_7": "¿Cuánto de acuerdo esta con la siguiente afirmación? : La IA también será capaz de ofrecernos sugerencias y predicciones relacionadas con asuntos importantes de nuestra vida, lo que tendrá su impacto en áreas como la salud, el bienestar, la educación, el trabajo y las relaciones interpersonales. De la misma manera, cambiará la forma de hacer negocios al proporcionar ventajas competitivas a las empresas que busquen entender y aplicar estas herramientas de forma rápida y eficaz.",
+    "opciones_3_6": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"], 
     
+    "pregunta_3_7": "¿Cuánto de acuerdo esta con la siguiente afirmación? : La IA también será capaz de ofrecernos sugerencias y predicciones relacionadas con asuntos importantes de nuestra vida, lo que tendrá su impacto en áreas como la salud, el bienestar, la educación, el trabajo y las relaciones interpersonales. De la misma manera, cambiará la forma de hacer negocios al proporcionar ventajas competitivas a las empresas que busquen entender y aplicar estas herramientas de forma rápida y eficaz.",
+    "opciones_3_7": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"],
     #Textos main
     "navegacion": "Navegación", 
     "selecciona_una_seccion": "Selecciona una sección:", 
