@@ -6,10 +6,20 @@ import re
 import dns.resolver
 import importlib
 import datetime 
-from streamlit_gsheets import GSheetsConnection 
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 # Create a connection object (with google sheets)
-conn = st.connection("gsheets", type=GSheetsConnection)
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+    st.secrets["gsheets"],
+    scope
+)
+
+gc = gspread.authorize(credentials)
+sh = gc.open("respuestas")  
+worksheet = sh.worksheet("Full_1") 
+
     
 # Sidebar para seleccionar idioma
 st.sidebar.title("Seleccionar Idioma")
@@ -39,7 +49,9 @@ def is_valid_email(email):
 # Save answers in New CSV
 def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios, años_experiencia, pais_residencia, answers):
     
-    df = conn.read()
+    # Leer datos actuales
+    existing_data = worksheet.get_all_records()
+    df = pd.DataFrame(existing_data)
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
@@ -56,33 +68,25 @@ def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios
     for i, respuesta in enumerate(answers):
         nueva_respuesta[f"Pregunta {i + 1}"] = respuesta
 
-    # Añadir las respuestas a las preguntas dinámicamente
-    for i, respuesta in enumerate(answers):
-        nueva_respuesta[f"Pregunta {i + 1}"] = respuesta
-
-    # Convertir a DataFrame
+    # Convertir la nueva respuesta a DataFrame
     nueva_fila = pd.DataFrame([nueva_respuesta])
 
-    # Verificar columnas faltantes
+    # Verificar columnas faltantes y añadirlas con valores vacíos
     for col in df.columns:
         if col not in nueva_fila.columns:
-            nueva_fila[col] = ""  # Rellenar con vacío si falta
+            nueva_fila[col] = ""
 
-    # Convertir a DataFrame solo con la nueva fila
-    nueva_fila = pd.DataFrame([nueva_respuesta])
-
-    # Asegurarse de que las columnas coincidan exactamente
+    # Asegurar el mismo orden de columnas
     nueva_fila = nueva_fila.reindex(columns=df.columns, fill_value="")
 
-    # **Actualizar usando `conn.update()` sumando la nueva fila**
+    # Concatenar la nueva fila al DataFrame existente
     df_actualizado = pd.concat([df, nueva_fila], ignore_index=True)
-    
-    # Verificar el resultado (Depuración)
-    #print("DataFrame actualizado:", df_actualizado.tail())
 
-    # Subir la nueva fila (sin sobrescribir todo)
-    conn.update(data=df_actualizado)
-    
+    # Limpiar la hoja y subir el nuevo contenido completo
+    worksheet.clear()
+    worksheet.update([df_actualizado.columns.tolist()] + df_actualizado.values.tolist())
+
+    # Confirmación en la interfaz
     st.success(textos["enviado_con_éxtio"])
 
 
