@@ -9,16 +9,18 @@ import datetime
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-# Create a connection object (with google sheets)
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-    st.secrets["gsheets"],
-    scope
-)
+# # Create a connection object (with google sheets)
+# scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+# credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+#     st.secrets["gsheets"],
+#     scope
+# )
 
-gc = gspread.authorize(credentials)
-sh = gc.open("respuestas")  
-worksheet = sh.worksheet("Full_1") 
+# gc = gspread.authorize(credentials)
+# sh = gc.open("respuestas")  
+
+conn = st.connection("gsheets", type="gspread")
+worksheet_data = conn.read(worksheet="Full_1")
 
     
 # Sidebar para seleccionar idioma
