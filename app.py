@@ -62,7 +62,7 @@ def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios
     # Subir la nueva respuesta a Supabase
     try:
         # Insertar la respuesta en la base de datos
-        response = conn.from_(table_name).insert([nueva_respuesta]).execute()
+        response = supabase.table(table_name).insert([nueva_respuesta]).execute()
 
         # Verificar si la inserción fue exitosa
         if response.status_code == 201:
