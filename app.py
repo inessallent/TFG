@@ -6,12 +6,11 @@ import re
 import dns.resolver
 import importlib
 import datetime 
-import streamlit as st 
-from streamlit_gsheets import GSheetsConnection
-# 
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
 # Create a connection object (with google sheets)
 conn = st.connection("gsheets", type=GSheetsConnection)
-# conn = st.connection("gsheets")
     
 # Sidebar para seleccionar idioma
 st.sidebar.title("Seleccionar Idioma")
@@ -86,6 +85,7 @@ def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios
     conn.update(data=df_actualizado)
     
     st.success(textos["enviado_con_éxtio"])
+
 
 
 # Next Question

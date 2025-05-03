@@ -2,5 +2,4 @@ streamlit
 pandas
 streamlit-extras
 dnspython>=2.3.0
-gspread
-oauth2client
+streamlit_gsheets
