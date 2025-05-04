@@ -40,7 +40,7 @@ def is_valid_email(email):
 
 
 # Save answers in New CSV
-def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios, años_experiencia, pais_residencia, answers):
+def save_response_to_gsheets(genero, correo, edad, nivel_estudios, rama_estudios, años_experiencia, pais_residencia, answers):
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
