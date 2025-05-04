@@ -17,9 +17,14 @@ textos = {
     
     "error_correo": "Por favor, ingresa un correo electrónico válido.",
     "enviado_con_éxtio": "Enviado con éxito!",
+    
+    
     "Seccion_1": "Sección 1",
     "Seccion_2": "Sección 2",
     "Seccion_3": "Sección 3",
+    
+    #Acesso al cuestionario
+    "acepto_terminos": "He leído y acepto la hoja de información y el consentimiento informado del proyecto, y doy mi consentimiento para participar en el estudio y para el tratamiento de mis datos personales.", 
     
     
     # Preguntas Sección 1: Información Personal 

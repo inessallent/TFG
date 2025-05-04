@@ -105,9 +105,43 @@ def go_back_section():
 
 #Display seccions
 def display_questions(questions):
+    
+    if "terms_read" not in st.session_state:
+        st.session_state.terms_read = False
+    if "accepted_terms" not in st.session_state:
+        st.session_state.accepted_terms = False
+    ################################################################ Acceso al cuestionario  ################################################################ 
+    if st.session_state.question_index == 1: 
+        st.title("¿Quieres empezar el cuestionario?")
         
+        st.write("Antes de comenzar, por favor, lee los siguientes términos y condiciones.")
+        
+        # Incrustamos el documento de Google Docs (público)
+        st.markdown("""
+        <iframe src="https://docs.google.com/document/d/1-GhwIccPJfcAKDb5eIjpp8GpEt_EikjI6l-6NjJ-FSY/edit?usp=sharing"
+                width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
+        """, unsafe_allow_html=True)
+
+        # Botón para que el usuario confirme que ha leído el documento
+        if not st.session_state.terms_read:
+            if st.button("Confirmo que he leído todo el documento"):
+                st.session_state.terms_read = True
+
+        # Mostrar aceptación si ya marcó como leído
+        if st.session_state.terms_read:
+            accept = st.checkbox(textos["acepto_terminos"])
+            if accept:
+                st.session_state.accepted_terms = True
+
+        # Mostrar botón de continuar solo si ha aceptado
+        if st.session_state.accepted_terms:
+            if st.button("Empezar"):
+                next_section()
+        else:
+            st.warning("Debes leer y aceptar los términos para continuar.")
+                
     ################################################################ SECTION 1: Personal Information ################################################################ 
-    if st.session_state.question_index == 1:
+    if st.session_state.question_index == 2:
         # Manejo del scroll al inicio de la sección 1
         if 'scroll_to_top' not in st.session_state:
             st.session_state.scroll_to_top = False
@@ -253,7 +287,7 @@ def display_questions(questions):
     
     ################################################################ SECTION 2: (Knowledge about AI) ################################################################ 
 
-    elif st.session_state.question_index == 2:
+    elif st.session_state.question_index == 3:
         # Manejo del scroll al inicio de la sección 2
         if 'scroll_to_top' not in st.session_state:
             st.session_state.scroll_to_top = False
@@ -382,7 +416,7 @@ def display_questions(questions):
 
     ################################################################ SECTION 3 ################################################################ 
 
-    elif st.session_state.question_index == 3:
+    elif st.session_state.question_index == 4:
         # Manejo del scroll al inicio de la sección 2
         if 'scroll_to_top' not in st.session_state:
             st.session_state.scroll_to_top = False
@@ -486,8 +520,7 @@ def display_questions(questions):
 
     
 def cuestions():
-    st.title(textos["cuestionario"])
-
+    
     # Inicializar el estado de la sesión si no existe
     if 'question_index' not in st.session_state:
         st.session_state.question_index = 1
@@ -501,7 +534,7 @@ def cuestions():
         
 
 
-    seccion_lens = 3 # Apartados de preguntas
+    seccion_lens = 4 # Apartados de preguntas
         
     # Mostrar la pregunta actual
     if st.session_state.question_index - 1 < seccion_lens:
