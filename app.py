@@ -81,6 +81,7 @@ def save_response_to_gsheets(genero, correo, edad, nivel_estudios, rama_estudios
 def next_section():
     st.session_state.question_index += 1
     st.session_state.selected_option = None  # Restablecer la opción seleccionada
+    st.session_state.scroll_to_top = True  # Activar scroll
     st.rerun()  # Forzar la actualización inmediata de la interfaz
     
     
@@ -98,6 +99,7 @@ def go_back_section():
         st.session_state.answers.append(st.session_state.selected_option)
 
     st.session_state.question_index -= 1
+    st.session_state.scroll_to_top = True  # Activar scroll
     st.rerun()  # Forzar la actualización inmediata de la interfaz
 
 
@@ -105,10 +107,19 @@ def go_back_section():
 def display_questions(questions):
         
     ################################################################ SECTION 1: Personal Information ################################################################ 
-    if st.session_state.question_index == 1:        
+    if st.session_state.question_index == 1:
+        # Manejo del scroll al inicio de la sección 1
+        if 'scroll_to_top' not in st.session_state:
+            st.session_state.scroll_to_top = False
+
+        if st.session_state.scroll_to_top:
+            scroll_to_here(delay=0, key="top-scroll-trigger")
+            st.session_state.scroll_to_top = False
+
+        scroll_to_here(key="top")
+    
         st.header(textos["info_personal"])
-        
-        
+    
         #Pregunta género
         with st.container(): 
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_genero'].replace("**", "")}</p>
@@ -243,6 +254,16 @@ def display_questions(questions):
     ################################################################ SECTION 2: (Knowledge about AI) ################################################################ 
 
     elif st.session_state.question_index == 2:
+        # Manejo del scroll al inicio de la sección 2
+        if 'scroll_to_top' not in st.session_state:
+            st.session_state.scroll_to_top = False
+
+        if st.session_state.scroll_to_top:
+            scroll_to_here(delay=0, key="top-scroll-trigger")
+            st.session_state.scroll_to_top = False
+
+        scroll_to_here(key="top")
+        
         st.header(textos["Seccion_2"])
         
                 
@@ -362,6 +383,16 @@ def display_questions(questions):
     ################################################################ SECTION 3 ################################################################ 
 
     elif st.session_state.question_index == 3:
+        # Manejo del scroll al inicio de la sección 2
+        if 'scroll_to_top' not in st.session_state:
+            st.session_state.scroll_to_top = False
+
+        if st.session_state.scroll_to_top:
+            scroll_to_here(delay=0, key="top-scroll-trigger")
+            st.session_state.scroll_to_top = False
+
+        scroll_to_here(key="top")
+        
         st.header(textos["Seccion_3"])
 
         # answer_q31 = st.radio("Hola buenos días", SCALE_OPTIONS, index=None, key="q31", horizontal=True)
