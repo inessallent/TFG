@@ -4,4 +4,4 @@ streamlit-extras
 dnspython>=2.3.0
 oauth2client
 supabase
-streamlit_javascript
+streamlit-scroll-to-top

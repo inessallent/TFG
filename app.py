@@ -7,7 +7,8 @@ import dns.resolver
 import importlib
 import datetime 
 from supabase import create_client, Client
-from streamlit_javascript import st_javascript
+from streamlit_scroll_to_top import scroll_to_here
+
 
 # Create a connection object (with google sheets)
 url = "https://okxrqxueywqdngrvvxrt.supabase.co"
@@ -102,9 +103,6 @@ def go_back_section():
 
 #Display seccions
 def display_questions(questions):
-    
-    # Forzar scroll al principio de la página
-    st_javascript("window.scrollTo(0, 0)")
         
     ################################################################ SECTION 1: Personal Information ################################################################ 
     if st.session_state.question_index == 1:        
