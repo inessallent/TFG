@@ -81,6 +81,7 @@ def next_section():
     st.session_state.selected_option = None  # Restablecer la opción seleccionada
     st.rerun()  # Forzar la actualización inmediata de la interfaz
     
+    
 
 def next_video(question_index):
     video_path = os.path.join("Media", "Questionarios_videos", f"Q{question_index + 1}.mp4")
@@ -100,10 +101,20 @@ def go_back_section():
 
 #Display seccions
 def display_questions(questions):
-    
+    st.markdown("""
+        <script>
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    window.scrollTo({top: 0, behavior: "smooth"});
+                }, 100);
+            });
+        </script>
+    """, unsafe_allow_html=True)
+        
     ################################################################ SECTION 1: Personal Information ################################################################ 
-    if st.session_state.question_index == 1:
+    if st.session_state.question_index == 1:        
         st.header(textos["info_personal"])
+        
         
         #Pregunta género
         with st.container(): 
@@ -241,6 +252,7 @@ def display_questions(questions):
     elif st.session_state.question_index == 2:
         st.header(textos["Seccion_2"])
         
+                
         with st.container(): #Pregunta 2_1
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_1'].replace("**", "")}</p>
                 </div>
@@ -358,7 +370,7 @@ def display_questions(questions):
 
     elif st.session_state.question_index == 3:
         st.header(textos["Seccion_3"])
-        
+
         # answer_q31 = st.radio("Hola buenos días", SCALE_OPTIONS, index=None, key="q31", horizontal=True)
         
         # answer_q32 = st.radio("Hola buenos días 2", SCALE_OPTIONS, index=None, key="q32", horizontal=True)
@@ -463,36 +475,36 @@ def cuestions():
     if 'selected_option' not in st.session_state:
         st.session_state.selected_option = None
         
-    else:     
 
-        seccion_lens = 3 # Apartados de preguntas
+
+    seccion_lens = 3 # Apartados de preguntas
         
-        # Mostrar la pregunta actual
-        if st.session_state.question_index - 1 < seccion_lens:
-            display_questions(st.session_state.question_index)
-        else:
-            st.write(textos["Gracias_por_contestar_el_formulario"])
+    # Mostrar la pregunta actual
+    if st.session_state.question_index - 1 < seccion_lens:
+        display_questions(st.session_state.question_index)
+    else:
+        st.write(textos["Gracias_por_contestar_el_formulario"])
 
-            # Guardar todas las respuestas acumuladas al final
-            if 'personal_data' in st.session_state:
-                personal_data = st.session_state.personal_data
-                
-                # st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
-                
-                save_response_to_gsheets(
-                    personal_data["genero"],
-                    personal_data["correo"],
-                    personal_data["edad"],
-                    personal_data["nivel_estudios"],
-                    personal_data["rama_estudios"], 
-                    personal_data["años_experiencia"],
-                    personal_data["pais_residencia"],
-                    st.session_state.answers
-                )
+        # Guardar todas las respuestas acumuladas al final
+        if 'personal_data' in st.session_state:
+            personal_data = st.session_state.personal_data
+            
+            # st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
+            
+            save_response_to_gsheets(
+                personal_data["genero"],
+                personal_data["correo"],
+                personal_data["edad"],
+                personal_data["nivel_estudios"],
+                personal_data["rama_estudios"], 
+                personal_data["años_experiencia"],
+                personal_data["pais_residencia"],
+                st.session_state.answers
+            )
 
-                # Limpiar las respuestas después de guardarlas
-                st.session_state.answers = []
-                st.session_state.question_index = 1  # Resetear al inicio            
+            # Limpiar las respuestas después de guardarlas
+            st.session_state.answers = []
+            st.session_state.question_index = 1  # Resetear al inicio            
 
 # Aplicar estilos CSS personalizados
 st.markdown(

@@ -465,34 +465,34 @@ def cuestions():
         
     else:     
 
-        seccion_lens = 3 # Apartados de preguntas
-        
-        # Mostrar la pregunta actual
-        if st.session_state.question_index - 1 < seccion_lens:
-            display_questions(st.session_state.question_index)
-        else:
-            st.write(textos["Gracias_por_contestar_el_formulario"])
+            seccion_lens = 3 # Apartados de preguntas
+            
+            # Mostrar la pregunta actual
+            if st.session_state.question_index - 1 < seccion_lens:
+                display_questions(st.session_state.question_index)
+            else:
+                st.write(textos["Gracias_por_contestar_el_formulario"])
 
-            # Guardar todas las respuestas acumuladas al final
-            if 'personal_data' in st.session_state:
-                personal_data = st.session_state.personal_data
-                
-                # st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
-                
-                save_response_to_gsheets(
-                    personal_data["genero"],
-                    personal_data["correo"],
-                    personal_data["edad"],
-                    personal_data["nivel_estudios"],
-                    personal_data["rama_estudios"], 
-                    personal_data["años_experiencia"],
-                    personal_data["pais_residencia"],
-                    st.session_state.answers
-                )
+                # Guardar todas las respuestas acumuladas al final
+                if 'personal_data' in st.session_state:
+                    personal_data = st.session_state.personal_data
+                    
+                    # st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
+                    
+                    save_response_to_gsheets(
+                        personal_data["genero"],
+                        personal_data["correo"],
+                        personal_data["edad"],
+                        personal_data["nivel_estudios"],
+                        personal_data["rama_estudios"], 
+                        personal_data["años_experiencia"],
+                        personal_data["pais_residencia"],
+                        st.session_state.answers
+                    )
 
-                # Limpiar las respuestas después de guardarlas
-                st.session_state.answers = []
-                st.session_state.question_index = 1  # Resetear al inicio            
+                    # Limpiar las respuestas después de guardarlas
+                    st.session_state.answers = []
+                    st.session_state.question_index = 1  # Resetear al inicio            
 
 # Aplicar estilos CSS personalizados
 st.markdown(
