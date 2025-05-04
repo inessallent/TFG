@@ -6,10 +6,13 @@ import re
 import dns.resolver
 import importlib
 import datetime 
-from streamlit_gsheets import GSheetsConnection 
+from supabase import create_client, Client
 
 # Create a connection object (with google sheets)
-conn = st.connection("gsheets", type=GSheetsConnection)
+url = "https://okxrqxueywqdngrvvxrt.supabase.co"
+key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9reHJxeHVleXdxZG5ncnZ2eHJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYzMDk1MjQsImV4cCI6MjA2MTg4NTUyNH0.kkS759PQXtIME1cBT8wr4FZZGaN7w20fqIy-Om94G0Y"
+supabase = create_client(url, key)
+
     
 # Sidebar para seleccionar idioma
 st.sidebar.title("Seleccionar Idioma")
@@ -29,15 +32,6 @@ textos = modulo_idioma.textos  # Cargar los textos del idioma seleccionado
 # Depuración diccionarios
 # st.write("Textos cargados:", textos)
 
-# Opciones de respuesta en escala de 5
-SCALE_OPTIONS = [
-    textos["totalmente_en_desacuerdo"],
-    textos["en_desacuerdo"],
-    textos["neutral"],
-    textos["de_acuerdo"],
-    textos["totalmente_de_acuerdo"]
-]
-
 # Validar el formato del correo electrónico
 def is_valid_email(email):
     # Regex que permite múltiples subdominios
@@ -46,53 +40,39 @@ def is_valid_email(email):
 
 
 # Save answers in New CSV
-def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios, años_experiencia, pais_residencia, answers):
-    
-    df = conn.read()
+def save_response_to_gsheets(genero, correo, edad, nivel_estudios, rama_estudios, años_experiencia, pais_residencia, answers):
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
-        "Timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        'Género': genero,
-        'Correo Electrónico': correo,
-        'Edad': edad,
-        'Nivel Estudios': nivel_estudios, 
-        'Rama Estudios': rama_estudios,
-        'Años Experiencia en el sector': años_experiencia,
-        'País de residencia': pais_residencia
+        "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        'genero': genero,
+        'correo_electronico': correo,
+        'edad': edad,
+        'nivel_estudios': nivel_estudios, 
+        'rama_estudios': rama_estudios,
+        'anos_experiencia': años_experiencia,
+        'pais_residencia': pais_residencia
     }
-    # Añadir las respuestas a las preguntas (de manera dinámica)
-    for i, respuesta in enumerate(answers):
-        nueva_respuesta[f"Pregunta {i + 1}"] = respuesta
-
     # Añadir las respuestas a las preguntas dinámicamente
     for i, respuesta in enumerate(answers):
-        nueva_respuesta[f"Pregunta {i + 1}"] = respuesta
+        nueva_respuesta[f"pregunta_{i + 1}"] = respuesta
 
-    # Convertir a DataFrame
-    nueva_fila = pd.DataFrame([nueva_respuesta])
+    # Subir la nueva respuesta a Supabase
+    try:
+        # Insertar la respuesta en la base de datos
+        response = supabase.table("respuestas").insert([nueva_respuesta]).execute()
 
-    # Verificar columnas faltantes
-    for col in df.columns:
-        if col not in nueva_fila.columns:
-            nueva_fila[col] = ""  # Rellenar con vacío si falta
+        # Verificar si la inserción fue exitosa
+        if response.data:
+            st.success(textos["enviado_con_éxtio"])
+        else:
+            st.error(f"{textos['error_envio']}: {response.raw_error or 'Error desconocido'}")
 
-    # Convertir a DataFrame solo con la nueva fila
-    nueva_fila = pd.DataFrame([nueva_respuesta])
-
-    # Asegurarse de que las columnas coincidan exactamente
-    nueva_fila = nueva_fila.reindex(columns=df.columns, fill_value="")
-
-    # **Actualizar usando `conn.update()` sumando la nueva fila**
-    df_actualizado = pd.concat([df, nueva_fila], ignore_index=True)
     
-    # Verificar el resultado (Depuración)
-    #print("DataFrame actualizado:", df_actualizado.tail())
-
-    # Subir la nueva fila (sin sobrescribir todo)
-    conn.update(data=df_actualizado)
+    except Exception as e:
+        st.error(f"Error al guardar la respuesta: {str(e)}")  # Manejo de error en caso de falla
+    # Confirmación en la interfaz
     
-    st.success(textos["enviado_con_éxtio"])
 
 
 # Next Question
@@ -266,8 +246,11 @@ def display_questions(questions):
                 </div>
                 """,unsafe_allow_html=True)
             
-            q21_index = textos["opciones_2_1"].index(st.session_state.q21) if "q21" in st.session_state and st.session_state.q21 in textos["opciones_2_1"] else 0
-            st.radio(label="", options=textos["opciones_2_1"], index=q21_index, key="q21", label_visibility="collapsed")
+            #Restaurar respuesta si retrocede
+            q21_index = None
+            if "q21" in st.session_state:
+                q21_index = textos["opciones_2_1"].index(st.session_state.q21) if st.session_state.q21 else None
+            st.session_state.q21 = st.radio( label="", options=textos["opciones_2_1"], index=q21_index , label_visibility="collapsed")
             
         
         with st.container(): #Pregunta 2_2
@@ -275,10 +258,11 @@ def display_questions(questions):
                 </div>
                 """,unsafe_allow_html=True)
             
-            q22_index = textos["opciones_2_2"].index(st.session_state.q22) if "q22" in st.session_state and st.session_state.q22 in textos["opciones_2_2"] else 0
-            st.radio("", textos["opciones_2_2"], index=q22_index, key="q22", label_visibility="collapsed")
-    
-            
+            q22_index = None
+            if "q22" in st.session_state:
+                q22_index = textos["opciones_2_2"].index(st.session_state.q22) if st.session_state.q22  else None
+            st.session_state.q22 = st.radio(label="", options=textos["opciones_2_2"], index=q22_index, label_visibility="collapsed")
+
         with st.container(): #Pregunta 2_3
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_3'].replace("**", "")}</p>
                 </div>
@@ -294,34 +278,42 @@ def display_questions(questions):
                 </div>
                 """,unsafe_allow_html=True)
             
-            q24_index = textos["opciones_2_4"].index(st.session_state.q24) if "q24" in st.session_state and st.session_state.q24 in textos["opciones_2_4"] else 0
-            st.radio("", textos["opciones_2_4"], index=q24_index, key="q24", label_visibility="collapsed")
-    
+            q24_index = None
+            if "q24" in st.session_state:
+                q24_index = textos["opciones_2_4"].index(st.session_state.q24) if st.session_state.q24 else None
+            st.session_state.q24 = st.radio(label="", options=textos["opciones_2_4"], index=q24_index, label_visibility="collapsed")
+
         with st.container(): #Pregunta 2_5
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_5'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
             
-            q25_index = textos["opciones_2_5"].index(st.session_state.q25) if "q25" in st.session_state and st.session_state.q25 in textos["opciones_2_5"] else 0
-            st.radio("", textos["opciones_2_5"], index=q25_index, key="q25", label_visibility="collapsed")
-    
+            q25_index = None
+            if "q25" in st.session_state:
+                q25_index = textos["opciones_2_5"].index(st.session_state.q25) if st.session_state.q25  else None
+            st.session_state.q25 = st.radio(label="", options=textos["opciones_2_5"], index=q25_index, label_visibility="collapsed")
+
             
         with st.container(): #Pregunta 2_6
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_6'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
             
-            q26_index = textos["opciones_2_6"].index(st.session_state.q26) if "q26" in st.session_state and st.session_state.q26 in textos["opciones_2_6"] else 0
-            st.radio("", textos["opciones_2_6"], index=q26_index, key="q26", label_visibility="collapsed")
-    
+            q26_index = None
+            if "q26" in st.session_state:
+                q26_index = textos["opciones_2_6"].index(st.session_state.q26) if st.session_state.q26  else None
+            st.session_state.q26 = st.radio(label="", options=textos["opciones_2_6"], index=q26_index, label_visibility="collapsed")
+
 
         with st.container(): #Pregunta 2_7
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_7'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
             
-            q27_index = textos["opciones_2_7"].index(st.session_state.q27) if "q27" in st.session_state and st.session_state.q27 in textos["opciones_2_7"] else 0
-            st.radio("", textos["opciones_2_7"], index=q27_index, key="q27", label_visibility="collapsed")
+            q27_index = None
+            if "q27" in st.session_state:
+                q27_index = textos["opciones_2_7"].index(st.session_state.q27) if st.session_state.q27  else None
+            st.session_state.q27 = st.radio(label="", options=textos["opciones_2_7"], index=q27_index, label_visibility="collapsed")
 
                     
         if st.button(textos["boton_continuar"], key="btn_sec2"):
@@ -376,41 +368,50 @@ def display_questions(questions):
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_3_3'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
-            q33_index = textos["opciones_3_3"].index(st.session_state.q33) if "q33" in st.session_state and st.session_state.q33 in textos["opciones_3_3"] else 0
-            st.radio("", textos["opciones_3_3"], index=q33_index, key="q33", label_visibility="collapsed")
-        
+            q33_index = None
+            if "q33" in st.session_state:
+                q33_index = textos["opciones_3_3"].index(st.session_state.q33) if st.session_state.q33 else None
+            st.session_state.q33 = st.radio(label="", options=textos["opciones_3_3"], index=q33_index, label_visibility="collapsed")
+
         st.markdown(f"<p style='font-size: 1.05rem; color: #2c2c2c;  text-align: justify; margin-bottom: 0.8rem;'>{textos['intro_q34']}</p>", unsafe_allow_html=True)
         with st.container(): #Pregunta 3_4
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_3_4'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
-            q34_index = textos["opciones_3_4"].index(st.session_state.q34) if "q34" in st.session_state and st.session_state.q34 in textos["opciones_3_4"] else 0
-            st.radio("", textos["opciones_3_4"], index=q34_index, key="q34", label_visibility="collapsed")
-        
+            q34_index = None
+            if "q34" in st.session_state:
+                q34_index = textos["opciones_3_4"].index(st.session_state.q34) if st.session_state.q34 else None
+            st.session_state.q34 = st.radio(label="", options=textos["opciones_3_4"], index=q34_index, label_visibility="collapsed")
+
         with st.container(): #Pregunta 3_5
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_5'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
-            q35_index = textos["opciones_3_5"].index(st.session_state.q35) if "q35" in st.session_state and st.session_state.q35 in textos["opciones_3_5"] else 0
-            st.radio("", textos["opciones_3_5"], index=q35_index, key="q35", label_visibility="collapsed")
-        
+            q35_index = None
+            if "q35" in st.session_state:
+                q35_index = textos["opciones_3_5"].index(st.session_state.q35) if st.session_state.q35 else None
+            st.session_state.q35 = st.radio(label="", options=textos["opciones_3_5"], index=q35_index, label_visibility="collapsed")
+
         with st.container(): #Pregunta 3_6
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_6'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
-            q36_index = SCALE_OPTIONS.index(st.session_state.q36) if "q36" in st.session_state and st.session_state.q36 in SCALE_OPTIONS else 0
-            st.radio("", SCALE_OPTIONS, index=q36_index, key="q36", label_visibility="collapsed")
-                    
+            q36_index = None
+            if "q36" in st.session_state:
+                q36_index = textos["opciones_3_6"].index(st.session_state.q36) if st.session_state.q36 else None
+            st.session_state.q36 = st.radio(label="q36", options=textos["opciones_3_6"], index=q36_index, label_visibility="collapsed")
+
         with st.container(): #Pregunta 3_7
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_7'].replace("**", "")}</p>
                 </div>
                 """,unsafe_allow_html=True)
-            q37_index = SCALE_OPTIONS.index(st.session_state.q37) if "q37" in st.session_state and st.session_state.q37 in SCALE_OPTIONS else 0
-            st.radio("", SCALE_OPTIONS, index=q37_index, key="q37", label_visibility="collapsed")
-                    
-        # answer_q37 = st.radio(textos["pregunta_3_7"], SCALE_OPTIONS, index=None) # Pregunta 3_7
+            q37_index = None
+            if "q37" in st.session_state :
+                q37_index = textos["opciones_3_7"].index(st.session_state.q37) if st.session_state.q37 else None
+            st.session_state.q37 = st.radio(label="q37", options=textos["opciones_3_7"], index=q37_index, label_visibility="collapsed")
 
-        if st.button(textos["boton_continuar"], key="btn_sec3"):
+
+        if st.button(textos["boton_enviar"], key="btn_sec3"):
             if (
                 # st.session_state.q31 is None or
                 # st.session_state.q32 is None or
@@ -489,8 +490,9 @@ def cuestions():
                     st.session_state.answers
                 )
 
-                # Limpiar respuestas después de guardar
-                st.session_state.answers = []              
+                # Limpiar las respuestas después de guardarlas
+                st.session_state.answers = []
+                st.session_state.question_index = 1  # Resetear al inicio            
 
 # Aplicar estilos CSS personalizados
 st.markdown(
