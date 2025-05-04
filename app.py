@@ -11,7 +11,7 @@ from supabase import create_client, Client
 # Create a connection object (with google sheets)
 url = "https://okxrqxueywqdngrvvxrt.supabase.co"
 key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9reHJxeHVleXdxZG5ncnZ2eHJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYzMDk1MjQsImV4cCI6MjA2MTg4NTUyNH0.kkS759PQXtIME1cBT8wr4FZZGaN7w20fqIy-Om94G0Y"
-supabase: Client = create_client(url, key)
+supabase = create_client(url, key)
 
     
 # Sidebar para seleccionar idioma
@@ -50,7 +50,7 @@ def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios
         'edad': edad,
         'nivel_estudios': nivel_estudios, 
         'rama_estudios': rama_estudios,
-        'años_experiencia': años_experiencia,
+        'anos_experiencia': años_experiencia,
         'pais_residencia': pais_residencia
     }
     # Añadir las respuestas a las preguntas dinámicamente
@@ -63,10 +63,11 @@ def save_response_to_gsheets(correo, genero, edad, nivel_estudios, rama_estudios
         response = supabase.table("respuestas").insert([nueva_respuesta]).execute()
 
         # Verificar si la inserción fue exitosa
-        if response.status_code == 201:
-            st.success(textos["enviado_con_éxtio"])  # Mostrar mensaje de éxito
+        if response.data:
+            st.success(textos["enviado_con_éxtio"])
         else:
-            st.error(textos["error_envio"])  # Mostrar mensaje de error si no se pudo guardar
+            st.error(f"{textos['error_envio']}: {response.raw_error or 'Error desconocido'}")
+
     
     except Exception as e:
         st.error(f"Error al guardar la respuesta: {str(e)}")  # Manejo de error en caso de falla
