@@ -134,11 +134,11 @@ def display_questions(questions):
         
         st.write("Antes de comenzar, por favor, lee los siguientes términos y condiciones.")
         
-        # # Incrustamos el documento de Google Docs (público)
-        # st.markdown("""
-        # <iframe src="https://docs.google.com/document/d/1-GhwIccPJfcAKDb5eIjpp8GpEt_EikjI6l-6NjJ-FSY/edit?usp=sharing"
-        #         width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
-        # """, unsafe_allow_html=True)
+        # Incrustamos el documento de Google Docs (público)
+        st.markdown("""
+        <iframe src="https://docs.google.com/document/d/1-GhwIccPJfcAKDb5eIjpp8GpEt_EikjI6l-6NjJ-FSY/preview"
+                width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
+        """, unsafe_allow_html=True)
         
         with open("consentiment_informat.pdf", "rb") as f:
             base64_pdf = base64.b64encode(f.read()).decode('utf-8')
