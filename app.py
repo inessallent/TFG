@@ -125,9 +125,9 @@ def display_questions(questions):
     if "accepted_terms" not in st.session_state:
         st.session_state.accepted_terms = False
     
-    if st.session_state.get("scroll_to_top", False):
-        scroll_to_top_once()
-        st.session_state.scroll_to_top = False
+    # if st.session_state.get("scroll_to_top", False):
+    #     scroll_to_top_once()
+    #     st.session_state.scroll_to_top = False
     ################################################################ Acceso al cuestionario  ################################################################ 
     if st.session_state.question_index == 1: 
         st.title("¿Quieres empezar el cuestionario?")
