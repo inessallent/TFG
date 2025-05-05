@@ -8,6 +8,7 @@ import importlib
 import datetime 
 from supabase import create_client, Client
 from streamlit_scroll_to_top import scroll_to_here
+import streamlit.components.v1 as components
 import base64
 
 
@@ -75,16 +76,28 @@ def save_response_to_gsheets(genero, correo, edad, nivel_estudios, rama_estudios
     except Exception as e:
         st.error(f"Error al guardar la respuesta: {str(e)}")  # Manejo de error en caso de falla
     # Confirmación en la interfaz
-    
+
+# Scroll to the top 
+def scroll_to_top_once():
+    components.html(
+        """
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                window.scrollTo(0, 0);
+            });
+            window.scrollTo(0, 0);
+        </script>
+        """,
+        height=0,
+    )    
 
 
 # Next Question
 def next_section():
     st.session_state.question_index += 1
     st.session_state.selected_option = None  # Restablecer la opción seleccionada
-    st.session_state.scroll_to_top = True  # Activar scroll
+    st.session_state.scroll_to_top = True
     st.rerun()  # Forzar la actualización inmediata de la interfaz
-    
     
 
 def next_video(question_index):
@@ -111,6 +124,10 @@ def display_questions(questions):
         st.session_state.terms_read = False
     if "accepted_terms" not in st.session_state:
         st.session_state.accepted_terms = False
+    
+    if st.session_state.get("scroll_to_top", False):
+        scroll_to_top_once()
+        st.session_state.scroll_to_top = False
     ################################################################ Acceso al cuestionario  ################################################################ 
     if st.session_state.question_index == 1: 
         st.title("¿Quieres empezar el cuestionario?")
@@ -152,12 +169,6 @@ def display_questions(questions):
                 
     ################################################################ SECTION 1: Personal Information ################################################################ 
     if st.session_state.question_index == 2:
-        if 'scroll_to_top' not in st.session_state:
-            st.session_state.scroll_to_top = False
-
-        if st.session_state.scroll_to_top:
-            scroll_to_here(delay=0, key="top-scroll-trigger")
-            st.session_state.scroll_to_top = False
             
         st.header(textos["info_personal"])
     
@@ -295,12 +306,6 @@ def display_questions(questions):
     ################################################################ SECTION 2: (Knowledge about AI) ################################################################ 
 
     elif st.session_state.question_index == 3:
-        if 'scroll_to_top' not in st.session_state:
-            st.session_state.scroll_to_top = False
-
-        if st.session_state.scroll_to_top:
-            scroll_to_here(delay=0, key="top-scroll-trigger")
-            st.session_state.scroll_to_top = False
             
         st.header(textos["Seccion_2"])
                 
@@ -420,12 +425,6 @@ def display_questions(questions):
     ################################################################ SECTION 3 ################################################################ 
 
     elif st.session_state.question_index == 4:
-        if 'scroll_to_top' not in st.session_state:
-            st.session_state.scroll_to_top = False
-
-        if st.session_state.scroll_to_top:
-            scroll_to_here(delay=0, key="top-scroll-trigger")
-            st.session_state.scroll_to_top = False
         
         st.header(textos["Seccion_3"])
 
