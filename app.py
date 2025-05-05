@@ -1,13 +1,14 @@
 import streamlit as st # type: ignore
 import pandas as pd # type: ignore 
 import os  
-import tempfile
+# import tempfile
 import re 
-import dns.resolver
+# import dns.resolver
 import importlib
 import datetime 
 from supabase import create_client, Client
 from streamlit_scroll_to_top import scroll_to_here
+import base64
 
 
 # Create a connection object (with google sheets)
@@ -116,11 +117,20 @@ def display_questions(questions):
         
         st.write("Antes de comenzar, por favor, lee los siguientes términos y condiciones.")
         
-        # Incrustamos el documento de Google Docs (público)
-        st.markdown("""
-        <iframe src="https://docs.google.com/document/d/1-GhwIccPJfcAKDb5eIjpp8GpEt_EikjI6l-6NjJ-FSY/edit?usp=sharing"
-                width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
-        """, unsafe_allow_html=True)
+        # # Incrustamos el documento de Google Docs (público)
+        # st.markdown("""
+        # <iframe src="https://docs.google.com/document/d/1-GhwIccPJfcAKDb5eIjpp8GpEt_EikjI6l-6NjJ-FSY/edit?usp=sharing"
+        #         width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
+        # """, unsafe_allow_html=True)
+        
+        with open("consentiment_informat.pdf", "rb") as f:
+            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+
+        # Incrustar el PDF con un iframe
+        pdf_display = f"""
+        <iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="500px" type="application/pdf"></iframe>
+        """
+        st.markdown(pdf_display, unsafe_allow_html=True)
 
         # Botón para que el usuario confirme que ha leído el documento
         if not st.session_state.terms_read:
@@ -142,16 +152,13 @@ def display_questions(questions):
                 
     ################################################################ SECTION 1: Personal Information ################################################################ 
     if st.session_state.question_index == 2:
-        # Manejo del scroll al inicio de la sección 1
         if 'scroll_to_top' not in st.session_state:
             st.session_state.scroll_to_top = False
 
         if st.session_state.scroll_to_top:
             scroll_to_here(delay=0, key="top-scroll-trigger")
             st.session_state.scroll_to_top = False
-
-        scroll_to_here(key="top")
-    
+            
         st.header(textos["info_personal"])
     
         #Pregunta género
@@ -288,18 +295,14 @@ def display_questions(questions):
     ################################################################ SECTION 2: (Knowledge about AI) ################################################################ 
 
     elif st.session_state.question_index == 3:
-        # Manejo del scroll al inicio de la sección 2
         if 'scroll_to_top' not in st.session_state:
             st.session_state.scroll_to_top = False
 
         if st.session_state.scroll_to_top:
             scroll_to_here(delay=0, key="top-scroll-trigger")
             st.session_state.scroll_to_top = False
-
-        scroll_to_here(key="top")
-        
+            
         st.header(textos["Seccion_2"])
-        
                 
         with st.container(): #Pregunta 2_1
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_1'].replace("**", "")}</p>
@@ -417,15 +420,12 @@ def display_questions(questions):
     ################################################################ SECTION 3 ################################################################ 
 
     elif st.session_state.question_index == 4:
-        # Manejo del scroll al inicio de la sección 2
         if 'scroll_to_top' not in st.session_state:
             st.session_state.scroll_to_top = False
 
         if st.session_state.scroll_to_top:
             scroll_to_here(delay=0, key="top-scroll-trigger")
             st.session_state.scroll_to_top = False
-
-        scroll_to_here(key="top")
         
         st.header(textos["Seccion_3"])
 
