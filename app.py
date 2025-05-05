@@ -140,14 +140,14 @@ def display_questions(questions):
                 width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
         """, unsafe_allow_html=True)
         
-        with open("consentiment_informat.pdf", "rb") as f:
-            base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+        # with open("consentiment_informat.pdf", "rb") as f:
+        #     base64_pdf = base64.b64encode(f.read()).decode('utf-8')
 
-        # Incrustar el PDF con un iframe
-        pdf_display = f"""
-        <iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="500px" type="application/pdf"></iframe>
-        """
-        st.markdown(pdf_display, unsafe_allow_html=True)
+        # # Incrustar el PDF con un iframe
+        # pdf_display = f"""
+        # <iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="500px" type="application/pdf"></iframe>
+        # """
+        # st.markdown(pdf_display, unsafe_allow_html=True)
 
         # Botón para que el usuario confirme que ha leído el documento
         if not st.session_state.terms_read:
