@@ -5,3 +5,4 @@ dnspython>=2.3.0
 oauth2client
 supabase
 streamlit-scroll-to-top
+pyperclip
