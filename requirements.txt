@@ -6,4 +6,3 @@ oauth2client
 supabase
 streamlit-scroll-to-top
 pyperclip
-base64
