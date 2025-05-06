@@ -14,9 +14,11 @@ textos = {
     "boton_continuar": "Siguiente", 
     "boton_atras": "Atrás",
     "boton_enviar": "Enviar",
+    "boton_empezar": "Empezar", 
     
     "error_correo": "Por favor, ingresa un correo electrónico válido.",
     "enviado_con_éxtio": "Enviado con éxito!",
+    "error_terminos": "Debes leer y aceptar los términos para continuar.", 
     
     
     "Seccion_1": "Sección 1",
@@ -24,6 +26,9 @@ textos = {
     "Seccion_3": "Sección 3",
     
     #Acesso al cuestionario
+    "empezar_cuestionario":"¿Quieres empezar el cuestionario?",
+    "leer_terminos":"Antes de comenzar, por favor, lee los siguientes términos y condiciones.", 
+    "confirmo_leer_terminos": "Confirmo que he leído todo el documento", 
     "acepto_terminos": "He leído y acepto la hoja de información y el consentimiento informado del proyecto, y doy mi consentimiento para participar en el estudio y para el tratamiento de mis datos personales.", 
     
     

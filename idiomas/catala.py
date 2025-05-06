@@ -20,12 +20,16 @@ textos = {
     
     "error_correo": "Si us plau, introdueix un correu electrònic vàlid.",
     "enviado_con_éxtio": "Enviat amb èxit!",
+    "error_terminos": "Has de llegir i acceptar els termes per continuar.",
     
     "Seccion_1": "Secció 1",
     "Seccion_2": "Secció 2",
     "Seccion_3": "Secció 3",
     
     #Acess al questionari
+    "empezar_cuestionario": "Vols començar el qüestionari?",
+    "leer_terminos": "Abans de començar, si us plau, llegeix els següents termes i condicions.",
+    "confirmo_leer_terminos": "Confirmo que he llegit tot el document",
     "acepto_terminos": "He llegit i accepto el full d'informació i el consentiment informat del projecte, i dono el meu consentiment per participar en l'estudi i per al tractament de les meves dades personals.",
 
     # Preguntes Secció 1: Informació Personal 

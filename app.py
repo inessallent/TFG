@@ -9,7 +9,7 @@ import datetime
 from supabase import create_client, Client
 from streamlit_scroll_to_top import scroll_to_here
 import streamlit.components.v1 as components
-import base64
+import pyperclip
 
 
 # Create a connection object (with google sheets)
@@ -124,34 +124,23 @@ def display_questions(questions):
         st.session_state.terms_read = False
     if "accepted_terms" not in st.session_state:
         st.session_state.accepted_terms = False
+    if "document_downloaded" not in st.session_state:
+        st.session_state.document_downloaded = False
     
-    # if st.session_state.get("scroll_to_top", False):
-    #     scroll_to_top_once()
-    #     st.session_state.scroll_to_top = False
     ################################################################ Acceso al cuestionario  ################################################################ 
     if st.session_state.question_index == 1: 
-        st.title("¿Quieres empezar el cuestionario?")
+        st.title(textos["empezar_cuestionario"])
         
-        st.write("Antes de comenzar, por favor, lee los siguientes términos y condiciones.")
+        st.write(textos["leer_terminos"])
         
-        # Incrustamos el documento de Google Docs (público)
-        st.markdown("""
-        <iframe src="https://docs.google.com/document/d/1-GhwIccPJfcAKDb5eIjpp8GpEt_EikjI6l-6NjJ-FSY/preview"
-                width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
-        """, unsafe_allow_html=True)
-        
-        # with open("consentiment_informat.pdf", "rb") as f:
-        #     base64_pdf = base64.b64encode(f.read()).decode('utf-8')
+        # Mostrar botón de descarga del documento
+        with open("consentiment_informat.pdf", "rb") as file:  
+            if st.download_button(label="📄 Descargar hoja de información y consentimiento", data=file, file_name="hoja_informacion_consentimiento.pdf", mime="application/pdf"):
+                st.session_state.document_downloaded = True
 
-        # # Incrustar el PDF con un iframe
-        # pdf_display = f"""
-        # <iframe src="data:application/pdf;base64,{base64_pdf}" width="100%" height="500px" type="application/pdf"></iframe>
-        # """
-        # st.markdown(pdf_display, unsafe_allow_html=True)
-
-        # Botón para que el usuario confirme que ha leído el documento
-        if not st.session_state.terms_read:
-            if st.button("Confirmo que he leído todo el documento"):
+        # Mostrar botón de confirmación solo si se descargó
+        if st.session_state.get("document_downloaded", False) and not st.session_state.get("terms_read", False):
+            if st.button(textos["confirmo_leer_terminos"]):
                 st.session_state.terms_read = True
 
         # Mostrar aceptación si ya marcó como leído
@@ -159,13 +148,14 @@ def display_questions(questions):
             accept = st.checkbox(textos["acepto_terminos"])
             if accept:
                 st.session_state.accepted_terms = True
-
+            else:
+                st.warning(textos["error_terminos"])
+                
         # Mostrar botón de continuar solo si ha aceptado
         if st.session_state.accepted_terms:
-            if st.button("Empezar"):
+            if st.button(textos["boton_empezar"]):
                 next_section()
-        else:
-            st.warning("Debes leer y aceptar los términos para continuar.")
+            
                 
     ################################################################ SECTION 1: Personal Information ################################################################ 
     if st.session_state.question_index == 2:
@@ -540,6 +530,28 @@ def cuestions():
         display_questions(st.session_state.question_index)
     else:
         st.write(textos["Gracias_por_contestar_el_formulario"])
+        
+        # Mostrar caja para compartir el link
+        st.markdown("""
+        <div style="background-color: #f0f4c3; padding: 20px; border: 2px solid #cddc39; border-radius: 12px; margin-top: 30px;">
+            <p style="font-size: 18px;"><strong>📢 ¡Comparte este cuestionario!</strong></p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        link = "https://ai-study-tfg.streamlit.app/"
+        st.text_input("Enlace del cuestionario:", value=link, key="link_input")
+
+        if st.button("📋 Copiar enlace"):
+            pyperclip.copy(link)
+            st.success("¡Enlace copiado al portapapeles!")
+
+        st.markdown("### Compartir en redes:")
+        st.markdown(f"""
+        - [📘 Facebook](https://www.facebook.com/sharer/sharer.php?u={link})
+        - [🐦 Twitter](https://twitter.com/intent/tweet?url={link})
+        - [🔗 LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url={link})
+        - [📱 WhatsApp](https://wa.me/?text={link})
+        """)
 
         # Guardar todas las respuestas acumuladas al final
         if 'personal_data' in st.session_state:
