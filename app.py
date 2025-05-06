@@ -572,7 +572,8 @@ def cuestions():
 
             # Limpiar las respuestas después de guardarlas
             st.session_state.answers = []
-            st.session_state.question_index = 1  # Resetear al inicio            
+            if st.button(textos["inicio_cuestionario"]):
+                st.session_state.question_index = 1  # Resetear al inicio            
 
 # Aplicar estilos CSS personalizados
 st.markdown(

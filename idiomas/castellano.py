@@ -15,6 +15,7 @@ textos = {
     "boton_atras": "Atrás",
     "boton_enviar": "Enviar",
     "boton_empezar": "Empezar", 
+    "inicio_cuestionario": "Voler al incio del cuestionario.", 
     
     "error_correo": "Por favor, ingresa un correo electrónico válido.",
     "enviado_con_éxtio": "Enviado con éxito!",
