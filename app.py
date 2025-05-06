@@ -68,11 +68,11 @@ def save_response_to_gsheets(genero, correo, edad, nivel_estudios, rama_estudios
         # Insertar la respuesta en la base de datos
         response = supabase.table("respuestas").insert([nueva_respuesta]).execute()
 
-        # Verificar si la inserción fue exitosa
-        if response.data:
-            st.success(textos["enviado_con_éxtio"])
-        else:
-            st.error(f"{textos['error_envio']}: {response.raw_error or 'Error desconocido'}")
+        # # Verificar si la inserción fue exitosa
+        # if response.data:
+        #     st.success(textos["enviado_con_éxtio"])
+        # else:
+        #     st.error(f"{textos['error_envio']}: {response.raw_error or 'Error desconocido'}")
 
     
     except Exception as e:
@@ -523,8 +523,6 @@ def cuestions():
     if 'selected_option' not in st.session_state:
         st.session_state.selected_option = None
         
-
-
     seccion_lens = 4 # Apartados de preguntas
         
     # Mostrar la pregunta actual
@@ -534,17 +532,21 @@ def cuestions():
         # Enlace para compartir
         link = "https://ai-study-tfg.streamlit.app/"
 
-        # Caja visual para copiar enlace
+        # Caja visual con mensaje
         st.markdown(f"""
         <div style="background-color: #e8f5e9; padding: 20px; border-radius: 12px; margin-top: 30px; text-align: center;">
             <h4>📢 ¡Comparte este cuestionario!</h4>
-            <input type="text" value="{link}" id="linkInput" readonly style="width: 90%; padding: 8px; border-radius: 8px; border: 1px solid #ccc; margin: 10px 0;">
-            <button onclick="copyToClipboard()" style="padding: 10px 20px; background-color: #66bb6a; color: white; border: none; border-radius: 8px;">📋 Copiar enlace</button>
+            <p>Haz clic en el botón para copiar el enlace y difundirlo en tus redes sociales.</p>
         </div>
         """, unsafe_allow_html=True)
-        
-        st.markdown("### 🔗 Enlace del cuestionario:")
-        st.code(link, language="text")
+        st.markdown("""
+        <div style="display: flex; justify-content: center; margin-top: 10px;">
+            <div style="width: fit-content;">
+        """, unsafe_allow_html=True)
+
+        st.code("https://ai-study-tfg.streamlit.app/", language="text")
+
+        st.markdown("</div></div>", unsafe_allow_html=True)
 
         # Diccionario de redes sociales con enlaces e íconos
         social_links = {
@@ -592,7 +594,7 @@ def cuestions():
 
         # Vista previa del póster informativo
         st.markdown("### Vista previa del póster informativo:")
-        st.image("poster.jpg", caption="Comparte esta imagen junto con el enlace", use_column_width=True)
+        # st.image("poster.jpg", caption="Comparte esta imagen junto con el enlace", use_column_width=True)
 
         # Guardar todas las respuestas acumuladas al final
         if 'personal_data' in st.session_state:
