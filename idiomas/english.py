@@ -18,9 +18,13 @@ textos = {
     
     "error_correo": "Please enter a valid email address.",
     "enviado_con_éxtio": "Successfully sent!",
+    
     "Seccion_1": "Section 1",
     "Seccion_2": "Section 2",
     "Seccion_3": "Section 3",
+    
+    #Acess to the questionnaire
+    "acepto_terminos": "I have read and accept the information sheet and the informed consent of the project, and I give my consent to participate in the study and for the processing of my personal data.",
 
     # Section 1: Personal Information
     "información_personal": "Personal Information",

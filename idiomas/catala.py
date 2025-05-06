@@ -20,10 +20,14 @@ textos = {
     
     "error_correo": "Si us plau, introdueix un correu electrònic vàlid.",
     "enviado_con_éxtio": "Enviat amb èxit!",
+    
     "Seccion_1": "Secció 1",
     "Seccion_2": "Secció 2",
     "Seccion_3": "Secció 3",
     
+    #Acess al questionari
+    "acepto_terminos": "He llegit i accepto el full d'informació i el consentiment informat del projecte, i dono el meu consentiment per participar en l'estudi i per al tractament de les meves dades personals.",
+
     # Preguntes Secció 1: Informació Personal 
     "información_personal": "Informació personal",
     "info_personal": "Informació personal", 
