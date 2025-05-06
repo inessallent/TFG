@@ -10,6 +10,8 @@ from supabase import create_client, Client
 from streamlit_scroll_to_top import scroll_to_here
 import streamlit.components.v1 as components
 import pyperclip
+import base64
+
 
 
 # Create a connection object (with google sheets)
@@ -529,29 +531,68 @@ def cuestions():
     if st.session_state.question_index - 1 < seccion_lens:
         display_questions(st.session_state.question_index)
     else:
-        st.write(textos["Gracias_por_contestar_el_formulario"])
-        
-        # Mostrar caja para compartir el link
-        st.markdown("""
-        <div style="background-color: #f0f4c3; padding: 20px; border: 2px solid #cddc39; border-radius: 12px; margin-top: 30px;">
-            <p style="font-size: 18px;"><strong>📢 ¡Comparte este cuestionario!</strong></p>
+        # Enlace para compartir
+        link = "https://ai-study-tfg.streamlit.app/"
+
+        # Caja visual para copiar enlace
+        st.markdown(f"""
+        <div style="background-color: #e8f5e9; padding: 20px; border-radius: 12px; margin-top: 30px; text-align: center;">
+            <h4>📢 ¡Comparte este cuestionario!</h4>
+            <input type="text" value="{link}" id="linkInput" readonly style="width: 90%; padding: 8px; border-radius: 8px; border: 1px solid #ccc; margin: 10px 0;">
+            <button onclick="copyToClipboard()" style="padding: 10px 20px; background-color: #66bb6a; color: white; border: none; border-radius: 8px;">📋 Copiar enlace</button>
         </div>
         """, unsafe_allow_html=True)
+        
+        st.markdown("### 🔗 Enlace del cuestionario:")
+        st.code(link, language="text")
 
-        link = "https://ai-study-tfg.streamlit.app/"
-        st.text_input("Enlace del cuestionario:", value=link, key="link_input")
+        # Diccionario de redes sociales con enlaces e íconos
+        social_links = {
+            "Facebook": (
+                f"https://www.facebook.com/sharer/sharer.php?u={link}",
+                "https://cdn-icons-png.flaticon.com/512/145/145802.png"
+            ),
+            "Twitter": (
+                f"https://twitter.com/intent/tweet?url={link}",
+                "https://cdn-icons-png.flaticon.com/512/145/145812.png"
+            ),
+            "LinkedIn": (
+                f"https://www.linkedin.com/sharing/share-offsite/?url={link}",
+                "https://cdn-icons-png.flaticon.com/512/145/145807.png"
+            ),
+            "WhatsApp": (
+                f"https://wa.me/?text={link}",
+                "https://cdn-icons-png.flaticon.com/512/733/733585.png"
+            ),
+            "Telegram": (
+                f"https://t.me/share/url?url={link}",
+                "https://cdn-icons-png.flaticon.com/512/2111/2111646.png"
+            ),
+            "Instagram": (
+                "https://www.instagram.com/",  # No se puede compartir enlace directo
+                "https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
+            )
+        }
 
-        if st.button("📋 Copiar enlace"):
-            pyperclip.copy(link)
-            st.success("¡Enlace copiado al portapapeles!")
+        # Mostrar íconos en filas de 3
+        st.markdown("### Compartir en redes sociales:")
+        cols = st.columns(3)
+        i = 0
+        for name, (url, icon_url) in social_links.items():
+            with cols[i % 3]:
+                st.markdown(f"""
+                <a href="{url}" target="_blank" style="text-decoration: none;">
+                    <div style="text-align: center;">
+                        <img src="{icon_url}" width="50" style="margin-bottom: 5px;" />
+                        <div style="font-size: 12px;">{name}</div>
+                    </div>
+                </a>
+                """, unsafe_allow_html=True)
+            i += 1
 
-        st.markdown("### Compartir en redes:")
-        st.markdown(f"""
-        - [📘 Facebook](https://www.facebook.com/sharer/sharer.php?u={link})
-        - [🐦 Twitter](https://twitter.com/intent/tweet?url={link})
-        - [🔗 LinkedIn](https://www.linkedin.com/sharing/share-offsite/?url={link})
-        - [📱 WhatsApp](https://wa.me/?text={link})
-        """)
+        # Vista previa del póster informativo
+        st.markdown("### Vista previa del póster informativo:")
+        st.image("poster.jpg", caption="Comparte esta imagen junto con el enlace", use_column_width=True)
 
         # Guardar todas las respuestas acumuladas al final
         if 'personal_data' in st.session_state:
