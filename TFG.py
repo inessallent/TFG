@@ -1,12 +1,18 @@
 import streamlit as st # type: ignore
 import pandas as pd # type: ignore 
 import os  
-import tempfile
+# import tempfile
 import re 
-import dns.resolver
+# import dns.resolver
 import importlib
 import datetime 
 from supabase import create_client, Client
+from streamlit_scroll_to_top import scroll_to_here
+import streamlit.components.v1 as components
+import pyperclip
+import base64
+
+
 
 # Create a connection object (with google sheets)
 url = "https://okxrqxueywqdngrvvxrt.supabase.co"
@@ -40,13 +46,14 @@ def is_valid_email(email):
 
 
 # Save answers in New CSV
-def save_response_to_gsheets(genero, correo, edad, nivel_estudios, rama_estudios, años_experiencia, pais_residencia, answers):
+def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estudios, rama_estudios, años_experiencia, pais_residencia, answers):
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
         "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         'genero': genero,
         'correo_electronico': correo,
+        'nombre_apellido': nombre_apellido, 
         'edad': edad,
         'nivel_estudios': nivel_estudios, 
         'rama_estudios': rama_estudios,
@@ -62,23 +69,37 @@ def save_response_to_gsheets(genero, correo, edad, nivel_estudios, rama_estudios
         # Insertar la respuesta en la base de datos
         response = supabase.table("respuestas").insert([nueva_respuesta]).execute()
 
-        # Verificar si la inserción fue exitosa
-        if response.data:
-            st.success(textos["enviado_con_éxtio"])
-        else:
-            st.error(f"{textos['error_envio']}: {response.raw_error or 'Error desconocido'}")
+        # # Verificar si la inserción fue exitosa
+        # if response.data:
+        #     st.success(textos["enviado_con_éxtio"])
+        # else:
+        #     st.error(f"{textos['error_envio']}: {response.raw_error or 'Error desconocido'}")
 
     
     except Exception as e:
         st.error(f"Error al guardar la respuesta: {str(e)}")  # Manejo de error en caso de falla
     # Confirmación en la interfaz
-    
+
+# Scroll to the top 
+def scroll_to_top_once():
+    components.html(
+        """
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                window.scrollTo(0, 0);
+            });
+            window.scrollTo(0, 0);
+        </script>
+        """,
+        height=0,
+    )    
 
 
 # Next Question
 def next_section():
     st.session_state.question_index += 1
     st.session_state.selected_option = None  # Restablecer la opción seleccionada
+    st.session_state.scroll_to_top = True
     st.rerun()  # Forzar la actualización inmediata de la interfaz
     
 
@@ -95,19 +116,85 @@ def go_back_section():
         st.session_state.answers.append(st.session_state.selected_option)
 
     st.session_state.question_index -= 1
+    st.session_state.scroll_to_top = True  # Activar scroll
     st.rerun()  # Forzar la actualización inmediata de la interfaz
 
 
 #Display seccions
 def display_questions(questions):
     
+    if "terms_read" not in st.session_state:
+        st.session_state.terms_read = False
+    if "accepted_terms" not in st.session_state:
+        st.session_state.accepted_terms = False
+    if "document_downloaded" not in st.session_state:
+        st.session_state.document_downloaded = False
+    
+    ################################################################ Acceso al cuestionario  ################################################################ 
+    if st.session_state.question_index == 1: 
+        st.title(textos["empezar_cuestionario"])
+        
+        st.write(textos["leer_terminos"])
+        
+        # Mostrar botón de descarga del documento
+        with open("consentiment_informat.pdf", "rb") as file:  
+            if st.download_button(label="📄 Descargar hoja de información y consentimiento", data=file, file_name="hoja_informacion_consentimiento.pdf", mime="application/pdf"):
+                st.session_state.document_downloaded = True
+
+        # Mostrar botón de confirmación solo si se descargó
+        if st.session_state.get("document_downloaded", False) and not st.session_state.get("terms_read", False):
+            if st.button(textos["confirmo_leer_terminos"]):
+                st.session_state.terms_read = True
+
+        # Mostrar aceptación si ya marcó como leído
+        if st.session_state.terms_read:
+            accept = st.checkbox(textos["acepto_terminos"])
+            if accept:
+                st.session_state.accepted_terms = True
+            else:
+                st.warning(textos["error_terminos"])
+                
+        # Mostrar botón de continuar solo si ha aceptado
+        if st.session_state.accepted_terms:
+            if st.button(textos["boton_empezar"]):
+                next_section()
+            
+                
     ################################################################ SECTION 1: Personal Information ################################################################ 
-    if st.session_state.question_index == 1:
+    if st.session_state.question_index == 2:
+            
         st.header(textos["info_personal"])
+        
+        #Pregunta nombre y apellido
+        with st.container(): 
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_nombre'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            # Restaurar respuesta si retrocede
+            if "nombre_apellido" in st.session_state:
+                st.session_state.nombre_apellido = st.text_input(textos["opciones_nombre"], value=st.session_state.correo)
+            else:
+                st.session_state.nombre_apellido = st.text_input(textos["opciones_nombre"])
+                
+        #Pregunta correo
+        with st.container(): 
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_correo'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            # Restaurar respuesta si retrocede
+            if "correo" in st.session_state:
+                st.session_state.correo = st.text_input(textos["opcion_correo"], value=st.session_state.correo)
+            else:
+                st.session_state.correo = st.text_input(textos["opcion_correo"])
         
         #Pregunta género
         with st.container(): 
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_genero'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+                        {textos['pregunta_genero'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -119,7 +206,10 @@ def display_questions(questions):
         
         #Pregunta edad
         with st.container(): 
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_edad'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+                        {textos['pregunta_edad'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -129,21 +219,12 @@ def display_questions(questions):
                 age_index = textos["edad_opciones"].index(st.session_state.age) if st.session_state.age else None
             st.session_state.age = st.radio( label="", options=textos["edad_opciones"], index=age_index, label_visibility="collapsed")
         
-        #Pregunta correo
-        with st.container(): 
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['opcion_correo'].replace("**", "")}</p>
-                </div>
-                """,unsafe_allow_html=True)
-            
-            # Restaurar respuesta si retrocede
-            if "correo" in st.session_state:
-                st.session_state.correo = st.text_input(textos["opcion_correo"], value=st.session_state.correo)
-            else:
-                st.session_state.correo = st.text_input(textos["opcion_correo"])
-            
         #Pregunta nivel estudios  
         with st.container(): #Pregunta nivel estudios
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_nivel_estudios'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+                        {textos['pregunta_nivel_estudios'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -154,7 +235,10 @@ def display_questions(questions):
             st.session_state.nivel_estudios = st.radio( label="", options=textos["opciones_nivel_estudios"], index=nivel_estudios_index, label_visibility="collapsed")
         
         with st.container(): #Pregunta rama estudios
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_rama_estudios'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+                        {textos['pregunta_rama_estudios'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -165,7 +249,10 @@ def display_questions(questions):
             st.session_state.rama_estudios = st.radio( label="", options=textos["opciones_rama_estudios"], index=rama_estudios_index, label_visibility="collapsed")
         
         with st.container(): #Pregunta años experiencia
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_años_experiencia'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+                        {textos['pregunta_años_experiencia'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -176,7 +263,10 @@ def display_questions(questions):
             st.session_state.años_experiencia = st.radio( label="", options=textos["opciones_años_experiencia"], index=años_experiencia_index, label_visibility="collapsed")
         
         with st.container():
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_pais_residencia'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+                        {textos['pregunta_pais_residencia'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -227,6 +317,7 @@ def display_questions(questions):
                 st.session_state.personal_data = {
                     "genero": st.session_state.genero,
                     "correo": st.session_state.correo,
+                    "nombre_apellido": st.session_state.nombre_apellido,
                     "edad": st.session_state.age,
                     "nivel_estudios": st.session_state.nivel_estudios,
                     "rama_estudios": st.session_state.rama_estudios,
@@ -238,11 +329,15 @@ def display_questions(questions):
     
     ################################################################ SECTION 2: (Knowledge about AI) ################################################################ 
 
-    elif st.session_state.question_index == 2:
+    elif st.session_state.question_index == 3:
+            
         st.header(textos["Seccion_2"])
-        
+                
         with st.container(): #Pregunta 2_1
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_1'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_2_1'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -254,7 +349,10 @@ def display_questions(questions):
             
         
         with st.container(): #Pregunta 2_2
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_2'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_2_2'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -264,7 +362,10 @@ def display_questions(questions):
             st.session_state.q22 = st.radio(label="", options=textos["opciones_2_2"], index=q22_index, label_visibility="collapsed")
 
         with st.container(): #Pregunta 2_3
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_3'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_2_3'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             seleccionadas_q23 = []
@@ -274,7 +375,10 @@ def display_questions(questions):
             st.session_state.q23 = seleccionadas_q23
         
         with st.container(): #Pregunta 2_4
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_4'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_2_4'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -284,7 +388,10 @@ def display_questions(questions):
             st.session_state.q24 = st.radio(label="", options=textos["opciones_2_4"], index=q24_index, label_visibility="collapsed")
 
         with st.container(): #Pregunta 2_5
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_5'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_2_5'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -295,7 +402,10 @@ def display_questions(questions):
 
             
         with st.container(): #Pregunta 2_6
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_6'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_2_6'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -306,7 +416,10 @@ def display_questions(questions):
 
 
         with st.container(): #Pregunta 2_7
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_2_7'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_2_7'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             
@@ -356,16 +469,20 @@ def display_questions(questions):
 
     ################################################################ SECTION 3 ################################################################ 
 
-    elif st.session_state.question_index == 3:
-        st.header(textos["Seccion_3"])
+    elif st.session_state.question_index == 4:
         
+        st.header(textos["Seccion_3"])
+
         # answer_q31 = st.radio("Hola buenos días", SCALE_OPTIONS, index=None, key="q31", horizontal=True)
         
         # answer_q32 = st.radio("Hola buenos días 2", SCALE_OPTIONS, index=None, key="q32", horizontal=True)
         
         st.markdown(f"<p style='font-size: 1.05rem; color: #2c2c2c;  text-align: justify; margin-bottom: 0.8rem;'>{textos['intro_q33']}</p>", unsafe_allow_html=True)
         with st.container(): #Pregunta 3_3
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_3_3'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_3'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             q33_index = None
@@ -375,7 +492,10 @@ def display_questions(questions):
 
         st.markdown(f"<p style='font-size: 1.05rem; color: #2c2c2c;  text-align: justify; margin-bottom: 0.8rem;'>{textos['intro_q34']}</p>", unsafe_allow_html=True)
         with st.container(): #Pregunta 3_4
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_3_4'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_4'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             q34_index = None
@@ -384,7 +504,10 @@ def display_questions(questions):
             st.session_state.q34 = st.radio(label="", options=textos["opciones_3_4"], index=q34_index, label_visibility="collapsed")
 
         with st.container(): #Pregunta 3_5
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_5'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_5'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             q35_index = None
@@ -393,7 +516,10 @@ def display_questions(questions):
             st.session_state.q35 = st.radio(label="", options=textos["opciones_3_5"], index=q35_index, label_visibility="collapsed")
 
         with st.container(): #Pregunta 3_6
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_6'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_6'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             q36_index = None
@@ -402,7 +528,10 @@ def display_questions(questions):
             st.session_state.q36 = st.radio(label="q36", options=textos["opciones_3_6"], index=q36_index, label_visibility="collapsed")
 
         with st.container(): #Pregunta 3_7
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">{textos['pregunta_3_7'].replace("**", "")}</p>
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_7'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
                 </div>
                 """,unsafe_allow_html=True)
             q37_index = None
@@ -450,8 +579,7 @@ def display_questions(questions):
 
     
 def cuestions():
-    st.title(textos["cuestionario"])
-
+    
     # Inicializar el estado de la sesión si no existe
     if 'question_index' not in st.session_state:
         st.session_state.question_index = 1
@@ -463,36 +591,101 @@ def cuestions():
     if 'selected_option' not in st.session_state:
         st.session_state.selected_option = None
         
-    else:     
+    seccion_lens = 4 # Apartados de preguntas
+        
+    # Mostrar la pregunta actual
+    if st.session_state.question_index - 1 < seccion_lens:
+        display_questions(st.session_state.question_index)
+    else:
+        # Enlace para compartir
+        link = "https://ai-study-tfg.streamlit.app/"
 
-            seccion_lens = 3 # Apartados de preguntas
+        # Caja visual con mensaje
+        st.markdown(f"""
+        <div style="background-color: #e8f5e9; padding: 20px; border-radius: 12px; margin-top: 30px; text-align: center;">
+            <h4>📢 ¡Comparte este cuestionario!</h4>
+            <p>Haz clic en el botón para copiar el enlace y difundirlo en tus redes sociales.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="display: flex; justify-content: center; margin-top: 10px;">
+            <div style="width: fit-content;">
+        """, unsafe_allow_html=True)
+
+        st.code("https://ai-study-tfg.streamlit.app/", language="text")
+
+        st.markdown("</div></div>", unsafe_allow_html=True)
+
+        # Diccionario de redes sociales con enlaces e íconos
+        social_links = {
+            "Facebook": (
+                f"https://www.facebook.com/sharer/sharer.php?u={link}",
+                "https://cdn-icons-png.flaticon.com/512/145/145802.png"
+            ),
+            "Twitter": (
+                f"https://twitter.com/intent/tweet?url={link}",
+                "https://cdn-icons-png.flaticon.com/512/145/145812.png"
+            ),
+            "LinkedIn": (
+                f"https://www.linkedin.com/sharing/share-offsite/?url={link}",
+                "https://cdn-icons-png.flaticon.com/512/145/145807.png"
+            ),
+            "WhatsApp": (
+                f"https://wa.me/?text={link}",
+                "https://cdn-icons-png.flaticon.com/512/733/733585.png"
+            ),
+            "Telegram": (
+                f"https://t.me/share/url?url={link}",
+                "https://cdn-icons-png.flaticon.com/512/2111/2111646.png"
+            ),
+            "Instagram": (
+                "https://www.instagram.com/",  # No se puede compartir enlace directo
+                "https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
+            )
+        }
+
+        # Mostrar íconos en filas de 3
+        st.markdown("### Compartir en redes sociales:")
+        cols = st.columns(3)
+        i = 0
+        for name, (url, icon_url) in social_links.items():
+            with cols[i % 3]:
+                st.markdown(f"""
+                <a href="{url}" target="_blank" style="text-decoration: none;">
+                    <div style="text-align: center;">
+                        <img src="{icon_url}" width="50" style="margin-bottom: 5px;" />
+                        <div style="font-size: 12px;">{name}</div>
+                    </div>
+                </a>
+                """, unsafe_allow_html=True)
+            i += 1
+
+        # Vista previa del póster informativo
+        st.markdown("### Vista previa del póster informativo:")
+        # st.image("poster.jpg", caption="Comparte esta imagen junto con el enlace", use_column_width=True)
+
+        # Guardar todas las respuestas acumuladas al final
+        if 'personal_data' in st.session_state:
+            personal_data = st.session_state.personal_data
             
-            # Mostrar la pregunta actual
-            if st.session_state.question_index - 1 < seccion_lens:
-                display_questions(st.session_state.question_index)
-            else:
-                st.write(textos["Gracias_por_contestar_el_formulario"])
+            # st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
+            
+            save_response_to_gsheets(
+                personal_data["genero"],
+                personal_data["correo"],
+                personal_data["nombre_apellido"],
+                personal_data["edad"],
+                personal_data["nivel_estudios"],
+                personal_data["rama_estudios"], 
+                personal_data["años_experiencia"],
+                personal_data["pais_residencia"],
+                st.session_state.answers
+            )
 
-                # Guardar todas las respuestas acumuladas al final
-                if 'personal_data' in st.session_state:
-                    personal_data = st.session_state.personal_data
-                    
-                    # st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
-                    
-                    save_response_to_gsheets(
-                        personal_data["genero"],
-                        personal_data["correo"],
-                        personal_data["edad"],
-                        personal_data["nivel_estudios"],
-                        personal_data["rama_estudios"], 
-                        personal_data["años_experiencia"],
-                        personal_data["pais_residencia"],
-                        st.session_state.answers
-                    )
-
-                    # Limpiar las respuestas después de guardarlas
-                    st.session_state.answers = []
-                    st.session_state.question_index = 1  # Resetear al inicio            
+            # Limpiar las respuestas después de guardarlas
+            st.session_state.answers = []
+            if st.button(textos["inicio_cuestionario"]):
+                st.session_state.question_index = 1  # Resetear al inicio            
 
 # Aplicar estilos CSS personalizados
 st.markdown(
