@@ -87,8 +87,15 @@ textos = {
     "opciones_3_4": ["Estoy de acuerdo", "No estoy de acuerdo" ], 
 
     "pregunta_3_5": "El profesor Joan Fontrodona de la IESE (Instituto de Estudios Superiores de la Empresa) dijo en una entrevista que todo sistema de Inteligencia Artificial debía cumplir 3 principios éticos. ¿Cuánto de acuerdo estas con cada uno de ellos?",
-    "opciones_3_5": ["El primero: “espeto de la dignidad humana, lo que significa que todos estos sistemas deben actuar en favor de la dignidad humana”.", "El Segundo: “Libertad. Los sistemas de IA deben respetar y promover la libertad”.", "El tercero: “Justicia. No todo el mundo tiene acceso a los mismos sistemas, y se dice que los sistemas de IA provocan más división y más desigualdad entre las personas”.  "  ], 
-    
+    "pregunta_3_5_1": "1. “Respeto de la dignidad humana, lo que significa que todos estos sistemas deben actuar en favor de la dignidad humana”.", 
+    "opciones_3_5_1": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"], 
+
+    "pregunta_3_5_2": "2. “Libertad. Los sistemas de IA deben respetar y promover la libertad”.", 
+    "opciones_3_5_2": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"], 
+
+    "pregunta_3_5_3": "3. “Justicia. No todo el mundo tiene acceso a los mismos sistemas, y se dice que los sistemas de IA provocan más división y más desigualdad entre las personas”.", 
+    "opciones_3_5_3": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"], 
+
     "pregunta_3_6": "¿Cuánto de acuerdo esta con la siguiente afirmación? : “Las tecnologías basadas en la IA ya están siendo utilizadas para ayudar a los humanos a beneficiarse de mejoras significativas y disfrutar de una mayor eficiencia en casi todos los ámbitos de la vida.”", 
     "opciones_3_6": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"], 
     

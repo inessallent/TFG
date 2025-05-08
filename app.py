@@ -510,10 +510,26 @@ def display_questions(questions):
                     </p>
                 </div>
                 """,unsafe_allow_html=True)
-            q35_index = None
-            if "q35" in st.session_state:
-                q35_index = textos["opciones_3_5"].index(st.session_state.q35) if st.session_state.q35 else None
-            st.session_state.q35 = st.radio(label="", options=textos["opciones_3_5"], index=q35_index, label_visibility="collapsed")
+            #Pregunta 3_5_1
+            st.markdown(f"<p text-align: justify; margin-bottom: 0.8rem;'>{textos['pregunta_3_5_1']}</p>", unsafe_allow_html=True)
+            q35_1_index = None
+            if "q35_1" in st.session_state:
+                q35_1_index = textos["opciones_3_5_1"].index(st.session_state.q35_1) if st.session_state.q35_1 else None
+            st.session_state.q35_1 = st.radio(label="pregunta_3_5_1", options=textos["opciones_3_5_1"], index=q35_1_index, label_visibility="collapsed")
+            
+            #Pregunta 3_5_2
+            st.markdown(f"<p text-align: justify; margin-bottom: 0.8rem;'>{textos['pregunta_3_5_2']}</p>", unsafe_allow_html=True)
+            q35_2_index = None
+            if "q35_2" in st.session_state:
+                q35_2_index = textos["opciones_3_5_2"].index(st.session_state.q35_2) if st.session_state.q35_2 else None
+            st.session_state.q35_2 = st.radio(label="2", options=textos["opciones_3_5_2"], index=q35_2_index, label_visibility="collapsed")
+            
+            #Pregunta 3_5_3
+            st.markdown(f"<p text-align: justify; margin-bottom: 0.8rem;'>{textos['pregunta_3_5_3']}</p>", unsafe_allow_html=True)
+            q35_3_index = None
+            if "q35_3" in st.session_state:
+                q35_3_index = textos["opciones_3_5_3"].index(st.session_state.q35_3) if st.session_state.q35_3 else None
+            st.session_state.q35_3 = st.radio(label="pregunta_3_5_3", options=textos["opciones_3_5_3"], index=q35_3_index, label_visibility="collapsed")
 
         with st.container(): #Pregunta 3_6
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
@@ -546,7 +562,9 @@ def display_questions(questions):
                 # st.session_state.q32 is None or
                 st.session_state.q33 is None or
                 st.session_state.q34 is None or
-                st.session_state.q35 is None or
+                st.session_state.q35_1 is None or
+                st.session_state.q35_2 is None or
+                st.session_state.q35_3 is None or
                 st.session_state.q36 is None or
                 st.session_state.q37 is None
             ):
@@ -557,9 +575,11 @@ def display_questions(questions):
                     # "Pregunta 12": st.session_state.q32,
                     "Pregunta 13": st.session_state.q33,
                     "Pregunta 14": st.session_state.q34,
-                    "Pregunta 15": st.session_state.q35,
-                    "Pregunta 16": st.session_state.q36,
-                    "Pregunta 17": st.session_state.q37,
+                    "Pregunta 15": st.session_state.q35_1,
+                    "Pregunta 16": st.session_state.q35_2,
+                    "Pregunta 17": st.session_state.q35_3,
+                    "Pregunta 18": st.session_state.q36,
+                    "Pregunta 19": st.session_state.q37,
                 }
                 st.session_state.answers.extend([
                     
@@ -567,7 +587,9 @@ def display_questions(questions):
                     # st.session_state.q32,
                     st.session_state.q33,
                     st.session_state.q34,
-                    st.session_state.q35,
+                    st.session_state.q35_1,
+                    st.session_state.q35_2,
+                    st.session_state.q35_3,
                     st.session_state.q36,
                     st.session_state.q37,
                 ])
