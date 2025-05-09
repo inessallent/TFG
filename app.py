@@ -477,6 +477,12 @@ def display_questions(questions):
         
         # answer_q32 = st.radio("Hola buenos días 2", SCALE_OPTIONS, index=None, key="q32", horizontal=True)
         
+        ##### CASO 1 #####
+        st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; text-align: justify; margin-bottom: 0.2rem">
+                            {textos['caso_1'].replace("**", "")}
+                        </p>
+                    </div>
+                    """,unsafe_allow_html=True)
         st.markdown(f"<p style='font-size: 1.05rem; color: #2c2c2c;  text-align: justify; margin-bottom: 0.8rem;'>{textos['intro_q33']}</p>", unsafe_allow_html=True)
         with st.container(): #Pregunta 3_3
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
@@ -502,6 +508,103 @@ def display_questions(questions):
             if "q34" in st.session_state:
                 q34_index = textos["opciones_3_4"].index(st.session_state.q34) if st.session_state.q34 else None
             st.session_state.q34 = st.radio(label="", options=textos["opciones_3_4"], index=q34_index, label_visibility="collapsed")
+        
+        ##### CASO 2 #####   
+        st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; text-align: justify; margin-bottom: 0.2rem">
+                        {textos['caso_2'].replace("**", "")}
+                    </p>
+                </div>
+                """,unsafe_allow_html=True)
+        st.markdown(f"<p style='font-size: 1.05rem; color: #2c2c2c; text-align: justify; margin-bottom: 0.8rem;'>"
+            f"{textos['intro_q38_1']}<br>"
+            f"{textos['intro_q38_2']}<br>"
+            f"{textos['intro_q38_3']}<br>"
+            f"{textos['intro_q38_4']}"f"</p>", unsafe_allow_html=True)        
+        
+        with st.container(): #Pregunta 3_8_1
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_8_1'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
+                </div>
+                """,unsafe_allow_html=True)
+            q38_1_index = None
+            if "q38_1" in st.session_state:
+                q38_1_index = textos["opciones_3_8_1"].index(st.session_state.q38_1) if st.session_state.q38_1 else None
+            st.session_state.q38_1 = st.radio(label="pregunta_3_8_1", options=textos["opciones_3_8_1"], index=q38_1_index, label_visibility="collapsed")
+        
+        with st.container(): #Pregunta 3_8_2
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_8_2'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
+                </div>
+                """,unsafe_allow_html=True)
+            q38_2_index = None
+            if "q38_2" in st.session_state:
+                q38_2_index = textos["opciones_3_8_2"].index(st.session_state.q38_2) if st.session_state.q38_2 else None
+            st.session_state.q38_2 = st.radio(label="pregunta_3_8_2", options=textos["opciones_3_8_2"], index=q38_2_index, label_visibility="collapsed")
+
+        with st.container(): #Pregunta 3_8_3
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_8_3'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
+                </div>
+                """,unsafe_allow_html=True)
+            q38_3_index = None
+            if "q38_3" in st.session_state:
+                q38_3_index = textos["opciones_3_8_3"].index(st.session_state.q38_3) if st.session_state.q38_3 else None
+            st.session_state.q38_3 = st.radio(label="pregunta_3_8_3", options=textos["opciones_3_8_3"], index=q38_3_index, label_visibility="collapsed")
+
+        # ##### CASO 3 #####   
+        # st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; text-align: justify; margin-bottom: 0.2rem">
+        #                 {textos['caso_3'].replace("**", "")}
+        #             </p>
+        #         </div>
+        #         """,unsafe_allow_html=True)
+        # st.markdown(f"<p style='font-size: 1.05rem; color: #2c2c2c; text-align: justify; margin-bottom: 0.8rem;'>"
+        #     f"{textos['intro_q39_1']}<br>"
+        #     f"{textos['intro_q39_2']}<br>"
+        #     f"{textos['intro_q39_3']}<br>"
+        #     f"{textos['intro_q39_4']}"f"</p>", unsafe_allow_html=True)        
+        
+        # with st.container(): #Pregunta 3_9_1
+        #     st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; text-align: justify; margin-bottom: 0.2rem">
+        #                 {textos['pregunta_3_9_1'].replace("**", "")}
+        #                 <span style="color: red;">*</span>
+        #             </p>
+        #         </div>
+        #         """,unsafe_allow_html=True)
+        #     q39_1_index = None
+        #     if "q39_1" in st.session_state:
+        #         q39_1_index = textos["opciones_3_9_1"].index(st.session_state.q39_1) if st.session_state.q39_1 else None
+        #     st.session_state.q39_1 = st.radio(label="pregunta_3_9_1", options=textos["opciones_3_9_1"], index=q39_1_index, label_visibility="collapsed")
+        
+        # with st.container(): #Pregunta 3_9_2
+        #     st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+        #                 {textos['pregunta_3_9_2'].replace("**", "")}
+        #                 <span style="color: red;">*</span>
+        #             </p>
+        #         </div>
+        #         """,unsafe_allow_html=True)
+        #     q39_2_index = None
+        #     if "q39_2" in st.session_state:
+        #         q39_2_index = textos["opciones_3_9_2"].index(st.session_state.q39_2) if st.session_state.q39_2 else None
+        #     st.session_state.q39_2 = st.radio(label="pregunta_3_9_2", options=textos["opciones_3_9_2"], index=q39_2_index, label_visibility="collapsed")
+
+        # with st.container(): #Pregunta 3_9_3
+        #     st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
+        #                 {textos['pregunta_3_9_3'].replace("**", "")}
+        #                 <span style="color: red;">*</span>
+        #             </p>
+        #         </div>
+        #         """,unsafe_allow_html=True)
+        #     q39_3_index = None
+        #     if "q39_3" in st.session_state:
+        #         q39_3_index = textos["opciones_3_9_3"].index(st.session_state.q39_3) if st.session_state.q39_3 else None
+        #     st.session_state.q39_3 = st.radio(label="pregunta_3_9_3", options=textos["opciones_3_9_3"], index=q39_3_index, label_visibility="collapsed")
+
 
         with st.container(): #Pregunta 3_5
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
@@ -566,7 +669,13 @@ def display_questions(questions):
                 st.session_state.q35_2 is None or
                 st.session_state.q35_3 is None or
                 st.session_state.q36 is None or
-                st.session_state.q37 is None
+                st.session_state.q37 is None or 
+                st.session_state.q38_1 is None or
+                st.session_state.q38_2 is None or
+                st.session_state.q38_3 is None 
+                # st.session_state.q39_1 is None or
+                # st.session_state.q39_2 is None or
+                # st.session_state.q39_3 is None or
             ):
                 st.warning(textos["selecciona_opción"])
             else:
@@ -575,11 +684,18 @@ def display_questions(questions):
                     # "Pregunta 12": st.session_state.q32,
                     "Pregunta 13": st.session_state.q33,
                     "Pregunta 14": st.session_state.q34,
-                    "Pregunta 15": st.session_state.q35_1,
-                    "Pregunta 16": st.session_state.q35_2,
-                    "Pregunta 17": st.session_state.q35_3,
-                    "Pregunta 18": st.session_state.q36,
-                    "Pregunta 19": st.session_state.q37,
+                    "Pregunta 15": st.session_state.q38_1,
+                    "Pregunta 16": st.session_state.q38_2,
+                    "Pregunta 17": st.session_state.q38_3,
+                    # "Pregunta 18": st.session_state.q39_1,
+                    # "Pregunta 19": st.session_state.q39_2,
+                    # "Pregunta 20": st.session_state.q39_3,
+                    
+                    "Pregunta 21": st.session_state.q35_1,
+                    "Pregunta 22": st.session_state.q35_2,
+                    "Pregunta 23": st.session_state.q35_3,
+                    "Pregunta 24": st.session_state.q36,
+                    "Pregunta 25": st.session_state.q37
                 }
                 st.session_state.answers.extend([
                     
@@ -587,6 +703,12 @@ def display_questions(questions):
                     # st.session_state.q32,
                     st.session_state.q33,
                     st.session_state.q34,
+                    st.session_state.q38_1,
+                    st.session_state.q38_2,
+                    st.session_state.q38_3,
+                    # st.session_state.q39_1,
+                    # st.session_state.q39_2,
+                    # st.session_state.q39_3,
                     st.session_state.q35_1,
                     st.session_state.q35_2,
                     st.session_state.q35_3,

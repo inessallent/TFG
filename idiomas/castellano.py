@@ -78,6 +78,9 @@ textos = {
     
     #Preguntas Sección 3: Casos concretos + ética
     
+    "caso_1": "Caso 1",
+    "caso_2": "Caso 2",
+    "caso_3": "Caso 3",
     "intro_q33" : "En noviembre del 2022, Jake Moffatt compró un vuelo a última hora desde la aerolínea Air Canada para poder asistir al funeral de su abuela. Antes de comprar los billetes busco descuentos para vuelos debidos a muertes de familiares. Hablando con el chatbot de la compañía le dijo que tenía “90 desde la compra del billete para completar el formulario de solicitud de reembolso de billete.” Después del evento, solicitó la devolución, pero la empresa se lo denegó, ya que en la página web había un apartado que decía que el descuento se debía solicitar antes del viaje.", 
     "pregunta_3_3": "¿Quién cree que tenía razón en este caso?",
     "opciones_3_3": ["La emoresa Air Canada", "Jake Moffatt", "Justificación (opcional) (poner un texto)" ], 
@@ -101,6 +104,41 @@ textos = {
     
     "pregunta_3_7": "¿Cuánto de acuerdo esta con la siguiente afirmación? : La IA también será capaz de ofrecernos sugerencias y predicciones relacionadas con asuntos importantes de nuestra vida, lo que tendrá su impacto en áreas como la salud, el bienestar, la educación, el trabajo y las relaciones interpersonales. De la misma manera, cambiará la forma de hacer negocios al proporcionar ventajas competitivas a las empresas que busquen entender y aplicar estas herramientas de forma rápida y eficaz.",
     "opciones_3_7": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"],
+    
+    "intro_q38_1": "En 2023, un joven de 17 años comenzó a utilizar un chatbot de inteligencia artificial con el que mantenía conversaciones frecuentes. La IA estaba diseñada para simular interacciones humanas de forma muy realista, incluyendo contenido emocional e incluso de tipo romántico o sexualizado. El chico, que ya sufría problemas de salud mental y aislamiento social, desarrolló una relación de fuerte dependencia emocional con el chatbot.", 
+    "intro_q38_2": "Durante varias conversaciones, el joven expresó pensamientos autodestructivos y habló abiertamente sobre su intención de suicidarse. A pesar de esto, el chatbot no mostró ningún tipo de respuesta que lo disuadiera ni alertó a ningún sistema de ayuda. De hecho, en lugar de frenar la conversación, siguió interactuando con él como si fuera una persona más, sin filtrar ni limitar el contenido sensible.",  
+    "intro_q38_3": "Días después, el joven se quitó la vida.", 
+    "intro_q38_4": "Su madre ha denunciado a los desarrolladores del chatbot por negligencia y falta de medidas de protección, alegando que la IA contribuyó significativamente a la muerte de su hijo.", 
+    
+    "pregunta_3_8_1": "¿Crees que la IA conversacional debería estar obligada a detectar señales de crisis emocional (como ideación suicida) y actuar de alguna forma (por ejemplo, alertar a una persona real o detener la conversación)?", 
+    "opciones_3_8_1": ["Sí, debería ser un requisito mínimo", "No, la responsabilidad última siempre recae en el usuario","Depende del tipo de IA y su finalidad"], 
+
+    "pregunta_3_8_2": "¿Piensas que este tipo de IAs, capaces de mantener conversaciones emocionales realistas, deberían estar disponibles para cualquier usuario?", 
+    "opciones_3_8_2": ["No, deberían están restringidas a edad ", "Sí, siempre que el usuario acepte los términos de uso","Deberían estar etiquetadas con advertencias sobre su contenido"], 
+
+    "pregunta_3_8_3": "¿Quién crees que tiene mayor responsabilidad en este caso?", 
+    "opciones_3_8_3": ["El joven estadounidense de 17 años", "La empresa desarrolladora de la IA. ","El entorno del joven (familiares, escuela, amigos, etc.)", "Otro: "], 
+    
+    "intro_q39_1": "En 2023, un joven de 17 años comenzó a utilizar un chatbot de inteligencia artificial con el que mantenía conversaciones frecuentes. La IA estaba diseñada para simular interacciones humanas de forma muy realista, incluyendo contenido emocional e incluso de tipo romántico o sexualizado. El chico, que ya sufría problemas de salud mental y aislamiento social, desarrolló una relación de fuerte dependencia emocional con el chatbot.", 
+    "intro_q39_2": "Durante varias conversaciones, el joven expresó pensamientos autodestructivos y habló abiertamente sobre su intención de suicidarse. A pesar de esto, el chatbot no mostró ningún tipo de respuesta que lo disuadiera ni alertó a ningún sistema de ayuda. De hecho, en lugar de frenar la conversación, siguió interactuando con él como si fuera una persona más, sin filtrar ni limitar el contenido sensible.",  
+    "intro_q39_3": "Días después, el joven se quitó la vida.", 
+    "intro_q39_4": "Su madre ha denunciado a los desarrolladores del chatbot por negligencia y falta de medidas de protección, alegando que la IA contribuyó significativamente a la muerte de su hijo.", 
+    
+    "pregunta_3_9_1": "¿Crees que la IA conversacional debería estar obligada a detectar señales de crisis emocional (como ideación suicida) y actuar de alguna forma (por ejemplo, alertar a una persona real o detener la conversación)?", 
+    "opciones_3_9_1": ["Sí, debería ser un requisito mínimo", "No, la responsabilidad última siempre recae en el usuario","Depende del tipo de IA y su finalidad"], 
+
+    "pregunta_3_9_2": "¿Piensas que este tipo de IAs, capaces de mantener conversaciones emocionales realistas, deberían estar disponibles para cualquier usuario?", 
+    "opciones_3_9_2": ["No, deberían están restringidas a edad ", "Sí, siempre que el usuario acepte los términos de uso","Deberían estar etiquetadas con advertencias sobre su contenido"], 
+
+    "pregunta_3_9_3": "¿Quién crees que tiene mayor responsabilidad en este caso?", 
+    "opciones_3_9_3": ["El joven estadounidense de 17 años", "La empresa desarrolladora de la IA. ","El entorno del joven (familiares, escuela, amigos, etc.)", "Otro: "], 
+    
+    
+    
+    
+    
+    
+    
     #Textos main
     "navegacion": "Navegación", 
     "selecciona_una_seccion": "Selecciona una sección:", 
