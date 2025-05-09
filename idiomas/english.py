@@ -83,7 +83,8 @@ textos = {
     "pregunta_3_6": "To what extent do you agree: “AI-based technologies are already helping humans achieve greater efficiency...”",
     "pregunta_3_7": "To what extent do you agree: AI will impact life, business, and relationships by providing predictions and suggestions.",
     
-
+    "intro_caso_3_1": "Similarly, in 2023 a Belgian man, father of two young children, ended his life following a six-week-long conversation about the climate crisis with AI chatbot, named Eliza on an app called Chai. Eliza encouraged with to take his life after he proposed sacrificing himself to save the planet, as he longer saw any human solution to global warming, and we placed all his hopes technology and artificial intelligence to get out of it.",  
+    "intro_caso_3_2": "According to the news, La Libre, who reviewed records of the text conversations between the man and chatbot, Eliza fed his worries which worsened his anxiety, and later developed into suicidal thoughts.", 
     # Main texts
     "navegacion": "Navigation",
     "selecciona_una_seccion": "Select a section:",
