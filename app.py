@@ -771,9 +771,9 @@ def cuestions():
                 """, unsafe_allow_html=True)
             i += 1
 
-        # Vista previa del póster informativo
-        st.markdown("### Vista previa del póster informativo:")
-        # st.image("poster.jpg", caption="Comparte esta imagen junto con el enlace", use_column_width=True)
+
+        st.markdown('')
+        st.markdown('')
 
         # Guardar todas las respuestas acumuladas al final
         if 'personal_data' in st.session_state:
