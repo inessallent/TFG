@@ -15,6 +15,7 @@ textos = {
     "boton_atras": "Atrás",
     "boton_enviar": "Enviar",
     "boton_empezar": "Empezar", 
+    
     "inicio_cuestionario": "Voler al incio del cuestionario.", 
     
     "error_correo": "Por favor, ingresa un correo electrónico válido.",
@@ -77,7 +78,6 @@ textos = {
     "opciones_2_7": ["Una persona", "Un sistema con IA"], 
     
     #Preguntas Sección 3: Casos concretos + ética
-    
     "caso_1": "Caso 1",
     "caso_2": "Caso 2",
     "caso_3": "Caso 3",
@@ -110,32 +110,20 @@ textos = {
     "intro_q38_3": "Días después, el joven se quitó la vida.", 
     "intro_q38_4": "Su madre ha denunciado a los desarrolladores del chatbot por negligencia y falta de medidas de protección, alegando que la IA contribuyó significativamente a la muerte de su hijo.", 
     
-    "pregunta_3_8_1": "¿Crees que la IA conversacional debería estar obligada a detectar señales de crisis emocional (como ideación suicida) y actuar de alguna forma (por ejemplo, alertar a una persona real o detener la conversación)?", 
-    "opciones_3_8_1": ["Sí, debería ser un requisito mínimo", "No, la responsabilidad última siempre recae en el usuario","Depende del tipo de IA y su finalidad"], 
+    "pregunta_3_8_1": "¿Piensas que este tipo de IAs, capaces de mantener conversaciones emocionales realistas, deberían estar disponibles para cualquier usuario?",
+    "opciones_3_8_1": ["No, deberían están restringidas a edad ", "Sí, siempre que el usuario acepte los términos de uso","Deberían estar etiquetadas con advertencias sobre su contenido"],
 
-    "pregunta_3_8_2": "¿Piensas que este tipo de IAs, capaces de mantener conversaciones emocionales realistas, deberían estar disponibles para cualquier usuario?", 
-    "opciones_3_8_2": ["No, deberían están restringidas a edad ", "Sí, siempre que el usuario acepte los términos de uso","Deberían estar etiquetadas con advertencias sobre su contenido"], 
+    "pregunta_3_8_2": "¿Quién crees que tiene mayor responsabilidad en este caso?",
+    "opciones_3_8_2": ["El joven estadounidense de 17 años", "La empresa desarrolladora de la IA. ","El entorno del joven (familiares, escuela, amigos, etc.)", "Otro: "],
 
-    "pregunta_3_8_3": "¿Quién crees que tiene mayor responsabilidad en este caso?", 
-    "opciones_3_8_3": ["El joven estadounidense de 17 años", "La empresa desarrolladora de la IA. ","El entorno del joven (familiares, escuela, amigos, etc.)", "Otro: "], 
-    
     "intro_caso_3_1": "De manera similar, en 2023, un hombre belga, padre de dos niños pequeños, acabó con su vida tras una conversación de seis semanas sobre la crisis climática con un chatbot de inteligencia artificial llamado Eliza, disponible en una aplicación llamada Chai. Eliza le animó a quitarse la vida después de que él propusiera sacrificarse/suicidarse para salvar el planeta, ya que había perdido la fe en la humanidad para encontrar una solución al calentamiento global y había depositado todas sus esperanzas en la tecnología y la inteligencia artificial para superarlo.",
-    "intro_caso_3_2": "Según el medio de noticias, La Libre, que revisó los registros de las conversaciones de texto entre el hombre y el chatbot, “Eliza alimentó sus preocupaciones, lo que agravó su ansiedad y más adelante derivó en pensamientos suicidas”.", 
-    
-    "pregunta_3_9_1": "¿Crees que la IA conversacional debería estar obligada a detectar señales de crisis emocional (como ideación suicida) y actuar de alguna forma (por ejemplo, alertar a una persona real o detener la conversación)?", 
-    "opciones_3_9_1": ["Sí, debería ser un requisito mínimo", "No, la responsabilidad última siempre recae en el usuario","Depende del tipo de IA y su finalidad"], 
+    "intro_caso_3_2": "Según el medio de noticias, La Libre, que revisó los registros de las conversaciones de texto entre el hombre y el chatbot, “Eliza alimentó sus preocupaciones, lo que agravó su ansiedad y más adelante derivó en pensamientos suicidas”.",
 
-    "pregunta_3_9_2": "¿Piensas que este tipo de IAs, capaces de mantener conversaciones emocionales realistas, deberían estar disponibles para cualquier usuario?", 
-    "opciones_3_9_2": ["No, deberían están restringidas a edad ", "Sí, siempre que el usuario acepte los términos de uso","Deberían estar etiquetadas con advertencias sobre su contenido"], 
+    "pregunta_3_9_1": "En este caso, ¿quién consideras más responsable?",
+    "opciones_3_9_1": ["El hombre que mantenía la conversación", "La empresa responsable del chatbot","La plataforma (Chai) que permitió la interacción", "Otro:"],
 
-    "pregunta_3_9_3": "¿Quién crees que tiene mayor responsabilidad en este caso?", 
-    "opciones_3_9_3": ["El joven estadounidense de 17 años", "La empresa desarrolladora de la IA. ","El entorno del joven (familiares, escuela, amigos, etc.)", "Otro: "], 
-    
-    
-    
-    
-    
-    
+    "pregunta_3_9_2": "En General, ¿Crees que la IA conversacional debería estar obligada a detectar señales de crisis emocional (como ideación suicida) y actuar de alguna forma (por ejemplo, alertar a una persona real o detener la conversación)?",
+    "opciones_3_9_2": ["Sí, debería ser un requisito mínimo", "No, la responsabilidad final siempre debería recaer en el usuario","Depende del tipo de IA y su finalidad"],
     
     #Textos main
     "navegacion": "Navegación", 

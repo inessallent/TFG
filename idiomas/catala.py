@@ -17,6 +17,10 @@ textos = {
     "boton_continuar": "Següent",
     "boton_atras": "Enrere",
     "boton_enviar": "Enviar",
+    "boton_empezar": "Començar", 
+    
+    "inicio_cuestionario": "Tornar a l'inici del qüestionari.", 
+    
     
     "error_correo": "Si us plau, introdueix un correu electrònic vàlid.",
     "enviado_con_éxtio": "Enviat amb èxit!",
@@ -61,30 +65,74 @@ textos = {
     # Preguntes Secció 2: Coneixement sobre IA
     "pregunta_2_1": "Selecciona l'opció que descrigui millor la intel·ligència artificial (IA):",
     "opciones_2_1": ["Camp científic de la informàtica", "Capacitat de les màquines per aprendre i prendre decisions", "Ambdues són correctes"],
+    
     "pregunta_2_2": "Has utilitzat mai la intel·ligència artificial (IA)?",
     "opciones_2_2": ["Sí, diàriament", "Sí, setmanalment", "Sí, mensualment", "Sí, esporàdicament", "Mai"],
+    
     "pregunta_2_3": "Per a què l'utilitzes principalment? (Pots seleccionar més d'una resposta).",
     "opciones_2_3": ["Ús personal", "Estudi acadèmic", "Feina", "Altres"],
+    
     "pregunta_2_4": "En quin àmbit utilitzes més sovint la IA?",
     "opciones_2_4": ["Art i disseny", "Ciències", "Ciències socials", "Humanitats", "Negocis i finances", "Programació / Enginyeria", "No l'utilitzo", "Altres"],
+    
     "pregunta_2_5": "Pregunta sobre biaixos IA",
     "opciones_2_5": ["per determinar"],
+    
     "pregunta_2_6": "Creus que les persones estem condicionades a l'hora de prendre decisions?",
     "opciones_2_6": ["Sí, sempre", "Depèn de la decisió", "No, mai"],
+    
     "pregunta_2_7": "Qui creus que té més biaixos en la presa de decisions?",
     "opciones_2_7": ["Una persona", "Un sistema amb IA"],
     
     # Secció 3: Casos i ètica
-    "intro_q33": "El novembre del 2022, Jake Moffatt va comprar un vol d'última hora amb Air Canada per assistir al funeral de la seva àvia...",
-    "pregunta_3_3": "Qui creus que tenia raó en aquest cas?",
-    "opciones_3_3": ["L'empresa Air Canada", "Jake Moffatt", "Justificació (opcional)"],
-    "intro_q34": "Jake va denunciar l'empresa. Air Canada va dir que la web tenia la informació correcta, però el tribunal no ho va acceptar...",
-    "pregunta_3_4": "Què opines del veredicte?",
-    "opciones_3_4": ["Estic d'acord", "No estic d'acord"],
-    "pregunta_3_5": "Segons el professor Joan Fontrodona, tota IA hauria de seguir 3 principis ètics. Què n'opines?",
-    "opciones_3_5": ["Respecte per la dignitat humana", "Llibertat", "Justícia"],
-    "pregunta_3_6": "Quin grau d'acord tens amb la següent afirmació sobre IA i eficiència?",
-    "pregunta_3_7": "Quin grau d'acord tens amb la següent afirmació sobre IA i la vida personal/professional?",
+    "caso_1": "Caso 1",
+    "caso_2": "Caso 2",
+    "caso_3": "Caso 3",
+
+    "intro_q33": "En noviembre del 2022, Jake Moffatt compró un vuelo a última hora desde la aerolínea Air Canada para poder asistir al funeral de su abuela. Antes de comprar los billetes, buscó descuentos para vuelos debidos a muertes de familiares. Hablando con el chatbot de la compañía, este le dijo que tenía “90 días desde la compra del billete para completar el formulario de solicitud de reembolso de billete.” Después del evento, solicitó la devolución, pero la empresa se lo denegó, ya que en la página web había un apartado que decía que el descuento se debía solicitar antes del viaje.",
+    "pregunta_3_3": "¿Quién cree que tenía razón en este caso?",
+    "opciones_3_3": ["La empresa Air Canada", "Jake Moffatt", "Justificación (opcional) (poner un texto)"],
+
+    "intro_q34": "Jake llevó a juicio a la compañía. Air Canada argumentó que su página web contenía la información correcta sobre cómo obtener el descuento y que lo que decía el chatbot no era válido. Sin embargo, en el juicio ese argumento no fue suficiente, ya que no había manera de demostrar que la página web era más fiable que la información proporcionada por el chatbot. Por lo tanto, Air Canada terminó perdiendo el caso y tuvo que pagar a Jake Moffatt.",
+    "pregunta_3_4": "¿Qué opina del veredicto?",
+    "opciones_3_4": ["Estoy de acuerdo", "No estoy de acuerdo"],
+
+    "pregunta_3_5": "El profesor Joan Fontrodona del IESE (Instituto de Estudios Superiores de la Empresa) dijo en una entrevista que todo sistema de Inteligencia Artificial debía cumplir 3 principios éticos. ¿Cuánto de acuerdo estás con cada uno de ellos?",
+
+    "pregunta_3_5_1": "1. “Respeto de la dignidad humana, lo que significa que todos estos sistemas deben actuar en favor de la dignidad humana”.",
+    "opciones_3_5_1": ["Totalmente en desacuerdo", "En desacuerdo", "Neutral", "De acuerdo", "Totalmente de acuerdo"],
+
+    "pregunta_3_5_2": "2. “Libertad. Los sistemas de IA deben respetar y promover la libertad”.",
+    "opciones_3_5_2": ["Totalmente en desacuerdo", "En desacuerdo", "Neutral", "De acuerdo", "Totalmente de acuerdo"],
+
+    "pregunta_3_5_3": "3. “Justicia. No todo el mundo tiene acceso a los mismos sistemas, y se dice que los sistemas de IA provocan más división y más desigualdad entre las personas”.",
+    "opciones_3_5_3": ["Totalmente en desacuerdo", "En desacuerdo", "Neutral", "De acuerdo", "Totalmente de acuerdo"],
+
+    "pregunta_3_6": "¿Cuánto de acuerdo estás con la siguiente afirmación?: “Las tecnologías basadas en la IA ya están siendo utilizadas para ayudar a los humanos a beneficiarse de mejoras significativas y disfrutar de una mayor eficiencia en casi todos los ámbitos de la vida.”",
+    "opciones_3_6": ["Totalmente en desacuerdo", "En desacuerdo", "Neutral", "De acuerdo", "Totalmente de acuerdo"],
+
+    "pregunta_3_7": "¿Cuánto de acuerdo estás con la siguiente afirmación?: “La IA también será capaz de ofrecernos sugerencias y predicciones relacionadas con asuntos importantes de nuestra vida, lo que tendrá su impacto en áreas como la salud, el bienestar, la educación, el trabajo y las relaciones interpersonales. De la misma manera, cambiará la forma de hacer negocios al proporcionar ventajas competitivas a las empresas que busquen entender y aplicar estas herramientas de forma rápida y eficaz.”",
+    "opciones_3_7": ["Totalmente en desacuerdo", "En desacuerdo", "Neutral", "De acuerdo", "Totalmente de acuerdo"],
+
+    "intro_q38_1": "En 2023, un joven de 17 años comenzó a utilizar un chatbot de inteligencia artificial con el que mantenía conversaciones frecuentes. La IA estaba diseñada para simular interacciones humanas de forma muy realista, incluyendo contenido emocional e incluso de tipo romántico o sexualizado. El chico, que ya sufría problemas de salud mental y aislamiento social, desarrolló una relación de fuerte dependencia emocional con el chatbot.",
+    "intro_q38_2": "Durante varias conversaciones, el joven expresó pensamientos autodestructivos y habló abiertamente sobre su intención de suicidarse. A pesar de esto, el chatbot no mostró ningún tipo de respuesta que lo disuadiera ni alertó a ningún sistema de ayuda. De hecho, en lugar de frenar la conversación, siguió interactuando con él como si fuera una persona más, sin filtrar ni limitar el contenido sensible.",
+    "intro_q38_3": "Días después, el joven se quitó la vida.",
+    "intro_q38_4": "Su madre ha denunciado a los desarrolladores del chatbot por negligencia y falta de medidas de protección, alegando que la IA contribuyó significativamente a la muerte de su hijo.",
+
+    "pregunta_3_8_1": "¿Piensas que este tipo de IAs, capaces de mantener conversaciones emocionales realistas, deberían estar disponibles para cualquier usuario?",
+    "opciones_3_8_1": ["No, deberían estar restringidas por edad", "Sí, siempre que el usuario acepte los términos de uso", "Deberían estar etiquetadas con advertencias sobre su contenido"],
+
+    "pregunta_3_8_2": "¿Quién crees que tiene mayor responsabilidad en este caso?",
+    "opciones_3_8_2": ["El joven estadounidense de 17 años", "La empresa desarrolladora de la IA", "El entorno del joven (familiares, escuela, amigos, etc.)", "Otro:"],
+
+    "intro_caso_3_1": "De manera similar, en 2023, un hombre belga, padre de dos niños pequeños, acabó con su vida tras una conversación de seis semanas sobre la crisis climática con un chatbot de inteligencia artificial llamado Eliza, disponible en una aplicación llamada Chai. Eliza le animó a quitarse la vida después de que él propusiera sacrificarse para salvar el planeta, ya que había perdido la fe en la humanidad para encontrar una solución al calentamiento global y había depositado todas sus esperanzas en la tecnología y la inteligencia artificial para superarlo.",
+    "intro_caso_3_2": "Según el medio de noticias La Libre, que revisó los registros de las conversaciones de texto entre el hombre y el chatbot, “Eliza alimentó sus preocupaciones, lo que agravó su ansiedad y más adelante derivó en pensamientos suicidas.”",
+
+    "pregunta_3_9_1": "En este caso, ¿quién consideras más responsable?",
+    "opciones_3_9_1": ["El hombre que mantenía la conversación", "La empresa responsable del chatbot", "La plataforma (Chai) que permitió la interacción", "Otro:"],
+
+    "pregunta_3_9_2": "En general, ¿crees que la IA conversacional debería estar obligada a detectar señales de crisis emocional (como ideación suicida) y actuar de alguna forma (por ejemplo, alertar a una persona real o detener la conversación)?",
+    "opciones_3_9_2": ["Sí, debería ser un requisito mínimo", "No, la responsabilidad final siempre debería recaer en el usuario", "Depende del tipo de IA y su finalidad"],
     
     # Textos main
     "navegacion": "Navegació", 
