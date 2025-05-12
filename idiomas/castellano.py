@@ -48,9 +48,9 @@ textos = {
     "pregunta_nivel_estudios": "**Nivel de estudios**",
     "opciones_nivel_estudios": ["Estudios secundarios", "Estudios universitarios (o superiores a los secundarios)", "Sin estudios", "Otros"], 
     "pregunta_rama_estudios" : "**Por favor, selecciona la rama que mejor describa tus estudios:** ", 
-    "opciones_rama_estudios": ["Artes y Humanidades (Diseño, Filosofía, Historia, Traducción e Interpretación, ...)", "Ciencias (Ciencias Ambientales, Física, Geología, Matemáticas, Química, ...)", "Ciencias de la Salud (Enfermería, Medicina, Psicología, Odontología, Veterinaria, ...", "Ciencias Sociales y Jurídicas (ADE, Comunicación Audiovisual, Criminología, Derecho, Economía, Periodismo, Turismo, ...)", "Biociencias (Biología, Bioquímica, Genética, Microbiología, ...)", "Ingenierías y Arquitectura (Ingeniería, Industriales, Informática, Telecos, ...)", "Otros"],
+    "opciones_rama_estudios": ["Artes y Humanidades (Diseño, Filosofía, Historia, Traducción e Interpretación, ...)", "Ciencias (Ciencias Ambientales, Física, Geología, Matemáticas, Química, ...)", "Ciencias de la Salud (Enfermería, Medicina, Psicología, Odontología, Veterinaria, ...", "Ciencias Sociales y Jurídicas (ADE, Comunicación Audiovisual, Criminología, Derecho, Economía, Periodismo, Turismo, ...)", "Biociencias (Biología, Bioquímica, Genética, Microbiología, ...)", "Ingenierías y Arquitectura (Ingeniería, Industriales, Informática, Telecos, ...)", "Otros", "Sin estudios"],
     "pregunta_años_experiencia": "**¿Cuántos años de experiencia tienes en este ámbito?: **", 
-    "opciones_años_experiencia": ["Menos de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años"],  
+    "opciones_años_experiencia": ["Menos de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años", "Sin estudios"],  
     "pregunta_pais_residencia": "**¿En qué país resides?**",
     "Gracias_por_contestar_el_formulario": "Muchas gracias por contestar el formulario!",
     
@@ -66,12 +66,12 @@ textos = {
     "opciones_2_3": ["Uso personal", "Estudio académico", "Trabajo", "Otros" ], 
     
     "pregunta_2_4": "¿En qué ámbito utilizas con más frecuencia la IA?",
-    "opciones_2_4": ["Arte y diseño", "Ciencias (Matemáticas, Física, Biología,...)", "Ciencias sociales (Economía, Historia,...)", "Humanidades (Lengua, literatura, idiomas,...)", "Negocios y finanzas", "Programación / Ingeniería", "No la utilizo", "Otros" ], 
+    "opciones_2_4": ["Arte y diseño", "Ciencias (Matemáticas, Física, Biología,...)", "Ciencias sociales (Economía, Historia,...)", "Humanidades (Lengua, literatura, idiomas,...)", "Negocios y finanzas", "Programación / Ingeniería", "No la utilizo", "Otros"], 
     
     "nota": "Nota: ", 
     "sesgo": "sesgo", 
     "un": "Un ", 
-    "intro_preguntas_sesgos": "es una tendencia o inclinación hacia un lado, o un juicio o interpretación que no es objetiva.",
+    "intro_preguntas_sesgos": "es un juicio o interpretación que no es objetiva.",
     "pregunta_2_5": "¿Crees que los sistemas de inteligencia artificial pueden tomar decisiones sesgadas (injustas o discriminatorias)?", 
     "opciones_2_5": ["Sí, porque aprenden de datos que pueden estar sesgados por la sociedad", "No, porque la IA analiza los datos de forma neutral", "No estoy seguro/a"], 
         
@@ -110,10 +110,10 @@ textos = {
     "pregunta_3_5_3": "“Justicia. No todo el mundo tiene acceso a los mismos sistemas, y se dice que los sistemas de IA provocan más división y más desigualdad entre las personas”.", 
     "opciones_3_5_3": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"], 
 
-    "pregunta_3_6": "¿Cuánto de acuerdo estás con la siguiente afirmación? : “Las tecnologías basadas en la IA ya están siendo utilizadas para ayudar a los humanos a beneficiarse de mejoras significativas y disfrutar de una mayor eficiencia en casi todos los ámbitos de la vida.”", 
+    "pregunta_3_6": "Indica cuánto de acuerdo estás con la siguiente afirmación: “Las tecnologías basadas en la IA ya están siendo utilizadas para ayudar a los humanos a beneficiarse de mejoras significativas y disfrutar de una mayor eficiencia en casi todos los ámbitos de la vida.”", 
     "opciones_3_6": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"], 
     
-    "pregunta_3_7": "¿Cuánto de acuerdo estás con la siguiente afirmación? : La IA también será capaz de ofrecernos sugerencias y predicciones relacionadas con asuntos importantes de nuestra vida, lo que tendrá su impacto en áreas como la salud, el bienestar, la educación, el trabajo y las relaciones interpersonales. De la misma manera, cambiará la forma de hacer negocios al proporcionar ventajas competitivas a las empresas que busquen entender y aplicar estas herramientas de forma rápida y eficaz.",
+    "pregunta_3_7": "Indica cuánto de acuerdo estás con la siguiente afirmación: La IA también será capaz de ofrecernos sugerencias y predicciones relacionadas con asuntos importantes de nuestra vida, lo que tendrá su impacto en áreas como la salud, el bienestar, la educación, el trabajo y las relaciones interpersonales. De la misma manera, cambiará la forma de hacer negocios al proporcionar ventajas competitivas a las empresas que busquen entender y aplicar estas herramientas de forma rápida y eficaz.",
     "opciones_3_7": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"],
     
     "intro_q38_1": "En 2023, un joven de 17 años comenzó a utilizar un chatbot de inteligencia artificial con el que mantenía conversaciones frecuentes. La IA estaba diseñada para simular interacciones humanas de forma muy realista, incluyendo contenido emocional e incluso de tipo romántico o sexualizado. El chico, que ya sufría problemas de salud mental y aislamiento social, desarrolló una relación de fuerte dependencia emocional con el chatbot.", 
@@ -125,13 +125,13 @@ textos = {
     "opciones_3_8_1": ["No, deberían estar restringidas por edad ", "Sí, siempre que el usuario acepte los términos de uso","Deberían estar etiquetadas con advertencias sobre su contenido"],
 
     "pregunta_3_8_2": "¿Quién crees que tiene mayor responsabilidad en este caso?",
-    "opciones_3_8_2": ["El joven estadounidense de 17 años", "La empresa desarrolladora de la IA.","El entorno del joven (familiares, escuela, amigos, etc.)", "Otro: "],
+    "opciones_3_8_2": ["El joven estadounidense de 17 años", "La empresa desarrolladora de la IA.","El entorno del joven (familiares, escuela, amigos, etc.)"],
 
     "intro_caso_3_1": "De manera similar, en 2023, un hombre belga, padre de dos niños pequeños, acabó con su vida tras una conversación de seis semanas sobre la crisis climática con un chatbot de inteligencia artificial llamado Eliza, disponible en una aplicación llamada Chai. Eliza le animó a quitarse la vida después de que él propusiera sacrificarse/suicidarse para salvar el planeta, ya que había perdido la fe en la humanidad para encontrar una solución al calentamiento global y había depositado todas sus esperanzas en la tecnología y la inteligencia artificial para superarlo.",
     "intro_caso_3_2": "Según el medio de noticias, La Libre, que revisó los registros de las conversaciones de texto entre el hombre y el chatbot, “Eliza alimentó sus preocupaciones, lo que agravó su ansiedad y más adelante derivó en pensamientos suicidas”.",
 
     "pregunta_3_9_1": "En este caso, ¿quién consideras más responsable?",
-    "opciones_3_9_1": ["El hombre que mantenía la conversación", "La empresa responsable del chatbot","La plataforma (Chai) que permitió la interacción", "Otro:"],
+    "opciones_3_9_1": ["El hombre que mantenía la conversación", "La empresa responsable del chatbot","La plataforma (Chai) que permitió la interacción"],
 
     "pregunta_3_9_2": "En General, ¿Crees que la IA conversacional debería estar obligada a detectar señales de crisis emocional (como ideación suicida) y actuar de alguna forma (por ejemplo, alertar a una persona real o detener la conversación)?",
     "opciones_3_9_2": ["Sí, debería ser un requisito mínimo", "No, la responsabilidad final siempre debería recaer en el usuario","Depende del tipo de IA y su finalidad"],
