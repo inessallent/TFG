@@ -46,7 +46,7 @@ def is_valid_email(email):
 
 
 # Save answers in New CSV
-def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estudios, rama_estudios, años_experiencia, pais_residencia, answers):
+def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estudios, otros_nivel_estudios, rama_estudios, años_experiencia, pais_residencia, answers):
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
@@ -56,6 +56,7 @@ def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estud
         'nombre_apellido': nombre_apellido, 
         'edad': edad,
         'nivel_estudios': nivel_estudios, 
+        'nivel_estudios_otro': otros_nivel_estudios, 
         'rama_estudios': rama_estudios,
         'anos_experiencia': años_experiencia,
         'pais_residencia': pais_residencia
@@ -230,10 +231,21 @@ def display_questions(questions):
             
             #Restaurar respuesta si retrocede
             nivel_estudios_index = None
+            opciones = textos["opciones_nivel_estudios"]
             if "nivel_estudios" in st.session_state:
                 nivel_estudios_index = textos["opciones_nivel_estudios"].index(st.session_state.nivel_estudios) if st.session_state.nivel_estudios else None
             st.session_state.nivel_estudios = st.radio( label="", options=textos["opciones_nivel_estudios"], index=nivel_estudios_index, label_visibility="collapsed")
+            
+            if "nivel_estudios_otro" not in st.session_state: # Inicialización
+                st.session_state.nivel_estudios_otro = "" 
+            otro_estudios = ""
+            seleccion = st.session_state.nivel_estudios 
+            if seleccion == opciones[-1]:
+                otro_estudios = st.text_input(textos["otros_opcion"], key="otro_nivel_estudios")
+                if otro_estudios:
+                    otro_estudios = st.session_state.nivel_estudios_otro 
         
+                
         with st.container(): #Pregunta rama estudios
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
                         {textos['pregunta_rama_estudios'].replace("**", "")}
@@ -320,6 +332,7 @@ def display_questions(questions):
                     "nombre_apellido": st.session_state.nombre_apellido,
                     "edad": st.session_state.age,
                     "nivel_estudios": st.session_state.nivel_estudios,
+                    "nivel_estudios_otro": st.session_state.nivel_estudios_otro, ####nuevo
                     "rama_estudios": st.session_state.rama_estudios,
                     "años_experiencia": st.session_state.años_experiencia,
                     "pais_residencia": st.session_state.pais_residencia
@@ -373,6 +386,14 @@ def display_questions(questions):
                 if st.checkbox(opcion, key=f"q23_{opcion}"):
                     seleccionadas_q23.append(opcion)
             st.session_state.q23 = seleccionadas_q23
+            
+            if textos["opciones_2_3"][-1] in seleccionadas_q23:  # Si "Otros" está en las opciones seleccionadas
+                otro_2_3 = st.text_input(textos["otros_opcion"], key="otro_2_3")
+                
+                if otro_2_3:
+                    st.session_state.q23_otro = otro_2_3
+                else:
+                    st.session_state.q23_otro = ""
         
         with st.container(): #Pregunta 2_4
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
@@ -387,6 +408,14 @@ def display_questions(questions):
                 q24_index = textos["opciones_2_4"].index(st.session_state.q24) if st.session_state.q24 else None
             st.session_state.q24 = st.radio(label="", options=textos["opciones_2_4"], index=q24_index, label_visibility="collapsed")
 
+            otro_2_4 = ""
+            seleccion_2_4 = st.session_state.q24 
+            if seleccion_2_4 == textos["opciones_2_4"][-1]:
+                otro_2_4 = st.text_input(textos["otros_opcion"], key="otro_2_4")
+                if otro_2_4:
+                    st.session_state.q24_otro = otro_2_4
+        
+        ## Definición Sesgos:             
         st.markdown(f"<p style='font-size: 1.2rem;'><strong>{textos["nota"]}</strong>{textos["un"]}<strong>{textos["sesgo"]}</strong> {textos["intro_preguntas_sesgos"]}</p>",unsafe_allow_html=True)
 
         

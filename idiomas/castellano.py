@@ -54,6 +54,8 @@ textos = {
     "pregunta_pais_residencia": "**¿En qué país resides?**",
     "Gracias_por_contestar_el_formulario": "Muchas gracias por contestar el formulario!",
     
+    "otros_opcion": "Por favor, especifique:", ######añadir
+    
     # Preguntas Sección 2: Conocimiento sobre la IA
     
     "pregunta_2_1": "Selecciona la opción que describa mejor la inteligencia artificial (IA):",
