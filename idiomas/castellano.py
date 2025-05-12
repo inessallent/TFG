@@ -27,6 +27,8 @@ textos = {
     "Seccion_2": "Sección 2",
     "Seccion_3": "Sección 3",
     
+    "otros_opcion": "Por favor, especifica:", ######añadir
+
     #Acesso al cuestionario
     "empezar_cuestionario":"¿Quieres empezar el cuestionario?",
     "leer_terminos":"Antes de comenzar, por favor, lee los siguientes términos y condiciones.", 
@@ -54,7 +56,6 @@ textos = {
     "pregunta_pais_residencia": "**¿En qué país resides?**",
     "Gracias_por_contestar_el_formulario": "Muchas gracias por contestar el formulario!",
     
-    "otros_opcion": "Por favor, especifique:", ######añadir
     
     # Preguntas Sección 2: Conocimiento sobre la IA
     

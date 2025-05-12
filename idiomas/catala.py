@@ -28,6 +28,8 @@ textos = {
     "Seccion_1": "Secció 1",
     "Seccion_2": "Secció 2",
     "Seccion_3": "Secció 3",
+    
+    "otros_opcion": "Si us plau, específica", ######añadir
 
     #Accés al qüestionari
     "empezar_cuestionario":"Vols començar el qüestionari?",

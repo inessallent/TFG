@@ -27,6 +27,8 @@ textos = {
     "Seccion_2": "Section 2",
     "Seccion_3": "Section 3",
     
+    "otros_opcion": "Please, specify:", 
+
     # Access to questionnaire
     "empezar_cuestionario": "Do you want to start the questionnaire?",
     "leer_terminos": "Before you begin, please read the following terms and conditions.",
