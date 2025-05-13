@@ -14,11 +14,16 @@ import base64
 
 
 
-# Create a connection object (with google sheets)
+# Create a connection object (with supabase)
 url = "https://okxrqxueywqdngrvvxrt.supabase.co"
 key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9reHJxeHVleXdxZG5ncnZ2eHJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYzMDk1MjQsImV4cCI6MjA2MTg4NTUyNH0.kkS759PQXtIME1cBT8wr4FZZGaN7w20fqIy-Om94G0Y"
 supabase = create_client(url, key)
 
+# Acceder a la tabla "respuestas"
+response_respuestas = supabase.table("respuestas").select("*").execute
+
+# Acceder a la tabla "personal_info"
+response_personal_info = supabase.table("personal_info").select("*").execute
     
 # Sidebar para seleccionar idioma
 st.sidebar.title("Seleccionar Idioma")
@@ -46,14 +51,12 @@ def is_valid_email(email):
 
 
 # Save answers in New CSV
-def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estudios, nivel_estudios_otro, rama_estudios, rama_estudios_otro, años_experiencia, pais_residencia, answers, opcion_otro_8, opcion_otro_9):
+def save_response_to_gsheets(genero, edad, nivel_estudios, nivel_estudios_otro, rama_estudios, rama_estudios_otro, años_experiencia, pais_residencia, answers, opcion_otro_8, opcion_otro_9):
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
         "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         'genero': genero,
-        'correo_electronico': correo,
-        'nombre_apellido': nombre_apellido, 
         'edad': edad,
         'nivel_estudios': nivel_estudios, 
         'nivel_estudios_otro': nivel_estudios_otro, 
@@ -72,6 +75,30 @@ def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estud
     try:
         # Insertar la respuesta en la base de datos
         response = supabase.table("respuestas").insert([nueva_respuesta]).execute()
+
+        # # Verificar si la inserción fue exitosa
+        # if response.data:
+        #     st.success(textos["enviado_con_éxtio"])
+        # else:
+        #     st.error(f"{textos['error_envio']}: {response.raw_error or 'Error desconocido'}")
+
+    
+    except Exception as e:
+        st.error(f"Error al guardar la respuesta: {str(e)}")  # Manejo de error en caso de falla
+    # Confirmación en la interfaz 
+
+def save_response_name_email(correo_electronico, nombre_apellido):
+    # Crear nueva fila con timestamp
+    nueva_respuesta = {
+        "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        'correo_electronico': correo_electronico,
+        'nombre_apellido': nombre_apellido,
+    }
+
+    # Subir la nueva respuesta a Supabase
+    try:
+        # Insertar la respuesta en la base de datos
+        response = supabase.table("personal_info").insert([nueva_respuesta]).execute()
 
         # # Verificar si la inserción fue exitosa
         # if response.data:
@@ -147,31 +174,9 @@ def display_questions(questions):
             
         st.header(textos["info_personal"])
         
-        # #Pregunta nombre y apellido
-        # with st.container(): 
-        #     st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_nombre'].replace("**", "")}</p>
-        #         </div>
-        #         """,unsafe_allow_html=True)
-            
-        #     # Restaurar respuesta si retrocede
-        #     if "nombre_apellido" in st.session_state:
-        #         st.session_state.nombre_apellido = st.text_input(textos["opciones_nombre"], value=st.session_state.correo)
-        #     else:
-        #         st.session_state.nombre_apellido = st.text_input(textos["opciones_nombre"])
-                
-        # #Pregunta correo
-        # with st.container(): 
-        #     st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_correo'].replace("**", "")}</p>
-        #         </div>
-        #         """,unsafe_allow_html=True)
-            
-        #     # Restaurar respuesta si retrocede
-        #     if "correo" in st.session_state:
-        #         st.session_state.correo = st.text_input(textos["opcion_correo"], value=st.session_state.correo)
-        #     else:
-        #         st.session_state.correo = st.text_input(textos["opcion_correo"])
-        
         #Pregunta género
+        if "genero" not in st.session_state:
+            st.session_state.genero = None
         with st.container(): 
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
                         {textos['pregunta_genero'].replace("**", "")}
@@ -289,7 +294,6 @@ def display_questions(questions):
         if st.button(textos["boton_continuar"]):
             errores = []
             
-            
             if not st.session_state.genero:
                 errores.append(textos["error_genero"])
             
@@ -319,9 +323,7 @@ def display_questions(questions):
                 
             else:
                 st.session_state.personal_data = {
-                    # "genero": st.session_state.genero,
-                    # "correo": st.session_state.correo,
-                    "nombre_apellido": st.session_state.nombre_apellido,
+                    "genero": st.session_state.genero,
                     "edad": st.session_state.age,
                     "nivel_estudios": st.session_state.nivel_estudios,
                     "nivel_estudios_otro": st.session_state.nivel_estudios_otro, ####nuevo
@@ -682,7 +684,7 @@ def display_questions(questions):
             st.session_state.q37 = st.radio(label="q37", options=textos["opciones_3_7"], index=q37_index, label_visibility="collapsed")
 
 
-        if st.button(textos["boton_enviar"], key="btn_sec3"):
+        if st.button(textos["boton_continuar"], key="btn_sec3"):
             if (
                 # st.session_state.q31 is None or
                 # st.session_state.q32 is None or
@@ -734,6 +736,52 @@ def display_questions(questions):
         if st.button(textos["boton_atras"]):
             go_back_section()
 
+    ################################################################ SECTION 4: Nombre + correo ################################################################ 
+
+    elif st.session_state.question_index == 5:
+        #Pregunta nombre y apellido
+        if "nombre_apellido" not in st.session_state:
+            st.session_state["nombre_apellido"] = ""
+            
+        with st.container(): 
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_nombre'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            # Restaurar respuesta si retrocede
+            if "nombre_apellido" in st.session_state:
+                st.session_state.nombre_apellido = st.text_input(textos["opciones_nombre"], value=st.session_state.nombre_apellido)
+            else:
+                st.session_state.nombre_apellido = st.text_input(textos["opciones_nombre"])
+                
+        #Pregunta correo
+        if "correo_electronico" not in st.session_state:
+            st.session_state["correo_electronico"] = ""
+            
+        with st.container(): 
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_correo'].replace("**", "")}</p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            # Restaurar respuesta si retrocede
+            if "correo_electronico" in st.session_state:
+                st.session_state.correo_electronico = st.text_input(textos["opcion_correo"], value=st.session_state.correo_electronico)
+            else:
+                st.session_state.correo_electronico = st.text_input(textos["opcion_correo"])
+        
+        
+        if st.button(textos["boton_enviar"]):
+            st.session_state.personal_data = {
+                "nombre_apellido": st.session_state.nombre_apellido,
+                "nombre_apellido": st.session_state.nombre_apellido,
+            }
+            next_section()  # Avanzamos a la siguiente sección
+
+        if st.button(textos["boton_atras"]):
+            go_back_section()
+
+        
+        
     
 def cuestions():
     
@@ -748,7 +796,7 @@ def cuestions():
     if 'selected_option' not in st.session_state:
         st.session_state.selected_option = None
         
-    seccion_lens = 4 # Apartados de preguntas
+    seccion_lens = 5 # Apartados de preguntas
         
     # Mostrar la pregunta actual
     if st.session_state.question_index - 1 < seccion_lens:
@@ -828,11 +876,17 @@ def cuestions():
             # st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
             opcion_otro_8 = st.session_state.get("q23_otro", "")
             opcion_otro_9 = st.session_state.get("q24_otro", "")
+            personal_data["genero"] = st.session_state.get("genero", "")
+            personal_data["edad"] = st.session_state.get("edad", "")
+            personal_data["nivel_estudios"] = st.session_state.get("nivel_estudios", "")
+            personal_data["nivel_estudios_otro"] = st.session_state.get("nivel_estudios_otro", "")
+            personal_data["rama_estudios"] = st.session_state.get("rama_estudios", "")
+            personal_data["rama_estudios_otro"] = st.session_state.get("rama_estudios_otro", "")
+            personal_data["años_experiencia"] = st.session_state.get("años_experiencia", "")
+            personal_data["pais_residencia"] = st.session_state.get("pais_residencia", "")
             
             save_response_to_gsheets(
                 personal_data["genero"],
-                personal_data["correo"],
-                personal_data["nombre_apellido"],
                 personal_data["edad"],
                 personal_data["nivel_estudios"],
                 personal_data["nivel_estudios_otro"],
@@ -843,6 +897,11 @@ def cuestions():
                 st.session_state.answers,
                 opcion_otro_8,
                 opcion_otro_9
+            )
+            
+            save_response_name_email(
+                st.session_state.correo_electronico, 
+                st.session_state.nombre_apellido
             )
 
             # Limpiar las respuestas después de guardarlas
