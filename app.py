@@ -46,7 +46,7 @@ def is_valid_email(email):
 
 
 # Save answers in New CSV
-def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estudios, nivel_estudios_otro, rama_estudios, años_experiencia, pais_residencia, answers, opcion_otro_8, opcion_otro_9):
+def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estudios, nivel_estudios_otro, rama_estudios, rama_estudios_otro, años_experiencia, pais_residencia, answers, opcion_otro_8, opcion_otro_9):
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
@@ -58,6 +58,7 @@ def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estud
         'nivel_estudios': nivel_estudios, 
         'nivel_estudios_otro': nivel_estudios_otro, 
         'rama_estudios': rama_estudios,
+        'rama_estudios_otro': rama_estudios_otro, 
         'anos_experiencia': años_experiencia,
         'pais_residencia': pais_residencia,
         'opción_otro_8': opcion_otro_8,
@@ -239,6 +240,17 @@ def display_questions(questions):
             if "rama_estudios" in st.session_state:
                 rama_estudios_index = textos["opciones_rama_estudios"].index(st.session_state.rama_estudios) if st.session_state.rama_estudios else None
             st.session_state.rama_estudios = st.radio( label="", options=textos["opciones_rama_estudios"], index=rama_estudios_index, label_visibility="collapsed")
+            
+            if "rama_estudios_otro" not in st.session_state: # Inicialización
+                st.session_state.rama_estudios_otro = "" 
+                
+            otro_rama_estudios = ""
+            seleccion = st.session_state.rama_estudios_otro 
+            if seleccion == textos["opciones_rama_estudios"][-1]:
+                otro_rama_estudios = st.text_input(textos["otros_opcion"], key="otro_rama_estudios")
+                if otro_rama_estudios:
+                    otro_rama_estudios = st.session_state.rama_estudios_otro 
+        
         
         with st.container(): #Pregunta años experiencia
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
@@ -314,6 +326,7 @@ def display_questions(questions):
                     "nivel_estudios": st.session_state.nivel_estudios,
                     "nivel_estudios_otro": st.session_state.nivel_estudios_otro, ####nuevo
                     "rama_estudios": st.session_state.rama_estudios,
+                    "rama_estudios_otro": st.session_state.rama_estudios_otro, ####nuevo
                     "años_experiencia": st.session_state.años_experiencia,
                     "pais_residencia": st.session_state.pais_residencia
                 }
@@ -824,6 +837,7 @@ def cuestions():
                 personal_data["nivel_estudios"],
                 personal_data["nivel_estudios_otro"],
                 personal_data["rama_estudios"], 
+                personal_data["rama_estudios_otro"],
                 personal_data["años_experiencia"],
                 personal_data["pais_residencia"],
                 st.session_state.answers,
