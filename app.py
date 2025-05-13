@@ -46,7 +46,7 @@ def is_valid_email(email):
 
 
 # Save answers in New CSV
-def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estudios, nivel_estudios_otro, rama_estudios, años_experiencia, pais_residencia, answers):
+def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estudios, nivel_estudios_otro, rama_estudios, años_experiencia, pais_residencia, answers, opcion_otro_8, opcion_otro_9):
 
     # Crear nueva fila con timestamp
     nueva_respuesta = {
@@ -59,7 +59,9 @@ def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estud
         'nivel_estudios_otro': nivel_estudios_otro, 
         'rama_estudios': rama_estudios,
         'anos_experiencia': años_experiencia,
-        'pais_residencia': pais_residencia
+        'pais_residencia': pais_residencia,
+        'opción_otro_8': opcion_otro_8,
+        'opción_otro_9':opcion_otro_9
     }
     # Añadir las respuestas a las preguntas dinámicamente
     for i, respuesta in enumerate(answers):
@@ -79,21 +81,7 @@ def save_response_to_gsheets(genero, correo, nombre_apellido,  edad, nivel_estud
     
     except Exception as e:
         st.error(f"Error al guardar la respuesta: {str(e)}")  # Manejo de error en caso de falla
-    # Confirmación en la interfaz
-
-# Scroll to the top 
-def scroll_to_top_once():
-    components.html(
-        """
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                window.scrollTo(0, 0);
-            });
-            window.scrollTo(0, 0);
-        </script>
-        """,
-        height=0,
-    )    
+    # Confirmación en la interfaz 
 
 
 # Next Question
@@ -102,14 +90,6 @@ def next_section():
     st.session_state.selected_option = None  # Restablecer la opción seleccionada
     st.session_state.scroll_to_top = True
     st.rerun()  # Forzar la actualización inmediata de la interfaz
-    
-
-def next_video(question_index):
-    video_path = os.path.join("Media", "Questionarios_videos", f"Q{question_index + 1}.mp4")
-    if os.path.isfile(video_path):
-        st.video(video_path, format="video/mp4", start_time=0)
-    else:
-        st.error(textos["video_no_encontrado"])
 
 def go_back_section():
     # Guardar las respuestas actuales antes de retroceder
@@ -386,7 +366,10 @@ def display_questions(questions):
                 if st.checkbox(opcion, key=f"q23_{opcion}"):
                     seleccionadas_q23.append(opcion)
             st.session_state.q23 = seleccionadas_q23
-            
+    
+            if "otro_2_3" not in st.session_state:
+                st.session_state.otro_2_3 = "" 
+                
             if textos["opciones_2_3"][-1] in seleccionadas_q23:  # Si "Otros" está en las opciones seleccionadas
                 otro_2_3 = st.text_input(textos["otros_opcion"], key="otro_2_3")
                 
@@ -403,11 +386,14 @@ def display_questions(questions):
                 </div>
                 """,unsafe_allow_html=True)
             
+            if "otro_2_4" not in st.session_state:
+                st.session_state.otro_2_4 = ""
+    
             q24_index = None
             if "q24" in st.session_state:
                 q24_index = textos["opciones_2_4"].index(st.session_state.q24) if st.session_state.q24 else None
             st.session_state.q24 = st.radio(label="", options=textos["opciones_2_4"], index=q24_index, label_visibility="collapsed")
-
+            
             otro_2_4 = ""
             seleccion_2_4 = st.session_state.q24 
             if seleccion_2_4 == textos["opciones_2_4"][-1]:
@@ -827,6 +813,8 @@ def cuestions():
             personal_data = st.session_state.personal_data
             
             # st.write("Datos personales guardados:", st.session_state.personal_data) #Depuración
+            opcion_otro_8 = st.session_state.get("q23_otro", "")
+            opcion_otro_9 = st.session_state.get("q24_otro", "")
             
             save_response_to_gsheets(
                 personal_data["genero"],
@@ -838,7 +826,9 @@ def cuestions():
                 personal_data["rama_estudios"], 
                 personal_data["años_experiencia"],
                 personal_data["pais_residencia"],
-                st.session_state.answers
+                st.session_state.answers,
+                opcion_otro_8,
+                opcion_otro_9
             )
 
             # Limpiar las respuestas después de guardarlas

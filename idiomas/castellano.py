@@ -27,7 +27,7 @@ textos = {
     "Seccion_2": "Sección 2",
     "Seccion_3": "Sección 3",
     
-    "otros_opcion": "Por favor, especifica:", ######añadir
+    "otros_opcion": "Por favor, especifica:", 
 
     #Acesso al cuestionario
     "empezar_cuestionario":"¿Quieres empezar el cuestionario?",

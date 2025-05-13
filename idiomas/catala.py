@@ -29,7 +29,7 @@ textos = {
     "Seccion_2": "Secció 2",
     "Seccion_3": "Secció 3",
     
-    "otros_opcion": "Si us plau, específica", ######añadir
+    "otros_opcion": "Si us plau, específica", 
 
     #Accés al qüestionari
     "empezar_cuestionario":"Vols començar el qüestionari?",
