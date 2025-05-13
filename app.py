@@ -147,29 +147,29 @@ def display_questions(questions):
             
         st.header(textos["info_personal"])
         
-        #Pregunta nombre y apellido
-        with st.container(): 
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_nombre'].replace("**", "")}</p>
-                </div>
-                """,unsafe_allow_html=True)
+        # #Pregunta nombre y apellido
+        # with st.container(): 
+        #     st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_nombre'].replace("**", "")}</p>
+        #         </div>
+        #         """,unsafe_allow_html=True)
             
-            # Restaurar respuesta si retrocede
-            if "nombre_apellido" in st.session_state:
-                st.session_state.nombre_apellido = st.text_input(textos["opciones_nombre"], value=st.session_state.correo)
-            else:
-                st.session_state.nombre_apellido = st.text_input(textos["opciones_nombre"])
+        #     # Restaurar respuesta si retrocede
+        #     if "nombre_apellido" in st.session_state:
+        #         st.session_state.nombre_apellido = st.text_input(textos["opciones_nombre"], value=st.session_state.correo)
+        #     else:
+        #         st.session_state.nombre_apellido = st.text_input(textos["opciones_nombre"])
                 
-        #Pregunta correo
-        with st.container(): 
-            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_correo'].replace("**", "")}</p>
-                </div>
-                """,unsafe_allow_html=True)
+        # #Pregunta correo
+        # with st.container(): 
+        #     st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">{textos['pregunta_correo'].replace("**", "")}</p>
+        #         </div>
+        #         """,unsafe_allow_html=True)
             
-            # Restaurar respuesta si retrocede
-            if "correo" in st.session_state:
-                st.session_state.correo = st.text_input(textos["opcion_correo"], value=st.session_state.correo)
-            else:
-                st.session_state.correo = st.text_input(textos["opcion_correo"])
+        #     # Restaurar respuesta si retrocede
+        #     if "correo" in st.session_state:
+        #         st.session_state.correo = st.text_input(textos["opcion_correo"], value=st.session_state.correo)
+        #     else:
+        #         st.session_state.correo = st.text_input(textos["opcion_correo"])
         
         #Pregunta género
         with st.container(): 
@@ -319,8 +319,8 @@ def display_questions(questions):
                 
             else:
                 st.session_state.personal_data = {
-                    "genero": st.session_state.genero,
-                    "correo": st.session_state.correo,
+                    # "genero": st.session_state.genero,
+                    # "correo": st.session_state.correo,
                     "nombre_apellido": st.session_state.nombre_apellido,
                     "edad": st.session_state.age,
                     "nivel_estudios": st.session_state.nivel_estudios,

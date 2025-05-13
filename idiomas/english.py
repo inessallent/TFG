@@ -56,8 +56,8 @@ textos = {
         "Social and Legal Sciences (Business, Audiovisual Communication, Criminology, Law, Economics, Journalism, Tourism, ...)",
         "Biosciences (Biology, Biochemistry, Genetics, Microbiology, ...)",
         "Engineering and Architecture (Engineering, Industrial, Computer Science, Telecommunications, ...)",
-        "Other",
-        "No education"
+        "No education",
+        "Other"
     ],
     "pregunta_años_experiencia": "**How many years of experience do you have in this field?:**",
     "opciones_años_experiencia": ["Less than 1 year", "1 - 3 years", "4 - 6 years", "7 - 10 years", "More than 10 years", "No education"],
