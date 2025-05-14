@@ -931,7 +931,7 @@ def cuestions():
         }
 
         # Mostrar íconos en filas de 3
-        st.markdown(f"### {textos["compartir_titulo"], 'Compartir en redes sociales:'}")
+        st.markdown(f"### {textos["compartir_titulo"]}")
 
         cols = st.columns(3)
         i = 0
