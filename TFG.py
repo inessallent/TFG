@@ -829,7 +829,7 @@ def cuestions():
             ),
             "Twitter": (
                 f"https://twitter.com/intent/tweet?url={link}",
-                "https://cdn-icons-png.flaticon.com/512/145/145812.png"
+                "https://i.pinimg.com/564x/30/44/2a/30442a06ccf25e328e68a78c606b74f0.jpg"
             ),
             "LinkedIn": (
                 f"https://www.linkedin.com/sharing/share-offsite/?url={link}",

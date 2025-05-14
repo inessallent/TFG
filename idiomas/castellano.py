@@ -87,6 +87,9 @@ textos = {
     "pregunta_2_8":"En tu opinión, ¿quién debería ser el principal responsable de evitar los sesgos en los sistemas de inteligencia artificial?", 
     "opciones_2_8":["Las empresas que desarrollan los algoritmos", "Los gobiernos y organismos reguladores", "Los usuarios, que deben usar la IA de forma crítica", "Todos los anteriores comparten responsabilidad"], 
     
+    "pregunta_2_9":"¿En qué etapa crees que sería más importante concienciar y educar a la población sobre el uso y los riesgos de la inteligencia artificial?", 
+    "opciones_2_9":["En la educación primaria y secundaria (colegios)", "En la universidad", "En el ámbito laboral", "No creo que sea necesario regular ni concienciar sobre la IA"], 
+    
     #Preguntas Sección 3: Casos concretos + ética
     "caso_1": "Caso 1",
     "caso_2": "Caso 2",
@@ -102,15 +105,15 @@ textos = {
     "pregunta_3_5": "El profesor Joan Fontrodona de la IESE (Instituto de Estudios Superiores de la Empresa) dijo en una entrevista que todo sistema de inteligencia artificial debía cumplir 3 principios éticos. ¿Cuánto de acuerdo estás con cada uno de ellos?",
     
     "primer_principio": "Primer principio: ",
-    "pregunta_3_5_1": " “Respeto de la dignidad humana, lo que significa que todos estos sistemas deben actuar en favor de la dignidad humana”.", 
+    "pregunta_3_5_1": " “Respeto de la dignidad humana, todos estos sistemas deben actuar en favor de la dignidad humana”.", 
     "opciones_3_5_1":["Totalmente acuerdo", "Acuerdo", "Neutral", "Desacuerdo", "Totalmente desacuerdo"],  
 
     "segundo_principio": "Segundo principio: ",
-    "pregunta_3_5_2": "“Libertad. Los sistemas de IA deben respetar y promover la libertad”.", 
+    "pregunta_3_5_2": "“Los sistemas de IA deben respetar y promover la libertad”.", 
     "opciones_3_5_2": ["Totalmente acuerdo", "Acuerdo", "Neutral", "Desacuerdo", "Totalmente desacuerdo"], 
 
     "tercer_principio": "Tercer principio: ",
-    "pregunta_3_5_3": "“Justicia. No todo el mundo tiene acceso a los mismos sistemas, y se dice que los sistemas de IA provocan más división y más desigualdad entre las personas”.", 
+    "pregunta_3_5_3": "Los sistemas de inteligencia artificial deben promover la justicia social y evitar aumentar la desigualdad social o económica entre las personas.", 
     "opciones_3_5_3": ["Totalmente acuerdo", "Acuerdo", "Neutral", "Desacuerdo", "Totalmente desacuerdo"], 
 
     "pregunta_3_6": "Indica cuánto de acuerdo estás con la siguiente afirmación: “Las tecnologías basadas en la IA ya están siendo utilizadas para ayudar a los humanos a beneficiarse de mejoras significativas y disfrutar de una mayor eficiencia en casi todos los ámbitos de la vida.”", 
@@ -138,6 +141,18 @@ textos = {
 
     "pregunta_3_9_2": "En General, ¿Crees que la IA conversacional debería estar obligada a detectar señales de crisis emocional (como ideación suicida) y actuar de alguna forma (por ejemplo, alertar a una persona real o detener la conversación)?",
     "opciones_3_9_2": ["Sí, debería ser un requisito mínimo", "No, la responsabilidad final siempre debería recaer en el usuario","Depende del tipo de IA y su finalidad"],
+    
+    "pregunta_3_10": "¿Qué tipo de decisiones considerarías aceptable delegar a una IA? (Puedes seleccionar más de una respuesta)", 
+    "opciones_3_10": ["Decisiones logísticas", "Decisiones médicas", "Decisiones legales o judiciales", "Decisiones éticas en situaciones límite (como en coches autónomos)", "Ninguna"], 
+    
+    "pregunta_3_11": "¿Crees que tu nivel de conocimiento sobre la IA influye en tu confianza hacia ella?", 
+    "opciones_3_11": ["Sí, cuanto más sé, más confianza tengo", "Sí, cuanto más sé, más desconfío", "No, mi opinión no depende de lo que sepa sobre ella"], 
+    
+    "pregunta_3_12": "En general, ¿cómo describirías tu nivel de confianza (a nivel de seguridad) en los sistemas de IA actuales?", 
+    "opciones_3_12": ["Muy alta", "Alta", "Media", "Baja", "Muy baja"], 
+    
+    "pregunta_3_13": "Si una IA ha sido revisada por expertos para asegurar que sigue principios éticos, ¿esto aumentaría tu disposición a confiar en ella?", 
+    "opciones_3_13": ["Sí, definitivamente", "Sí, algo", "No, no influiría en mi decisión", "No, no confiaría más"], 
     
     #Textos main
     "navegacion": "Navegación", 

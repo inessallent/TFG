@@ -104,15 +104,15 @@ textos = {
     "pregunta_3_5": "El professor Joan Fontrodona de l’IESE (Institut d’Estudis Superiors de l’Empresa) va dir en una entrevista que tot sistema d’intel·ligència artificial havia de complir 3 principis ètics. Fins a quin punt estàs d'acord amb cadascun d'ells?",
 
     "primer_principio": "Primer principi: ",
-    "pregunta_3_5_1": "“Respecte de la dignitat humana, el que significa que tots aquests sistemes han d’actuar a favor de la dignitat humana”.",
+    "pregunta_3_5_1": "“Respecte de la dignitat humana, tots aquests sistemes han d’actuar a favor de la dignitat humana”.",
     "opciones_3_5_1": ["Totalment d'acord", "D'acord", "Neutral", "En desacord", "Totalment en desacord" ],
 
     "segundo_principio": "Segon principi: ",
-    "pregunta_3_5_2": "“Llibertat. Els sistemes d'IA han de respectar i promoure la llibertat”.",
+    "pregunta_3_5_2": "“Els sistemes d'IA han de respectar i promoure la llibertat”.",
     "opciones_3_5_2":["Totalment d'acord", "D'acord", "Neutral", "En desacord", "Totalment en desacord" ],
 
     "tercer_principio": "Tercer principi: ",
-    "pregunta_3_5_3": "“Justícia. No tothom té accés als mateixos sistemes, i es diu que els sistemes d'IA provoquen més divisió i més desigualtat entre les persones”.",
+    "pregunta_3_5_3": "Els sistemes d’intel·ligència artificial han de promoure la justícia social i evitar augmentar la desigualtat social o econòmica entre les persones.",
     "opciones_3_5_3": ["Totalment d'acord", "D'acord", "Neutral", "En desacord", "Totalment en desacord" ],
 
     "pregunta_3_6": "Indica fins a quin punt estàs d'acord amb l’afirmació següent: “Les tecnologies basades en la IA ja s’estan utilitzant per ajudar els humans a beneficiar-se de millores significatives i gaudir d’una major eficiència en gairebé tots els àmbits de la vida.”",

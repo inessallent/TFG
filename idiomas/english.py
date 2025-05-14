@@ -110,15 +110,15 @@ textos = {
     "pregunta_3_5": "Professor Joan Fontrodona from IESE said in an interview that every AI system should follow 3 ethical principles. How much do you agree with each of them?",
 
     "primer_principio": "First principle: ",
-    "pregunta_3_5_1": "“Respect for human dignity, meaning all these systems must act in favor of human dignity.”",
+    "pregunta_3_5_1": "“Respect for human dignity - all these systems must act in favor of human dignity.”",
     "opciones_3_5_1": ["Strongly agree", "Agree",  "Neutral", "Disagree", "Strongly disagree"],
 
     "segundo_principio": "Second principle: ",
-    "pregunta_3_5_2": "“Freedom. AI systems must respect and promote freedom.”",
+    "pregunta_3_5_2": "“AI systems must respect and promote freedom.”",
     "opciones_3_5_2": ["Strongly agree", "Agree",  "Neutral", "Disagree", "Strongly disagree"],
 
     "tercer_principio": "Third principle: ",
-    "pregunta_3_5_3": "“Justice. Not everyone has access to the same systems, and it's said that AI systems cause more division and inequality among people.”",
+    "pregunta_3_5_3": "AI systems should promote social justice and avoid increasing social or economic inequality among people.",
     "opciones_3_5_3": ["Strongly agree", "Agree",  "Neutral", "Disagree", "Strongly disagree"],
 
     "pregunta_3_6": "Indicate how much you agree with the following statement: “AI-based technologies are already being used to help humans benefit from significant improvements and enjoy greater efficiency in almost all areas of life.”",

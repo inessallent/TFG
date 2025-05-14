@@ -473,6 +473,20 @@ def display_questions(questions):
             if "q28" in st.session_state:
                 q28_index = textos["opciones_2_8"].index(st.session_state.q28) if st.session_state.q28  else None
             st.session_state.q28 = st.radio(label="", options=textos["opciones_2_8"], index=q28_index, label_visibility="collapsed")
+            
+        with st.container(): #Pregunta 2_9
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_2_9'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
+                </div>
+                """,unsafe_allow_html=True)
+            
+            q29_index = None
+            if "q29" in st.session_state:
+                q29_index = textos["opciones_2_9"].index(st.session_state.q29) if st.session_state.q29  else None
+            st.session_state.q29 = st.radio(label="", options=textos["opciones_2_9"], index=q29_index, label_visibility="collapsed")
+
 
                     
         if st.button(textos["boton_continuar"], key="btn_sec2"):
@@ -483,7 +497,8 @@ def display_questions(questions):
                 st.session_state.q25 is None or
                 st.session_state.q26 is None or
                 st.session_state.q27 is None or
-                st.session_state.q28 is None  
+                st.session_state.q28 is None or
+                st.session_state.q29 is None  
                 
             ):
                 st.warning(textos["selecciona_opción"])
@@ -499,6 +514,7 @@ def display_questions(questions):
                     "Pregunta 11": st.session_state.q26,
                     "Pregunta 12": st.session_state.q27,
                     "Pregunta 13": st.session_state.q28,
+                    "Pregunta 14": st.session_state.q29,
                     
                 }
                 st.session_state.answers.extend([
@@ -511,7 +527,8 @@ def display_questions(questions):
                     st.session_state.q25, 
                     st.session_state.q26, 
                     st.session_state.q27, 
-                    st.session_state.q28
+                    st.session_state.q28,
+                    st.session_state.q29
                 ])
 
                 next_section()
@@ -682,6 +699,56 @@ def display_questions(questions):
             if "q37" in st.session_state :
                 q37_index = textos["opciones_3_7"].index(st.session_state.q37) if st.session_state.q37 else None
             st.session_state.q37 = st.radio(label="q37", options=textos["opciones_3_7"], index=q37_index, label_visibility="collapsed")
+        
+        with st.container(): #Pregunta 2_3
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_10'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
+                </div>
+                """,unsafe_allow_html=True)
+            seleccionadas_q310 = []
+            for opcion in textos["opciones_3_10"]:
+                if st.checkbox(opcion, key=f"q310_{opcion}"):
+                    seleccionadas_q310.append(opcion)
+            st.session_state.q310 = seleccionadas_q310
+    
+        with st.container(): #Pregunta 3_11
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_11'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
+                </div>
+                """,unsafe_allow_html=True)
+            q311_index = None
+            if "q311" in st.session_state :
+                q311_index = textos["opciones_3_11"].index(st.session_state.q311) if st.session_state.q311 else None
+            st.session_state.q311 = st.radio(label="q311", options=textos["opciones_3_11"], index=q311_index, label_visibility="collapsed")
+
+        with st.container(): #Pregunta 3_12
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_12'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
+                </div>
+                """,unsafe_allow_html=True)
+            q312_index = None
+            if "q312" in st.session_state :
+                q312_index = textos["opciones_3_12"].index(st.session_state.q312) if st.session_state.q312 else None
+            st.session_state.q312 = st.radio(label="q312", options=textos["opciones_3_12"], index=q312_index, label_visibility="collapsed")
+
+        with st.container(): #Pregunta 3_13
+            st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
+                        {textos['pregunta_3_13'].replace("**", "")}
+                        <span style="color: red;">*</span>
+                    </p>
+                </div>
+                """,unsafe_allow_html=True)
+            q313_index = None
+            if "q313" in st.session_state :
+                q313_index = textos["opciones_3_13"].index(st.session_state.q313) if st.session_state.q313 else None
+            st.session_state.q313 = st.radio(label="q313", options=textos["opciones_3_13"], index=q313_index, label_visibility="collapsed")
+
 
 
         if st.button(textos["boton_continuar"], key="btn_sec3"):
@@ -698,23 +765,31 @@ def display_questions(questions):
                 st.session_state.q38_1 is None or
                 st.session_state.q38_2 is None or
                 st.session_state.q39_1 is None or
-                st.session_state.q39_2 is None
+                st.session_state.q39_2 is None or
+                st.session_state.q310 is None or
+                st.session_state.q311 is None or
+                st.session_state.q312 is None or
+                st.session_state.q313 is None
             ):
                 st.warning(textos["selecciona_opción"])
             else:
                 st.session_state.answer_sec_3 = {
             
-                    "Pregunta 14": st.session_state.q33,
-                    "Pregunta 15": st.session_state.q34,
-                    "Pregunta 16": st.session_state.q38_1,
-                    "Pregunta 17": st.session_state.q38_2,
-                    "Pregunta 18": st.session_state.q39_1,
-                    "Pregunta 19": st.session_state.q39_2,
-                    "Pregunta 20": st.session_state.q35_1,
-                    "Pregunta 21": st.session_state.q35_2,
-                    "Pregunta 22": st.session_state.q35_3,
-                    "Pregunta 23": st.session_state.q36,
-                    "Pregunta 24": st.session_state.q37
+                    "Pregunta 15": st.session_state.q33,
+                    "Pregunta 16": st.session_state.q34,
+                    "Pregunta 17": st.session_state.q38_1,
+                    "Pregunta 18": st.session_state.q38_2,
+                    "Pregunta 19": st.session_state.q39_1,
+                    "Pregunta 20": st.session_state.q39_2,
+                    "Pregunta 21": st.session_state.q35_1,
+                    "Pregunta 22": st.session_state.q35_2,
+                    "Pregunta 23": st.session_state.q35_3,
+                    "Pregunta 24": st.session_state.q36,
+                    "Pregunta 25": st.session_state.q37,
+                    "Pregunta 26": st.session_state.q310,
+                    "Pregunta 27": st.session_state.q311,
+                    "Pregunta 28": st.session_state.q312,
+                    "Pregunta 29": st.session_state.q313
                 }
                 st.session_state.answers.extend([
 
@@ -729,6 +804,10 @@ def display_questions(questions):
                     st.session_state.q35_3,
                     st.session_state.q36,
                     st.session_state.q37,
+                    st.session_state.q310,
+                    st.session_state.q311,
+                    st.session_state.q312,
+                    st.session_state.q313
                 ])
 
                 next_section()
