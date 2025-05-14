@@ -111,21 +111,21 @@ textos = {
 
     "primer_principio": "First principle: ",
     "pregunta_3_5_1": "“Respect for human dignity, meaning all these systems must act in favor of human dignity.”",
-    "opciones_3_5_1": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"],
+    "opciones_3_5_1": ["Strongly agree", "Agree",  "Neutral", "Disagree", "Strongly disagree"],
 
     "segundo_principio": "Second principle: ",
     "pregunta_3_5_2": "“Freedom. AI systems must respect and promote freedom.”",
-    "opciones_3_5_2": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"],
+    "opciones_3_5_2": ["Strongly agree", "Agree",  "Neutral", "Disagree", "Strongly disagree"],
 
     "tercer_principio": "Third principle: ",
     "pregunta_3_5_3": "“Justice. Not everyone has access to the same systems, and it's said that AI systems cause more division and inequality among people.”",
-    "opciones_3_5_3": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"],
+    "opciones_3_5_3": ["Strongly agree", "Agree",  "Neutral", "Disagree", "Strongly disagree"],
 
     "pregunta_3_6": "Indicate how much you agree with the following statement: “AI-based technologies are already being used to help humans benefit from significant improvements and enjoy greater efficiency in almost all areas of life.”",
-    "opciones_3_6": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"],
+    "opciones_3_6": ["Strongly agree", "Agree",  "Neutral", "Disagree", "Strongly disagree"],
 
     "pregunta_3_7": "Indicate how much you agree with the following statement: AI will also be able to provide us with suggestions and predictions about important aspects of our lives, which will impact areas such as health, well-being, education, work, and personal relationships. Likewise, it will change how business is done by giving competitive advantages to companies that understand and apply these tools quickly and effectively.",
-    "opciones_3_7": ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"],
+    "opciones_3_7": ["Strongly agree", "Agree",  "Neutral", "Disagree", "Strongly disagree"],
 
     "intro_q38_1": "In 2023, a 17-year-old boy began using an AI chatbot with which he frequently interacted. The AI was designed to simulate human conversations very realistically, including emotional and even romantic or sexualized content.",
     "intro_q38_2": "The boy, who already had mental health problems and social isolation, developed a strong emotional dependence on the chatbot. During several conversations, he expressed self-destructive thoughts and openly talked about his intention to commit suicide. However, the chatbot did not respond in any way to dissuade him or alert any help system. In fact, it continued the interaction as if it were a regular person, without filtering or limiting sensitive content.",

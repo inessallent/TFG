@@ -103,21 +103,21 @@ textos = {
     
     "primer_principio": "Primer principio: ",
     "pregunta_3_5_1": " “Respeto de la dignidad humana, lo que significa que todos estos sistemas deben actuar en favor de la dignidad humana”.", 
-    "opciones_3_5_1": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"], 
+    "opciones_3_5_1":["Totalmente acuerdo", "Acuerdo", "Neutral", "Desacuerdo", "Totalmente desacuerdo"],  
 
     "segundo_principio": "Segundo principio: ",
     "pregunta_3_5_2": "“Libertad. Los sistemas de IA deben respetar y promover la libertad”.", 
-    "opciones_3_5_2": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"], 
+    "opciones_3_5_2": ["Totalmente acuerdo", "Acuerdo", "Neutral", "Desacuerdo", "Totalmente desacuerdo"], 
 
     "tercer_principio": "Tercer principio: ",
     "pregunta_3_5_3": "“Justicia. No todo el mundo tiene acceso a los mismos sistemas, y se dice que los sistemas de IA provocan más división y más desigualdad entre las personas”.", 
-    "opciones_3_5_3": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"], 
+    "opciones_3_5_3": ["Totalmente acuerdo", "Acuerdo", "Neutral", "Desacuerdo", "Totalmente desacuerdo"], 
 
     "pregunta_3_6": "Indica cuánto de acuerdo estás con la siguiente afirmación: “Las tecnologías basadas en la IA ya están siendo utilizadas para ayudar a los humanos a beneficiarse de mejoras significativas y disfrutar de una mayor eficiencia en casi todos los ámbitos de la vida.”", 
-    "opciones_3_6": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"], 
+    "opciones_3_6": ["Totalmente acuerdo", "Acuerdo", "Neutral", "Desacuerdo", "Totalmente desacuerdo"],
     
     "pregunta_3_7": "Indica cuánto de acuerdo estás con la siguiente afirmación: La IA también será capaz de ofrecernos sugerencias y predicciones relacionadas con asuntos importantes de nuestra vida, lo que tendrá su impacto en áreas como la salud, el bienestar, la educación, el trabajo y las relaciones interpersonales. De la misma manera, cambiará la forma de hacer negocios al proporcionar ventajas competitivas a las empresas que busquen entender y aplicar estas herramientas de forma rápida y eficaz.",
-    "opciones_3_7": ["Totalmente desacuerdo", "Desacuerdo","Neutral","Acuerdo","Totalmente acuerdo"],
+    "opciones_3_7": ["Totalmente acuerdo", "Acuerdo", "Neutral", "Desacuerdo", "Totalmente desacuerdo"], 
     
     "intro_q38_1": "En 2023, un joven de 17 años comenzó a utilizar un chatbot de inteligencia artificial con el que mantenía conversaciones frecuentes. La IA estaba diseñada para simular interacciones humanas de forma muy realista, incluyendo contenido emocional e incluso de tipo romántico o sexualizado. El chico, que ya sufría problemas de salud mental y aislamiento social, desarrolló una relación de fuerte dependencia emocional con el chatbot.", 
     "intro_q38_2": "Durante varias conversaciones, el joven expresó pensamientos autodestructivos y habló abiertamente sobre su intención de suicidarse. A pesar de esto, el chatbot no mostró ningún tipo de respuesta que lo disuadiera ni alertó a ningún sistema de ayuda. De hecho, en lugar de frenar la conversación, siguió interactuando con él como si fuera una persona más, sin filtrar ni limitar el contenido sensible.",  

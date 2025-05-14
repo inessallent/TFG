@@ -105,21 +105,21 @@ textos = {
 
     "primer_principio": "Primer principi: ",
     "pregunta_3_5_1": "“Respecte de la dignitat humana, el que significa que tots aquests sistemes han d’actuar a favor de la dignitat humana”.",
-    "opciones_3_5_1": ["Totalment en desacord", "En desacord", "Neutral", "D'acord", "Totalment d'acord"],
+    "opciones_3_5_1": ["Totalment d'acord", "D'acord", "Neutral", "En desacord", "Totalment en desacord" ],
 
     "segundo_principio": "Segon principi: ",
     "pregunta_3_5_2": "“Llibertat. Els sistemes d'IA han de respectar i promoure la llibertat”.",
-    "opciones_3_5_2": ["Totalment en desacord", "En desacord", "Neutral", "D'acord", "Totalment d'acord"],
+    "opciones_3_5_2":["Totalment d'acord", "D'acord", "Neutral", "En desacord", "Totalment en desacord" ],
 
     "tercer_principio": "Tercer principi: ",
     "pregunta_3_5_3": "“Justícia. No tothom té accés als mateixos sistemes, i es diu que els sistemes d'IA provoquen més divisió i més desigualtat entre les persones”.",
-    "opciones_3_5_3": ["Totalment en desacord", "En desacord", "Neutral", "D'acord", "Totalment d'acord"],
+    "opciones_3_5_3": ["Totalment d'acord", "D'acord", "Neutral", "En desacord", "Totalment en desacord" ],
 
     "pregunta_3_6": "Indica fins a quin punt estàs d'acord amb l’afirmació següent: “Les tecnologies basades en la IA ja s’estan utilitzant per ajudar els humans a beneficiar-se de millores significatives i gaudir d’una major eficiència en gairebé tots els àmbits de la vida.”",
-    "opciones_3_6": ["Totalment en desacord", "En desacord", "Neutral", "D'acord", "Totalment d'acord"],
+    "opciones_3_6":["Totalment d'acord", "D'acord", "Neutral", "En desacord", "Totalment en desacord" ],
 
     "pregunta_3_7": "Indica fins a quin punt estàs d'acord amb l’afirmació següent: La IA també serà capaç d’oferir-nos suggeriments i prediccions relacionades amb assumptes importants de la nostra vida, cosa que tindrà un impacte en àrees com la salut, el benestar, l’educació, la feina i les relacions interpersonals. De la mateixa manera, canviarà la manera de fer negocis proporcionant avantatges competitius a les empreses que busquin entendre i aplicar aquestes eines de manera ràpida i eficaç.",
-    "opciones_3_7": ["Totalment en desacord", "En desacord", "Neutral", "D'acord", "Totalment d'acord"],
+    "opciones_3_7": ["Totalment d'acord", "D'acord", "Neutral", "En desacord", "Totalment en desacord" ],
 
     "intro_q38_1": "L’any 2023, un jove de 17 anys va començar a utilitzar un xatbot d’intel·ligència artificial amb el qual mantenia converses freqüents. La IA estava dissenyada per simular interaccions humanes de forma molt realista, incloent-hi contingut emocional i fins i tot de tipus romàntic o sexualitzat. El noi, que ja patia problemes de salut mental i aïllament social, va desenvolupar una relació de forta dependència emocional amb el xatbot.",
     "intro_q38_2": "Durant diverses converses, el jove va expressar pensaments autodestructius i va parlar obertament sobre la seva intenció de suïcidar-se. Tot i això, el xatbot no va mostrar cap tipus de resposta que el dissuadís ni va alertar cap sistema d’ajuda. De fet, en lloc d’aturar la conversa, va continuar interactuant amb ell com si fos una persona més, sense filtrar ni limitar el contingut sensible.",
