@@ -141,6 +141,18 @@ textos = {
     "pregunta_3_9_2": "En general, creus que la IA conversacional hauria d’estar obligada a detectar senyals de crisi emocional (com la ideació suïcida) i actuar d’alguna manera (per exemple, alertar una persona real o aturar la conversa)?",
     "opciones_3_9_2": ["Sí, hauria de ser un requisit mínim", "No, la responsabilitat final sempre hauria de recaure en l’usuari", "Depèn del tipus d’IA i la seva finalitat"],
     
+    "pregunta_3_10": "Quin tipus de decisions consideraries acceptable delegar a una IA? (Pots seleccionar més d’una resposta)",
+    "opciones_3_10": ["Decisions logístiques", "Decisions mèdiques", "Decisions legals o judicials", "Decisions ètiques en situacions límit (com en vehicles autònoms)", "Cap"],
+
+    "pregunta_3_11": "Creus que el teu nivell de coneixement sobre la IA influeix en la teva confiança cap a ella?",
+    "opciones_3_11": ["Sí, com més en sé, més confiança hi tinc", "Sí, com més en sé, menys confiança hi tinc", "No, la meva opinió no depèn del que en sàpiga"],
+
+    "pregunta_3_12": "En general, com descriuries el teu nivell de confiança (en termes de seguretat) en els sistemes actuals d’IA?",
+    "opciones_3_12": ["Molt alt", "Alt", "Mitjà", "Baix", "Molt baix"],
+
+    "pregunta_3_13": "Si una IA ha estat revisada per experts per assegurar que segueix principis ètics, augmentaria això la teva disposició a confiar-hi?",
+    "opciones_3_13": ["Sí, definitivament", "Sí, una mica", "No, no influiria en la meva decisió", "No, no hi confiaria més"],
+    
     # Textos principals
     "navegacion": "Navegació", 
     "selecciona_una_seccion": "Selecciona una secció:", 

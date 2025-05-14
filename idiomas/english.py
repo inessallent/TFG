@@ -147,6 +147,18 @@ textos = {
     "pregunta_3_9_2": "In general, do you think conversational AI should be required to detect signs of emotional crisis (such as suicidal ideation) and act in some way (e.g., alert a real person or stop the conversation)?",
     "opciones_3_9_2": ["Yes, it should be a minimum requirement", "No, the final responsibility should always fall on the user", "It depends on the type of AI and its purpose"],
 
+    "pregunta_3_10": "What types of decisions would you consider acceptable to delegate to an AI? (You can select more than one answer)",
+    "opciones_3_10": ["Logistical decisions", "Medical decisions", "Legal or judicial decisions", "Ethical decisions in critical situations (e.g., autonomous vehicles)", "None"],
+
+    "pregunta_3_11": "Do you think your level of knowledge about AI affects your trust in it?",
+    "opciones_3_11": ["Yes, the more I know, the more I trust it", "Yes, the more I know, the less I trust it", "No, my opinion doesn't depend on what I know about it"],
+
+    "pregunta_3_12": "In general, how would you describe your level of confidence (in terms of safety) in current AI systems?",
+    "opciones_3_12": ["Very high", "High", "Moderate", "Low", "Very low"],
+
+    "pregunta_3_13": "If an AI has been reviewed by experts to ensure it follows ethical principles, would that increase your willingness to trust it?",
+    "opciones_3_13": ["Yes, definitely", "Yes, somewhat", "No, it wouldn't affect my decision", "No, I still wouldn't trust it more"],
+    
     # Main texts
     "navegacion": "Navigation",
     "selecciona_una_seccion": "Select a section:",
