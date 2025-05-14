@@ -94,7 +94,9 @@ textos = {
     "pregunta_2_8": "In your opinion, who should be primarily responsible for preventing bias in AI systems?",
     "opciones_2_8": ["Companies developing the algorithms", "Governments and regulators", "Users, who should use AI critically", "All of the above share responsibility"],
 
-    
+    "pregunta_2_9": "At what stage do you think it is most important to raise awareness and educate the population about the use and risks of artificial intelligence?",
+    "opciones_2_9": ["In primary and secondary education (schools)", "At university", "In the workplace", "I don't think it's necessary to regulate or raise awareness about AI"],
+
     # Section 3: Specific Cases + Ethics
     "caso_1": "Case 1",
     "caso_2": "Case 2",

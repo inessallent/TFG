@@ -88,6 +88,9 @@ textos = {
     "pregunta_2_8":"Segons la teva opinió, qui hauria de ser el principal responsable d’evitar els biaixos en els sistemes d’intel·ligència artificial?", 
     "opciones_2_8":["Les empreses que desenvolupen els algoritmes", "Els governs i organismes reguladors", "Els usuaris, que han d’utilitzar la IA de forma crítica", "Tots els anteriors comparteixen responsabilitat"], 
 
+    "pregunta_2_9": "En quina etapa creus que és més important conscienciar i educar la població sobre l’ús i els riscos de la intel·ligència artificial?",
+    "opciones_2_9": ["A l’educació primària i secundària (escoles)", "A la universitat", "En l’àmbit laboral", "No crec que sigui necessari regular ni conscienciar sobre la IA"],
+
     
     # Preguntes Secció 3: Casos concrets + ètica
     "caso_1": "Cas 1",
