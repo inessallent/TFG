@@ -167,6 +167,12 @@ textos = {
     "mensaje": "Missatge: ", 
     "enviar": "Enviar", 
     "mensaje_enviado": "Missatge enviat amb èxit!", 
+    
+    "comparte": "Comparteix aquest qüestionari amb els teus amics!",
+    "click_boton_compartir": "Fes clic al botó per copiar l’enllaç i compartir-lo.",
+    "compartir_titulo": "Comparteix a les xarxes socials:",
+
+
 
     # Errors
     "error_genero": "Si us plau, introdueix el gènere",

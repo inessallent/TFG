@@ -887,10 +887,11 @@ def cuestions():
         # Caja visual con mensaje
         st.markdown(f"""
         <div style="background-color: #e8f5e9; padding: 20px; border-radius: 12px; margin-top: 30px; text-align: center;">
-            <h4>📢 ¡Comparte este cuestionario!</h4>
-            <p>Haz clic en el botón para copiar el enlace y difundirlo en tus redes sociales.</p>
+            <h4>{textos["comparte"]}</h4>
+            <p>{textos["click_boton_compartir"]}</p>
         </div>
         """, unsafe_allow_html=True)
+
         st.markdown("""
         <div style="display: flex; justify-content: center; margin-top: 10px;">
             <div style="width: fit-content;">
@@ -899,6 +900,7 @@ def cuestions():
         st.code("https://ai-study-tfg.streamlit.app/", language="text")
 
         st.markdown("</div></div>", unsafe_allow_html=True)
+
 
         # Diccionario de redes sociales con enlaces e íconos
         social_links = {
@@ -929,7 +931,8 @@ def cuestions():
         }
 
         # Mostrar íconos en filas de 3
-        st.markdown("### Compartir en redes sociales:")
+        st.markdown(f"### {textos["compartir_titulo"], 'Compartir en redes sociales:'}")
+
         cols = st.columns(3)
         i = 0
         for name, (url, icon_url) in social_links.items():

@@ -172,6 +172,11 @@ textos = {
     "mensaje": "Message:",
     "enviar": "Send",
     "mensaje_enviado": "Message sent successfully!",
+    
+    "comparte": "Share this questionnaire with your friends!",
+    "click_boton_compartir": "Click the button to copy the link and share it.",
+    "compartir_titulo": "Share on social media:",
+
 
     # Errors
     "error_genero": "Please enter your gender",

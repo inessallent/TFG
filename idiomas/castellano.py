@@ -166,6 +166,10 @@ textos = {
     "enviar": "Enviar", 
     "mensaje_enviado": "¡Mensaje enviado con éxito!", 
     
+    "comparte": "¡Comparte este cuestionario con tus amigos!",
+    "click_boton_compartir": "Haz clic en el botón para copiar el enlace y compartirlo.",
+    "compartir_titulo": "Compartir en redes sociales:",
+    
     #Errores
     "error_genero": "Por favor, ingresa el género",
     "error_correo": "Correo electrónico no válido",
