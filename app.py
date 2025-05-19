@@ -192,6 +192,9 @@ def display_questions(questions):
             st.session_state.genero = st.radio( label="", options=textos["genero_opciones"], index=genero_index , label_visibility="collapsed")
         
         #Pregunta edad
+        if "age" not in st.session_state:
+            st.session_state.age = None
+            
         with st.container(): 
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
                         {textos['pregunta_edad'].replace("**", "")}
@@ -206,7 +209,10 @@ def display_questions(questions):
                 age_index = textos["edad_opciones"].index(st.session_state.age) if st.session_state.age else None
             st.session_state.age = st.radio( label="", options=textos["edad_opciones"], index=age_index, label_visibility="collapsed")
         
-        #Pregunta nivel estudios  
+        #Pregunta nivel estudios 
+        if "nivel_estudios" not in st.session_state:
+            st.session_state.nivel_estudios = None 
+            
         with st.container(): #Pregunta nivel estudios
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.2rem">
                         {textos['pregunta_nivel_estudios'].replace("**", "")}
@@ -959,8 +965,8 @@ def cuestions():
             opcion_otro_8 = st.session_state.get("q23_otro", "")
             opcion_otro_9 = st.session_state.get("q24_otro", "")
             personal_data["genero"] = st.session_state.get("genero", "")
-            personal_data["edad"] = st.session_state.get("edad", "")
-            personal_data["nivel_estudios"] = st.session_state.get("nivel_estudios", "")
+            personal_data["edad"] = st.session_state.age
+            personal_data["nivel_estudios"] = st.session_state.nivel_estudios
             personal_data["nivel_estudios_otro"] = st.session_state.get("nivel_estudios_otro", "")
             personal_data["rama_estudios"] = st.session_state.get("rama_estudios", "")
             personal_data["rama_estudios_otro"] = st.session_state.get("rama_estudios_otro", "")
