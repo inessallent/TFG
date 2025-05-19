@@ -399,6 +399,9 @@ def display_questions(questions):
                 else:
                     st.session_state.q23_otro = ""
         
+        if "q24" not in st.session_state:
+            st.session_state.q24 = None
+            
         with st.container(): #Pregunta 2_4
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
                         {textos['pregunta_2_4'].replace("**", "")}
@@ -439,7 +442,8 @@ def display_questions(questions):
                 q25_index = textos["opciones_2_5"].index(st.session_state.q25) if st.session_state.q25  else None
             st.session_state.q25 = st.radio(label="", options=textos["opciones_2_5"], index=q25_index, label_visibility="collapsed")
 
-            
+        if "q26" not in st.session_state:
+            st.session_state.q26 = None    
         with st.container(): #Pregunta 2_6
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
                         {textos['pregunta_2_6'].replace("**", "")}
