@@ -34,7 +34,7 @@ textos = {
     "leer_terminos":"Antes de comenzar, por favor, lee los siguientes términos y condiciones.", 
     "confirmo_leer_terminos": "Confirmo que he leído todo el documento", 
     "acepto_terminos": "He leído y acepto la hoja de información y el consentimiento informado del proyecto, y doy mi consentimiento para participar en el estudio y para el tratamiento de mis datos personales.", 
-    
+    "descargar": "Descargar hoja de información y consentimiento", 
     
     # Preguntas Sección 1: Información Personal 
     "información_personal": "Información Personal",
@@ -54,6 +54,8 @@ textos = {
     "pregunta_años_experiencia": "**¿Cuántos años de experiencia tienes en este ámbito?: **", 
     "opciones_años_experiencia": ["Menos de 1 año", "1 - 3 años", "4 - 6 años", " 7 - 10 años", "Más de 10 años", "Sin estudios"],  
     "pregunta_pais_residencia": "**¿En qué país resides?**",
+    "opciones_paises": ["Alemania", "Argentina", "Brasil", "Bulgaria", "Canadá", "Chile", "China", "Colombia", "Ecuador", "España", "Estados Unidos", "Francia", "Honduras", "India", "Japón", "Marruecos", "México", "Pakistán", "Paraguay", "Perú", "Portugal", "Rusia", "Reino Unido", "Ucrania", "Venezuela", "Otro"], 
+
     "Gracias_por_contestar_el_formulario": "Muchas gracias por contestar el formulario!",
     
     

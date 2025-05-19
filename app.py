@@ -147,7 +147,7 @@ def display_questions(questions):
         
         # Mostrar botón de descarga del documento
         with open("consentiment_informat.pdf", "rb") as file:  
-            if st.download_button(label="📄 Descargar hoja de información y consentimiento", data=file, file_name="hoja_informacion_consentimiento.pdf", mime="application/pdf"):
+            if st.download_button(label=textos["descargar"], data=file, file_name="hoja_informacion_consentimiento.pdf", mime="application/pdf"):
                 st.session_state.document_downloaded = True
 
         # Mostrar botón de confirmación solo si se descargó
@@ -289,13 +289,11 @@ def display_questions(questions):
             pais_residencia_index = None
             if "pais_residencia" in st.session_state:
                 pais_residencia_index = (
-                    ["Alemania", "Argentina", "Brasil", "Bulgaria", "Canadá", "Chile", "China", "Colombia", "Ecuador", "España", "Estados Unidos", "Francia", "Honduras", "India", "Japón", "Marruecos", "México", "Pakistán", "Paraguay", "Perú", "Portugal", "Rusia", "Reino Unido", "Ucrania", "Venezuela", "Otro"]
+                    textos["opciones_paises"]
                     .index(st.session_state.pais_residencia) if st.session_state.pais_residencia else None
                 )
             
-            st.session_state.pais_residencia = st.selectbox(textos["pregunta_pais_residencia"], ["Alemania", "Argentina", "Brasil", "Bulgaria", "Canadá", "Chile", "China", "Colombia", "Ecuador", "España", "Estados Unidos", "Francia", "Honduras", "India", "Japón", "Marruecos", "México", "Pakistán", "Paraguay", "Perú", "Portugal", "Rusia", "Reino Unido", "Ucrania", "Venezuela", "Otro"], index=pais_residencia_index, label_visibility="collapsed")
-    
-
+            st.session_state.pais_residencia = st.selectbox(textos["pregunta_pais_residencia"], textos["opciones_paises"], index=pais_residencia_index, label_visibility="collapsed")
 
         if st.button(textos["boton_continuar"]):
             errores = []
@@ -710,7 +708,7 @@ def display_questions(questions):
                 q37_index = textos["opciones_3_7"].index(st.session_state.q37) if st.session_state.q37 else None
             st.session_state.q37 = st.radio(label="q37", options=textos["opciones_3_7"], index=q37_index, label_visibility="collapsed")
         
-        with st.container(): #Pregunta 2_3
+        with st.container(): #Pregunta 3_10
             st.markdown(f""" <div style="margin-bottom: -1rem"> <p style="font-size: 1.2rem; font-weight: bold;  text-align: justify; margin-bottom: 0.2rem">
                         {textos['pregunta_3_10'].replace("**", "")}
                         <span style="color: red;">*</span>

@@ -36,6 +36,7 @@ textos = {
     "leer_terminos":"Abans de començar, si us plau, llegeix els següents termes i condicions.", 
     "confirmo_leer_terminos": "Confirmo que he llegit tot el document", 
     "acepto_terminos": "He llegit i accepto la fulla d'informació i el consentiment informat del projecte, i dono el meu consentiment per participar a l'estudi i per al tractament de les meves dades personals.", 
+    "descargar": "Descarregar full d'informació i consentiment",
 
     # Preguntes Secció 1: Informació Personal 
     "información_personal": "Informació personal",
@@ -55,6 +56,7 @@ textos = {
     "pregunta_años_experiencia": "**Quants anys d'experiència tens en aquest àmbit?: **", 
     "opciones_años_experiencia": ["Menys d'1 any", "1 - 3 anys", "4 - 6 anys", "7 - 10 anys", "Més de 10 anys", "Sense estudis"],  
     "pregunta_pais_residencia": "**En quin país resideixes?**",
+    "opciones_paises": ["Alemanya", "Argentina", "Brasil", "Bulgària", "Canadà", "Xile", "Xina", "Colòmbia", "Equador", "Espanya", "Estats Units", "França", "Hondures", "Índia", "Japó", "Marroc", "Mèxic", "Pakistan", "Paraguai", "Perú", "Portugal", "Rússia", "Regne Unit", "Ucraïna", "Veneçuela", "Altres"], 
     
     "Gracias_por_contestar_el_formulario": "Moltes gràcies per respondre el formulari!",
     

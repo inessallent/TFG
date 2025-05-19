@@ -62,7 +62,9 @@ textos = {
     "pregunta_años_experiencia": "**How many years of experience do you have in this field?:**",
     "opciones_años_experiencia": ["Less than 1 year", "1 - 3 years", "4 - 6 years", "7 - 10 years", "More than 10 years", "No education"],
     "pregunta_pais_residencia": "**Which country do you live in?**",
+    "opciones_paises": ["Germany", "Argentina", "Brazil", "Bulgaria", "Canada", "Chile", "China", "Colombia", "Ecuador", "Spain", "United States", "France", "Honduras", "India", "Japan", "Morocco", "Mexico", "Pakistan", "Paraguay", "Peru", "Portugal", "Russia", "United Kingdom", "Ukraine", "Venezuela", "Other"], 
     "Gracias_por_contestar_el_formulario": "Thank you very much for completing the form!",
+    "descargar": "Download information and consent sheet", 
 
 
     # Section 2: AI Knowledge
