@@ -1,4 +1,3 @@
-# Instalar paquetes si no los tienes
 # install.packages(c("tidyverse", "ggplot2"))
 library(tidyverse)
 
@@ -18,28 +17,6 @@ datos$pregunta_16 <- factor(datos$pregunta_16, levels = c("Totalmente desacuerdo
 datos$pregunta_17 <- factor(datos$pregunta_17, levels = c("Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"), ordered = TRUE)
 datos$pregunta_18 <- factor(datos$pregunta_18, levels = c("Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"), ordered = TRUE)
 
-# Filtrar datos: excluir No binario y edades con muy pocos casos
-datos_filtrados <- datos %>%
-  filter(
-    genero != "No binario",
-    !(edad %in% c("35 - 44", "Prefiero no decirlo", "Mayor de 64"))
-  )
-
-# Invertir niveles de confianza para visualizar desde "Muy alta" hasta "Muy baja"
-datos_filtrados$pregunta_23 <- factor(
-  datos_filtrados$pregunta_23,
-  levels = rev(c("Muy baja", "Baja", "Media", "Alta", "Muy alta")),
-  ordered = TRUE
-)
-
-# # Paleta personalizada (de azul a rojo según confianza)
-# colores_confianza <- c(
-#   "Muy alta" = "#4575b4",
-#   "Alta"     = "#91bfdb",
-#   "Media"    = "#fee090",
-#   "Baja"     = "#fc8d59",
-#   "Muy baja" = "#d73027"
-# )
 
 colores_confianza <- c(
     "Muy baja" = "#49006a",
@@ -47,6 +24,83 @@ colores_confianza <- c(
     "Media"    = "#66c2a4",
     "Alta"     = "#ffff33"
 )
+
+#Orden resspuesta
+mutate(pregunta_23 = factor(pregunta_23, levels = c("Muy baja", "Baja", "Media", "Alta", "Muy alta")))
+
+grafico_p23 <- datos %>%
+  count(pregunta_23, name = "n") %>%
+  mutate(
+    porcentaje = round(n / sum(n) * 100, 1),
+    pregunta_23 = factor(pregunta_23, levels = c("Muy baja", "Baja", "Media", "Alta", "Muy alta"))
+  ) %>%
+  ggplot(aes(x = pregunta_23, y = porcentaje, fill = pregunta_23)) +
+  geom_col() +
+  geom_text(aes(label = n), vjust = -0.5, size = 5) +
+  labs(
+    title = "Nivel de confianza en los sistemas de IA",
+    x = NULL,
+    y = "Porcentaje",
+    fill = "Confianza"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_text(size = 14),
+    axis.text.y = element_text(size = 14),
+    axis.title.y = element_text(size = 15),
+    legend.text = element_text(size = 15),
+    legend.title = element_text(size = 14),
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
+  )
+
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_23_resultado.png", grafico_p23, width = 12, height = 7, dpi = 400)
+
+## Gráfica nivel conocimiento IA --> nivel confianzaz
+datos$pregunta_22 <- recode(datos$pregunta_22,
+  "Sí, cuanto más sé, más confianza tengo" = "Sí, cuanto más sé,\nmás confianza tengo", 
+  "Sí, cuanto más sé, más desconfío" = "Sí, cuanto más sé,\nmás desconfío", 
+  "No, mi opinión no depende de lo que sepa sobre ella" = "No, mi opinión no depende\nde lo que sepa sobre ella"
+)
+
+
+colores_p22 <- c(
+  "Sí, cuanto más sé,\nmás confianza tengo" = "#2b8cbe",
+  "Sí, cuanto más sé,\nmás desconfío"       = "#66c2a4",
+  "No, mi opinión no depende\nde lo que sepa sobre ella" = "#ffff33"
+)
+
+
+#Orden resspuesta
+mutate(pregunta_22 = factor(pregunta_22, levels = c("No, mi opinión no depende\nde lo que sepa sobre ella", "Sí, cuanto más sé,\nmás desconfío", "Sí, cuanto más sé,\nmás confianza tengo")))
+
+grafico_p22 <- datos %>%
+  count(pregunta_22, name = "n") %>%
+  mutate(
+    porcentaje = round(n / sum(n) * 100, 1),
+  ) %>%
+  ggplot(aes(x = pregunta_22, y = porcentaje, fill = pregunta_22)) +
+  geom_col() +
+  geom_text(aes(label = n), vjust = -0.5, size = 5) +
+  scale_fill_manual(values = colores_p22) +
+  labs(
+    title = "Nivel de confianza en los sistemas de IA en función del conocimiento",
+    x = NULL,
+    y = "Porcentaje",
+    fill = "Confianza"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_text(size = 14),
+    axis.text.y = element_text(size = 14),
+    axis.title.y = element_text(size = 15),
+    legend.text = element_text(size = 15),
+    legend.title = element_text(size = 14),
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
+  )
+
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_22_resultado.png", grafico_p22, width = 12, height = 7, dpi = 400)
+
+
 
 # Gráfico: Confianza por Género
 grafico_genero <- ggplot(datos_filtrados, aes(x = genero, fill = pregunta_23)) +
@@ -67,13 +121,26 @@ grafico_genero <- ggplot(datos_filtrados, aes(x = genero, fill = pregunta_23)) +
     legend.text = element_text(size = 11)
   )
 
-# Guardar imagen
+
 ggsave(
   filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/confianza_genero.png",
   plot = grafico_genero,
   width = 6,
   height = 5,
   dpi = 300
+)
+
+# Filtrar datos: excluir No binario y edades con muy pocos casos
+datos_filtrados <- datos %>%
+  filter(
+    genero != "No binario",
+    !(edad %in% c("35 - 44", "Prefiero no decirlo", "Mayor de 64"))
+  )
+
+datos_filtrados$pregunta_23 <- factor(
+  datos_filtrados$pregunta_23,
+  levels = rev(c("Muy baja", "Baja", "Media", "Alta", "Muy alta")),
+  ordered = TRUE
 )
 
 # Gráfico: Confianza por Edad (excluyendo grupos con pocas respuestas)
@@ -97,7 +164,7 @@ grafico_edad <- datos_filtrados %>%
     legend.text = element_text(size = 11)
   )
 
-# Guardar imagen
+
 ggsave(
   filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/confianza_edad.png",
   plot = grafico_edad,
@@ -107,7 +174,6 @@ ggsave(
 )
 
 
-# Convertir uso de IA y edad en factores si no lo son
 datos$pregunta_2 <- factor(datos$pregunta_2, levels = c(
   "Nunca", "Sí, esporádicamente", "Sí, mensualmente", "Sí, semanalmente", "Sí, diariamente"
 ), ordered = TRUE)
@@ -154,13 +220,13 @@ grafico_uso_edad <- ggplot(datos_uso_filtrado, aes(x = edad, fill = pregunta_2))
   )
 
 
-# Guardar gráfico
+
 ggsave(
   filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/uso_IA_por_edad.png",
   plot = grafico_uso_edad,
   width = 7,
   height = 5,
-  dpi = 300
+  dpi = 500
 )
 
 # Prueba estadística: chi-cuadrado entre edad y uso de IA
@@ -228,10 +294,10 @@ grafico_categorias <- ggplot(resumen_categorias, aes(x = reorder(pregunta_21, n)
   theme_minimal(base_size = 17) +
   theme(
     plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
-    axis.title = element_text(size = 14),
-    axis.text = element_text(size = 14),
-    legend.title = element_text(size = 14),
-    legend.text = element_text(size = 14)
+    axis.title = element_text(size = 16),
+    axis.text = element_text(size = 16),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16)
   )
 
 # Mostrar gráfico
@@ -241,8 +307,8 @@ ggsave(
   filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/decisiones_delegadas_limpio.jpg",
   plot = grafico_categorias,
   width = 10,      
-  height = 5,     
-  dpi = 350,        
+  height = 6,     
+  dpi = 450,        
   device = "jpeg"   
 )
 
@@ -273,10 +339,10 @@ g_pregunta_19 <- ggplot(frecuencias_p19, aes(x = pregunta_19, y = n)) +
   theme_minimal(base_size = 17) +
   theme(
     plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
-    axis.title = element_text(size = 14),
-    axis.text = element_text(size = 14),
-    legend.title = element_text(size = 14),
-    legend.text = element_text(size = 14)
+    axis.title = element_text(size = 16),
+    axis.text = element_text(size = 16),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16)
   )
 
 
@@ -284,8 +350,8 @@ ggsave(
   filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_19.jpg",
   plot = g_pregunta_19,
   width = 10,      
-  height = 6,     
-  dpi = 350,        
+  height = 5.8,     
+  dpi = 400,        
   device = "jpeg"   
 )
 
@@ -305,8 +371,8 @@ g_pregunta_20 <- ggplot(frecuencias_p20, aes(x = pregunta_20, y = n)) +
   theme_minimal(base_size = 17) +
   theme(
     plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
-    axis.title = element_text(size = 14),
-    axis.text = element_text(size = 14)
+    axis.title = element_text(size = 16),
+    axis.text = element_text(size = 16)
   )
 
 # Guardar
@@ -314,8 +380,8 @@ ggsave(
   filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_20.jpg",
   plot = g_pregunta_20,
   width = 10,
-  height = 6,
-  dpi = 350,
+  height = 5.8,
+  dpi = 400,
   device = "jpeg"
 )
 
@@ -324,6 +390,13 @@ ggsave(
 
 # Pregunta 5: ¿Crees que la IA toma decisiones sesgadas?
 datos$pregunta_5 <- factor(datos$pregunta_5)
+
+datos$pregunta_5 <- recode(datos$pregunta_5,
+  "Sí, porque aprenden de datos que pueden estar sesgados por la sociedad" = "Sí, porque aprenden de datos\nque pueden estar sesgados\npor la sociedad", 
+  "No, porque la IA analiza los datos de forma neutral" = "No, porque la IA analiza\nlos datos de forma neutral", 
+  "No estoy seguro/a" = "No estoy seguro/a"
+)
+
 
 # Gráfica F
 grafico_p5 <- datos %>% 
@@ -349,12 +422,18 @@ grafico_p5 <- datos %>%
 ggsave(
   filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/grafica_F_sesgos_IA.jpg",
   plot = grafico_p5,
-  width = 12, height = 5, dpi = 350
+  width = 8, height = 5, dpi = 350
 )
 
 
 # Pregunta 6: ¿Las personas tienen sesgos?
 datos$pregunta_6 <- factor(datos$pregunta_6)
+
+datos$pregunta_6 <- recode(datos$pregunta_6,
+"Sí, siempre tenemos algún tipo de sesgo" = "Sí, siempre tenemos\nalgún tipo de sesgo", 
+"A menudo, en función del contexto" = "En función del contexto", 
+"No, las personas podemos decidir de forma totalmente objetiva" = "No, las personas\npodemos decidir de forma\ntotalmente objetiva"
+)
 
 # Gráfica G
 grafico_p6 <- datos %>%
@@ -363,7 +442,7 @@ grafico_p6 <- datos %>%
   ggplot(aes(x = reorder(pregunta_6, -porcentaje), y = porcentaje, fill = pregunta_6)) +
   geom_col() +
   labs(
-    title = "Sesgos en las personas en la toma de decisiones",
+    title = "Sesgos en las personas en la\ntoma de decisiones",
     x = "Respuesta",
     y = "Porcentaje",
     fill = "Respuesta"
@@ -379,7 +458,7 @@ grafico_p6 <- datos %>%
 ggsave(
   filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/grafica_E_sesgos_humanos.jpg",
   plot = grafico_p6,
-  width = 12, height = 5, dpi = 350
+  width = 8, height = 5, dpi = 350
 )
 
 
@@ -432,9 +511,10 @@ datos$pregunta_23 <- factor(datos$pregunta_23, levels = c("Muy baja", "Baja", "M
 colores_confianza <- c(
     "Muy baja" = "#49006a",
     "Baja"     = "#2b8cbe",
-    "Media"     = "#2ddf86", 
-    "Alta" = "#ffff33"
+    "Media"    = "#66c2a4",
+    "Alta"     = "#ffff33"
 )
+
 grafico_confianza_vs_sesgos <- datos %>%
   filter(!is.na(pregunta_7), !is.na(pregunta_23)) %>%
   ggplot(aes(x = pregunta_7, fill = pregunta_23)) +
@@ -458,9 +538,9 @@ grafico_confianza_vs_sesgos <- datos %>%
 ggsave(
   filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/confianza_vs_sesgos.png",
   plot = grafico_confianza_vs_sesgos,
-  width = 7,
+  width = 6.5,
   height = 5,
-  dpi = 300
+  dpi = 350
 )
 
 ## Gráfica Uso IA + sesgos 
@@ -509,35 +589,8 @@ ggsave(
   plot = grafico_uso_vs_sesgos,
   width = 7,
   height = 5,
-  dpi = 300
+  dpi = 350
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # Gráfico: Responsable de evitar sesgos
 grafico_p8 <- datos %>%
@@ -606,4 +659,428 @@ ggsave(
   dpi = 350
 )
 
+##### Gráfica principios éticos
 
+datos$pregunta_16 <- factor(datos$pregunta_16, levels = c(
+  "Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"
+), ordered = TRUE)
+
+datos$pregunta_17 <- factor(datos$pregunta_17, levels = c(
+  "Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"
+), ordered = TRUE)
+
+datos$pregunta_18 <- factor(datos$pregunta_18, levels = c(
+  "Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"
+), ordered = TRUE)
+
+
+principio_16 <- datos %>%
+  count(pregunta_16, name = "n") %>%
+  mutate(pregunta = "Dignidad humana", nivel = pregunta_16) %>%
+  select(pregunta, nivel, n)
+
+principio_17 <- datos %>%
+  count(pregunta_17, name = "n") %>%
+  mutate(pregunta = "Libertad", nivel = pregunta_17) %>%
+  select(pregunta, nivel, n)
+
+principio_18 <- datos %>%
+  count(pregunta_18, name = "n") %>%
+  mutate(pregunta = "Justicia social", nivel = pregunta_18) %>%
+  select(pregunta, nivel, n)
+
+# Unir todo
+resumen_principios <- bind_rows(principio_16, principio_17, principio_18)
+
+print(resumen_principios)
+
+colores_principios <- c(
+  "Totalmente desacuerdo" = "#49006a",
+  "Desacuerdo" = "#4b62a6",
+  "Neutral" = "#2b8cbe",
+  "Acuerdo" = "#66c2a4",
+  "Totalmente acuerdo" = "#ffff33"
+)
+
+principios <- ggplot(resumen_principios, aes(x = pregunta, y = n, fill = nivel)) +
+  geom_col(position = "fill") +
+  scale_fill_manual(values = colores_principios) +
+  labs(
+    title = "Nivel de acuerdo con principios éticos de la IA",
+    x = "Principio ético",
+    y = "Proporción de respuestas",
+    fill = "Nivel de acuerdo"
+  ) +
+  theme_minimal(base_size = 16) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
+
+# Guardar gráfico
+ggsave(
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/principios.png",
+  plot = principios,
+  width = 9,
+  height = 6,
+  dpi = 400
+)
+
+# ####################
+
+# # Convertir preguntas éticas a factores ordenados
+# datos$pregunta_16 <- factor(datos$pregunta_16, levels = c(
+#   "Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"
+# ), ordered = TRUE)
+
+# datos$pregunta_17 <- factor(datos$pregunta_17, levels = c(
+#   "Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"
+# ), ordered = TRUE)
+
+# datos$pregunta_18 <- factor(datos$pregunta_18, levels = c(
+#   "Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"
+# ), ordered = TRUE)
+
+# # Convertir las preguntas del caso a factores
+# datos$pregunta_10 <- factor(datos$pregunta_10)
+# datos$pregunta_13 <- factor(datos$pregunta_13)
+# datos$pregunta_14 <- factor(datos$pregunta_14)
+
+# colores_eticos <- c(
+#   "Totalmente desacuerdo" = "#49006a",
+#   "Desacuerdo" = "#4b62a6",
+#   "Neutral" = "#2b8cbe",
+#   "Acuerdo" = "#66c2a4",
+#   "Totalmente acuerdo" = "#ffff33"
+# )
+
+# ############### CASO 1
+# # Reorganizar en formato largo: Principios vs pregunta_10
+# principios_p10 <- datos %>%
+#   select(pregunta_10, principio1 = pregunta_16, principio2 = pregunta_17, principio3 = pregunta_18) %>%
+#   pivot_longer(cols = starts_with("principio"),
+#                names_to = "principio",
+#                values_to = "nivel_acuerdo") %>%
+#   mutate(
+#     principio = recode(principio,
+#                        "principio1" = "Dignidad humana",
+#                        "principio2" = "Libertad",
+#                        "principio3" = "Justicia social"),
+#     nivel_acuerdo = factor(nivel_acuerdo, levels = c(
+#       "Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"
+#     ), ordered = TRUE)
+#   )
+
+# # Gráfico facetado para la pregunta 10
+# ggplot(principios_p10, aes(x = pregunta_10, fill = nivel_acuerdo)) +
+#   geom_bar(position = "fill") +
+#   facet_wrap(~ principio) +
+#   scale_fill_manual(values = colores_eticos) +
+#   labs(
+#     title = "Principios éticos vs ¿Quién tenía razón? (Caso 1)",
+#     x = "¿Quién tenía razón?",
+#     y = "Proporción",
+#     fill = "Nivel de acuerdo con el principio"
+#   ) +
+#   theme_minimal(base_size = 14) +
+#   theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+# ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/principios_vs_p10.png", width = 13, height = 7, dpi = 400)
+
+
+# ############### CASO 2
+# principios_p13 <- datos %>%
+#   select(pregunta_13, principio1 = pregunta_16, principio2 = pregunta_17, principio3 = pregunta_18) %>%
+#   mutate(
+#     pregunta_13 = recode(
+#       pregunta_13,
+#       "El joven estadounidense de 17 años" = "Joven\n17 años",
+#       "La empresa desarrolladora de la IA." = "Empresa\ndesarrolladora de\nla app",
+#       "El entorno del joven (familiares, escuela, amigos, etc.)" = "Entorno\n del joven"
+#     )
+#   ) %>%
+#   pivot_longer(cols = starts_with("principio"),
+#                names_to = "principio",
+#                values_to = "nivel_acuerdo") %>%
+#   mutate(
+#     principio = recode(principio,
+#                        "principio1" = "Dignidad humana",
+#                        "principio2" = "Libertad",
+#                        "principio3" = "Justicia social"),
+#     nivel_acuerdo = factor(nivel_acuerdo, levels = c(
+#       "Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"
+#     ), ordered = TRUE)
+#   )
+
+# ggplot(principios_p13, aes(x = pregunta_13, fill = nivel_acuerdo)) +
+#   geom_bar(position = "fill") +
+#   facet_wrap(~ principio) +
+#   scale_fill_manual(values = colores_eticos) +
+#   labs(
+#     title = "Principios éticos vs ¿Quién tiene mayor responsabilidad? (Caso 2)",
+#     x = "Responsabilidad percibida",
+#     y = "Proporción",
+#     fill = "Nivel de acuerdo"
+#   ) +
+#   theme_minimal(base_size = 14) +
+#   theme(
+#     plot.title = element_text(hjust = 0.5, face = "bold"),
+#     axis.text.x = element_text(size = 11)
+#   )
+
+# ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/principios_vs_p13.png", width = 13, height = 7, dpi = 350)
+
+# ############### CASO 3
+# principios_p14 <- datos %>%
+#   select(pregunta_14, principio1 = pregunta_16, principio2 = pregunta_17, principio3 = pregunta_18) %>%
+#   mutate(
+#     pregunta_14 = recode(
+#       pregunta_14,
+#       "El hombre que mantenía la conversación" = "Hombre que\nmantenia la\nconversación",
+#       "La empresa responsable del chatbot" = "Empresa\nresponsable\ndel chatbot",
+#       "La plataforma (Chai) que permitió la interacción" = "Plataforma\nque permitió\nla iterracción"
+#     )
+#   ) %>%
+#   pivot_longer(cols = starts_with("principio"),
+#                names_to = "principio",
+#                values_to = "nivel_acuerdo") %>%
+#   mutate(
+#     principio = recode(principio,
+#                        "principio1" = "Dignidad humana",
+#                        "principio2" = "Libertad",
+#                        "principio3" = "Justicia social"),
+#     nivel_acuerdo = factor(nivel_acuerdo, levels = c(
+#       "Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"
+#     ), ordered = TRUE)
+#   )
+
+# ggplot(principios_p14, aes(x = pregunta_14, fill = nivel_acuerdo)) +
+#   geom_bar(position = "fill") +
+#   facet_wrap(~ principio) +
+#   scale_fill_manual(values = colores_eticos) +
+#   labs(
+#     title = "Principios éticos vs ¿Quién consideras más responsable? (Caso 3)",
+#     x = "Percepción de responsabilidad",
+#     y = "Proporción",
+#     fill = "Nivel de acuerdo"
+#   ) +
+#   theme_minimal(base_size = 14) +
+#   theme(
+#     plot.title = element_text(hjust = 0.5, face = "bold"),
+#     axis.text.x = element_text(size = 11)
+#   )
+
+# ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/principios_vs_p14.png", width = 13, height = 7, dpi = 350)
+
+
+
+##Gráfica etapa más importante para conscienciar sobre la IA
+datos$pregunta_9 <- recode(datos$pregunta_9,
+  "En la educación primaria y secundaria (colegios)" = "Educación primaria/secundaria",
+  "En la universidad" = "Universidad",
+  "En el ámbito laboral" = "Ámbito laboral",
+  "No creo que sea necesario regular ni concienciar sobre la IA" = "No es necesario concienciar"
+)
+
+datos$pregunta_9 <- factor(datos$pregunta_9, levels = c(
+  "Educación primaria/secundaria",
+  "Universidad",
+  "Ámbito laboral",
+  "No es necesario concienciar"
+))
+
+colores_etapas <- c(
+  "Educación primaria/secundaria" = "#ffff33",
+  "Universidad" = "#66c2a4",
+  "Ámbito laboral" = "#4b62a6",
+  "No es necesario concienciar" = "#49006a"
+)
+
+frecuencias_p9 <- datos %>%
+  count(pregunta_9, name = "n") %>%
+  mutate(porcentaje = round(n / sum(n) * 100, 1))
+
+
+grafico_p9 <- ggplot(frecuencias_p9, aes(x = reorder(pregunta_9, -porcentaje), y = porcentaje, fill = pregunta_9)) +
+  geom_col() +
+  geom_text(aes(label = n), vjust = -0.5, size = 5) +  # 👈 Añade el número de votos encima de cada barra
+  scale_fill_manual(values = colores_etapas) +
+  labs(
+    title = "¿En qué etapa se debería conscienciar y educar\nsobre el uso y los riesgos de la IA?",
+    x = NULL,
+    y = "Porcentaje",
+    fill = "Responsable"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_blank(),       # 👈 Oculta los textos del eje X
+    axis.ticks.x = element_blank(),      # 👈 Oculta las marcas del eje X
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
+
+# Guardar gráfico
+ggsave(
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/educacion_IA_etapas.png",
+  plot = grafico_p9,
+  width = 10,
+  height = 6,
+  dpi = 350
+)
+##########################################################################
+
+colores_caso1 <- c(
+  "Jake Moffatt" = "#f47169",      
+  "La empresa Air Canada" = "#4daf4a"
+)
+################ CASO 1
+grafico_p10 <- datos %>%
+  count(pregunta_10, name = "n") %>%
+  mutate(porcentaje = round(n / sum(n) * 100, 1)) %>%
+  ggplot(aes(x = reorder(pregunta_10, -porcentaje), y = porcentaje, fill = pregunta_10)) +
+  geom_col() +
+  geom_text(aes(label = n), vjust = -0.5, size = 5) +
+  scale_fill_manual(values = colores_caso1) +
+  labs(
+    title = "¿Quién crees que tenía\nrazón en este caso? (Caso 1)",
+    x = NULL,
+    y = "Porcentaje",
+    fill = "Respuesta"
+  ) +
+  theme_minimal(base_size = 15) +
+  theme(
+    axis.text.x = element_text(size = 16),   # Texto del eje X
+    axis.text.y = element_text(size = 16),   # Texto del eje Y
+    axis.title.y = element_text(size = 16),  # Título del eje Y
+    legend.text = element_text(size = 16),   # Texto de la leyenda
+    legend.title = element_text(size = 15),  # Título de la leyenda
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
+  )
+
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_10_resultado.png", grafico_p10, width = 10, height = 7, dpi = 440)
+
+
+################ CASO 2
+
+datos$pregunta_13 <- recode(datos$pregunta_13,
+  "El joven estadounidense de 17 años" = "El joven\nestadounidense de\n17 años",
+  "La empresa desarrolladora de la IA."= "La empresa\ndesarrolladora\nde la IA",
+  "El entorno del joven (familiares, escuela, amigos, etc.)" = "El entorno del joven"
+)
+
+grafico_p13 <- datos %>%
+  count(pregunta_13, name = "n") %>%
+  mutate(porcentaje = round(n / sum(n) * 100, 1)) %>%
+  ggplot(aes(x = reorder(pregunta_13, -porcentaje), y = porcentaje, fill = pregunta_13)) +
+  geom_col() +
+  geom_text(aes(label = n), vjust = -0.5, size = 5) +
+  labs(
+    title = "¿Quién tiene mayor responsabilidad? (Caso 2)",
+    x = NULL,
+    y = "Porcentaje",
+    fill = "Responsable"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_text(size = 14),   # Texto del eje X
+    axis.text.y = element_text(size = 14),   # Texto del eje Y
+    axis.title.y = element_text(size = 15),  # Título del eje Y
+    legend.text = element_text(size = 13),   # Texto de la leyenda
+    legend.title = element_text(size = 14),  # Título de la leyenda
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
+  )
+
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_13_resultado.png", grafico_p13, width = 10, height = 6, dpi = 350)
+
+
+################ CASO 3
+
+datos$pregunta_14 <- recode(datos$pregunta_14,
+  "El hombre que mantenía la conversación" = "Hombre que\nmantenia la\nconversación",
+  "La empresa responsable del chatbot" = "Empresa\nresponsable\ndel chatbot",
+  "La plataforma (Chai) que permitió la interacción" = "Plataforma\nque permitió\nla iterracción"
+)
+
+grafico_p14 <- datos %>%
+  count(pregunta_14, name = "n") %>%
+  mutate(porcentaje = round(n / sum(n) * 100, 1)) %>%
+  ggplot(aes(x = reorder(pregunta_14, -porcentaje), y = porcentaje, fill = pregunta_14)) +
+  geom_col() +
+  geom_text(aes(label = n), vjust = -0.5, size = 5) +
+  labs(
+    title = "¿Quién consideras más responsable? (Caso 3)",
+    x = NULL,
+    y = "Porcentaje",
+    fill = "Responsable"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_text(size = 14),   # Texto del eje X
+    axis.text.y = element_text(size = 14),   # Texto del eje Y
+    axis.title.y = element_text(size = 15),  # Título del eje Y
+    legend.text = element_text(size = 13),   # Texto de la leyenda
+    legend.title = element_text(size = 14),  # Título de la leyenda
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
+  )
+
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_14_resultado.png", grafico_p14, width = 10, height = 6, dpi = 350)
+
+
+
+datos$pregunta_12 <- recode(datos$pregunta_12,
+  "No, deberían estar restringidas por edad" = "No, deberían estar\nrestringidas por edad ",
+  "Sí, siempre que el usuario acepte los términos de uso" = "Sí, siempre que el\nusuario acepte los\ntérminos de uso",
+  "Deberían estar etiquetadas con advertencias sobre su contenido" = "Deberían estar etiquetadas\ncon advertencias sobre\nsu contenido"
+)
+
+grafico_p12 <- datos %>%
+  count(pregunta_12, name = "n") %>%
+  mutate(porcentaje = round(n / sum(n) * 100, 1)) %>%
+  ggplot(aes(x = reorder(pregunta_12, -porcentaje), y = porcentaje, fill = pregunta_12)) +
+  geom_col() +
+  geom_text(aes(label = n), vjust = -0.5, size = 5) +
+  labs(
+    title = "¿Las IAs emocionales deberían estar disponibles para cualquier usuario?",
+    x = NULL,
+    y = "Porcentaje",
+    fill = "Respuesta"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_text(size = 14),   # Texto del eje X
+    axis.text.y = element_text(size = 14),   # Texto del eje Y
+    axis.title.y = element_text(size = 15),  # Título del eje Y
+    legend.text = element_text(size = 15),   # Texto de la leyenda
+    legend.title = element_text(size = 14),  # Título de la leyenda
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
+  )
+
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_12_resultado.png", grafico_p12, width = 12, height = 7, dpi = 400)
+
+datos$pregunta_15 <- recode(datos$pregunta_15,
+  "Sí, debería ser un requisito mínimo" = "Sí, debería ser un\nrequisito mínimo", 
+  "No, la responsabilidad final siempre debería recaer en el usuario" = "No, la responsabilidad final\nsiempre debería recaer\nen el usuario", 
+  "Depende del tipo de IA y su finalidad" = "Depende del tipo de IA\ny su finalidad"
+)
+
+grafico_p15 <- datos %>%
+  count(pregunta_15, name = "n") %>%
+  mutate(porcentaje = round(n / sum(n) * 100, 1)) %>%
+  ggplot(aes(x = reorder(pregunta_15, -porcentaje), y = porcentaje, fill = pregunta_15)) +
+  geom_col() +
+  geom_text(aes(label = n), vjust = -0.5, size = 5) +
+  labs(
+    title = "¿La IA conversacional debería detectar crisis emocionales?",
+    x = NULL,
+    y = "Porcentaje",
+    fill = "Respuesta"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.text.x = element_text(size = 14),   # Texto del eje X
+    axis.text.y = element_text(size = 14),   # Texto del eje Y
+    axis.title.y = element_text(size = 15),  # Título del eje Y
+    legend.text = element_text(size = 15),   # Texto de la leyenda
+    legend.title = element_text(size = 14),  # Título de la leyenda
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
+  )
+
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_15_resultado.png", grafico_p15, width = 12, height = 7, dpi = 400)
