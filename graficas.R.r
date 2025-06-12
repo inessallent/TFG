@@ -755,17 +755,16 @@ ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_caso_1.png", grafico_p10, w
 
 
 ################ CASO 2
-
 datos$pregunta_13 <- recode(datos$pregunta_13,
-  "El joven estadounidense de 17 años" = "Joven\nestadounidense\de 17 años", 
-  "La empresa desarrolladora de la IA." = "Empresa desarrolladora\de la IA", 
+  "El joven estadounidense de 17 años" = "Joven\nestadounidense\nde 17 años", 
+  "La empresa desarrolladora de la IA." = "Empresa desarrolladora\nde la IA", 
   "El entorno del joven (familiares, escuela, amigos, etc.)" = "Entorno del joven"
 )
 
 # Colores consistentes
 colores_caso2 <- c(
-  "Joven\nestadounidense\de 17 años" = "#4b62a6",       
-  "Empresa desarrolladora\de la IA" = "#2b8cbe",        
+  "Joven\nestadounidense\nde 17 años" = "#4b62a6",       
+  "Empresa desarrolladora\nde la IA" = "#2b8cbe",        
   "Entorno del joven" = "#66c2a4"
 )
 
@@ -908,3 +907,4 @@ grafico_p15 <- datos %>%
   )
 
 ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_15_resultado.png", grafico_p15, width = 12, height = 7, dpi = 400)
+
