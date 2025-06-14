@@ -17,13 +17,15 @@ datos$pregunta_16 <- factor(datos$pregunta_16, levels = c("Totalmente desacuerdo
 datos$pregunta_17 <- factor(datos$pregunta_17, levels = c("Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"), ordered = TRUE)
 datos$pregunta_18 <- factor(datos$pregunta_18, levels = c("Totalmente desacuerdo", "Desacuerdo", "Neutral", "Acuerdo", "Totalmente acuerdo"), ordered = TRUE)
 
-
 colores_confianza <- c(
     "Muy baja" = "#49006a",
     "Baja"     = "#2b8cbe",
     "Media"    = "#66c2a4",
     "Alta"     = "#ffff33"
 )
+
+
+
 
 #Orden respuesta
 mutate(pregunta_23 = factor(pregunta_23, levels = c("Muy baja", "Baja", "Media", "Alta", "Muy alta")))
@@ -53,7 +55,7 @@ grafico_p23 <- datos %>%
     plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
   )
 
-ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_23_resultado.png", grafico_p23, width = 12, height = 7, dpi = 400)
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/pregunta_23_resultado.png", grafico_p23, width = 12, height = 7, dpi = 400)
 
 ## Gráfica nivel conocimiento IA --> nivel confianzaz
 datos$pregunta_22 <- recode(datos$pregunta_22,
@@ -98,9 +100,20 @@ grafico_p22 <- datos %>%
     plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
   )
 
-ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_22_resultado.png", grafico_p22, width = 12, height = 7, dpi = 400)
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/pregunta_22_resultado.png", grafico_p22, width = 12, height = 7, dpi = 400)
 
+# Filtrar datos: excluir No binario y edades con muy pocos casos
+datos_filtrados <- datos %>%
+  filter(
+    genero != "No binario",
+    !(edad %in% c("35 - 44", "Prefiero no decirlo", "Mayor de 64"))
+  )
 
+datos_filtrados$pregunta_23 <- factor(
+  datos_filtrados$pregunta_23,
+  levels = rev(c("Muy baja", "Baja", "Media", "Alta", "Muy alta")),
+  ordered = TRUE
+)
 
 # Gráfico: Confianza por Género
 grafico_genero <- ggplot(datos_filtrados, aes(x = genero, fill = pregunta_23)) +
@@ -123,25 +136,13 @@ grafico_genero <- ggplot(datos_filtrados, aes(x = genero, fill = pregunta_23)) +
 
 
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/confianza_genero.png",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/confianza_genero.png",
   plot = grafico_genero,
   width = 6,
   height = 5,
   dpi = 300
 )
 
-# Filtrar datos: excluir No binario y edades con muy pocos casos
-datos_filtrados <- datos %>%
-  filter(
-    genero != "No binario",
-    !(edad %in% c("35 - 44", "Prefiero no decirlo", "Mayor de 64"))
-  )
-
-datos_filtrados$pregunta_23 <- factor(
-  datos_filtrados$pregunta_23,
-  levels = rev(c("Muy baja", "Baja", "Media", "Alta", "Muy alta")),
-  ordered = TRUE
-)
 
 # Gráfico: Confianza por Edad (excluyendo grupos con pocas respuestas)
 grafico_edad <- datos_filtrados %>%
@@ -166,7 +167,7 @@ grafico_edad <- datos_filtrados %>%
 
 
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/confianza_edad.png",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/confianza_edad.png",
   plot = grafico_edad,
   width = 7,
   height = 5,
@@ -215,8 +216,9 @@ grafico_uso_edad <- ggplot(datos_uso_filtrado, aes(x = edad, fill = pregunta_2))
     legend.title = element_text(size = 11),
     legend.text = element_text(size = 11)
   )
+
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/uso_IA_por_edad.png",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/uso_IA_por_edad.png",
   plot = grafico_uso_edad,
   width = 7,
   height = 5,
@@ -303,7 +305,7 @@ grafico_categorias <- ggplot(resumen_categorias, aes(x = reorder(pregunta_21, n)
 
 # Guardar el gráfico
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/decisiones_delegadas_limpio.jpg",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/decisiones_delegadas_limpio.jpg",
   plot = grafico_categorias,
   width = 10,
   height = 6,
@@ -345,7 +347,7 @@ g_pregunta_19 <- ggplot(frecuencias_p19, aes(x = pregunta_19, y = n)) +
 
 
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_19.jpg",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/pregunta_19.jpg",
   plot = g_pregunta_19,
   width = 10,      
   height = 5.8,     
@@ -374,7 +376,7 @@ g_pregunta_20 <- ggplot(frecuencias_p20, aes(x = pregunta_20, y = n)) +
   )
 
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_20.jpg",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/pregunta_20.jpg",
   plot = g_pregunta_20,
   width = 10,
   height = 5.8,
@@ -420,7 +422,7 @@ grafico_p5 <- datos %>%
   )
 
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/grafica_F_sesgos_IA.jpg",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/grafica_F_sesgos_IA.jpg",
   plot = grafico_p5,
   width = 12, height = 6, dpi = 450
 )
@@ -462,7 +464,7 @@ grafico_p6 <- datos %>%
   )
 
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/grafica_E_sesgos_humanos.jpg",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/grafica_E_sesgos_humanos.jpg",
   plot = grafico_p6,
   width = 12, height = 6, dpi = 450
 )
@@ -505,7 +507,7 @@ grafico_confianza_vs_sesgos <- datos %>%
   )
 
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/confianza_vs_sesgos.png",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/confianza_vs_sesgos.png",
   plot = grafico_confianza_vs_sesgos,
   width = 6.5,
   height = 5,
@@ -554,7 +556,7 @@ grafico_uso_vs_sesgos <- datos %>%
   )
 
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/uso_vs_sesgos.png",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/uso_vs_sesgos.png",
   plot = grafico_uso_vs_sesgos,
   width = 7,
   height = 5,
@@ -590,7 +592,7 @@ grafico_p8 <- datos %>%
 
 # Guardar gráfico
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/responsable_sesgos_IA.png",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/responsable_sesgos_IA.png",
   plot = grafico_p8,
   width = 10,
   height = 5,
@@ -649,7 +651,7 @@ grafico_p9 <- ggplot(base_p9, aes(x = reorder(pregunta_9, -n), y = n, fill = pre
   )
 
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/educacion_sobre_IA.png",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/educacion_sobre_IA.png",
   plot = grafico_p9,
   width = 10,
   height = 5,
@@ -714,7 +716,7 @@ principios <- ggplot(resumen_principios, aes(x = pregunta, y = n, fill = nivel))
 
 # Guardar gráfico
 ggsave(
-  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/principios.png",
+  filename = "C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/principios.png",
   plot = principios,
   width = 9,
   height = 6,
@@ -751,7 +753,7 @@ grafico_p10 <- datos %>%
     plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
   )
 
-ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_caso_1.png", grafico_p10, width = 10, height = 7, dpi = 440)
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/pregunta_caso_1.png", grafico_p10, width = 10, height = 7, dpi = 440)
 
 
 ################ CASO 2
@@ -791,7 +793,7 @@ grafico_p13 <- datos %>%
     plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
   )
 
-ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_caso_2.png", grafico_p13, width = 10, height = 6, dpi = 450)
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/pregunta_caso_2.png", grafico_p13, width = 10, height = 6, dpi = 450)
 
 ################ CASO 3
 
@@ -830,7 +832,7 @@ grafico_p14 <- datos %>%
     plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
   )
 
-ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_caso_3.png", grafico_p14, width = 10, height = 6, dpi = 450)
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/pregunta_caso_3.png", grafico_p14, width = 10, height = 6, dpi = 450)
 
 
 
@@ -869,7 +871,7 @@ grafico_p12 <- datos %>%
     plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
   )
 
-ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_12_resultado.png", grafico_p12, width = 12, height = 7, dpi = 400)
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/pregunta_12_resultado.png", grafico_p12, width = 12, height = 7, dpi = 400)
 
 datos$pregunta_15 <- recode(datos$pregunta_15,
   "Sí, debería ser un requisito mínimo" = "Sí, debería ser un\nrequisito mínimo", 
@@ -906,5 +908,6 @@ grafico_p15 <- datos %>%
     plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
   )
 
-ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/pregunta_15_resultado.png", grafico_p15, width = 12, height = 7, dpi = 400)
+ggsave("C:/Users/isall/OneDrive/UNI/TFG/TFG/Analisis/pregunta_15_resultado.png", grafico_p15, width = 12, height = 7, dpi = 400)
+
 
