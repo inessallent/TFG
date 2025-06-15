@@ -24,7 +24,7 @@ TFG/
 ├── README.md
 ├── requirements.txt
 └── .gitgnore
-
+---
 **Tecnologías utilizadas**
 - Python 3.13.1: Lenguaje principal del proyecto.
 - Streamlit: Framework para la creación de aplicaciones web interactivas.
